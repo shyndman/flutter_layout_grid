@@ -41,13 +41,13 @@ class LayoutGridExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 300,
+      height: double.infinity,
       child: LayoutGrid(
         columnGap: 10,
         rowGap: 10,
         templateColumnSizes: [
           FixedTrackSize(40),
-          FlexibleTrackSize(1),
+          IntrinsicContentTrackSize(),
         ],
         templateRowSizes: [
           FixedTrackSize(40),

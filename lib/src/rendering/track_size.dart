@@ -106,24 +106,24 @@ abstract class TrackSize {
   /// space).
   double get flex => null;
 
-  /// Helper function for determining the minimum intrinsic size of a cell along
-  /// the vertical or horizontal axis.
+  /// Helper function for determining the minimum intrinsic size of an item
+  /// along the vertical or horizontal axis.
   @protected
   double _itemMinIntrinsicSizeOnAxis(
-      RenderBox cell, Axis axis, double crossAxisSize) {
+      RenderBox item, Axis axis, double crossAxisSize) {
     return axis == Axis.horizontal
-        ? cell.getMinIntrinsicWidth(crossAxisSize)
-        : cell.getMinIntrinsicHeight(crossAxisSize);
+        ? item.getMinIntrinsicWidth(crossAxisSize)
+        : item.getMinIntrinsicHeight(crossAxisSize);
   }
 
-  /// Helper function for determining the maximum intrinsic size of a cell along
-  /// the vertical or horizontal axis.
+  /// Helper function for determining the maximum intrinsic size of an item
+  /// along the vertical or horizontal axis.
   @protected
   double _itemMaxIntrinsicSizeOnAxis(
-      RenderBox cell, Axis axis, double crossAxisSize) {
+      RenderBox item, Axis axis, double crossAxisSize) {
     return axis == Axis.horizontal
-        ? cell.getMaxIntrinsicWidth(crossAxisSize)
-        : cell.getMaxIntrinsicHeight(crossAxisSize);
+        ? item.getMaxIntrinsicWidth(crossAxisSize)
+        : item.getMaxIntrinsicHeight(crossAxisSize);
   }
 
   @override

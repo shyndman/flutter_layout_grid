@@ -66,8 +66,6 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
   }
 }
 
-const closeToZeroEpsilon = 1 / 1024;
-
 /// Implements the grid layout algorithm.
 ///
 /// TODO(shyndman): Describe algorithm.
@@ -89,6 +87,7 @@ class RenderLayoutGrid extends RenderBox
         assert(gridFit != null),
         assert(textDirection != null),
         _autoPlacementMode = autoPlacementMode,
+        _gridFit = gridFit,
         _templateColumnSizes = templateColumnSizes,
         _templateRowSizes = templateRowSizes,
         _columnGap = columnGap,
@@ -190,31 +189,24 @@ class RenderLayoutGrid extends RenderBox
   }
 
   @override
-  double computeMinIntrinsicWidth(double height) {
-    return _getIntrinsicDimensionForTrackType(
-        TrackType.column, _IntrinsicDimension.min);
-  }
+  double computeMinIntrinsicWidth(double height) =>
+      _computeIntrinsicWidths().minWidth;
 
   @override
-  double computeMaxIntrinsicWidth(double height) {
-    return _getIntrinsicDimensionForTrackType(
-        TrackType.column, _IntrinsicDimension.max);
-  }
+  double computeMaxIntrinsicWidth(double height) =>
+      _computeIntrinsicWidths().maxWidth;
 
   @override
-  double computeMinIntrinsicHeight(double width) {
-    return _getIntrinsicDimensionForTrackType(
-        TrackType.row, _IntrinsicDimension.min);
-  }
+  double computeMinIntrinsicHeight(double width) =>
+      _computeIntrinsicHeights().minHeight;
 
   @override
-  double computeMaxIntrinsicHeight(double width) {
-    return _getIntrinsicDimensionForTrackType(
-        TrackType.row, _IntrinsicDimension.max);
-  }
+  double computeMaxIntrinsicHeight(double width) =>
+      _computeIntrinsicHeights().maxHeight;
 
-  double _getIntrinsicDimensionForTrackType(
-      TrackType type, _IntrinsicDimension dimension) {}
+  GridSizingInfo _computeIntrinsicWidths() {}
+
+  GridSizingInfo _computeIntrinsicHeights() {}
 
   @override
   double computeDistanceToActualBaseline(TextBaseline baseline) {
@@ -253,9 +245,9 @@ class RenderLayoutGrid extends RenderBox
         constraints: effectiveConstraints);
     gridSizing.hasRowSizing = true;
 
-    // Now our track sizes are definite, and we can go ahead
-    // maximizeTrackSizing(
-    //     columnTracks, minConstraintForAxis(constraints, Axis.horizontal));
+    // Stretch intrinsics
+    _stretchIntrinsicTracks(TrackType.column, gridSizing);
+    _stretchIntrinsicTracks(TrackType.row, gridSizing);
 
     final gridWidth = sum(columnTracks.map((t) => t.baseSize)) +
         columnGap * (columnTracks.length - 1);
@@ -317,13 +309,11 @@ class RenderLayoutGrid extends RenderBox
       } else if (track.sizeFunction.isFlexible) {
         // Flexible sizing
         track.baseSize = track.growthLimit = 0;
-
         flexibleTracks.add(track);
       } else {
         // Intrinsic sizing
         track.baseSize = 0;
         track.growthLimit = double.infinity;
-
         intrinsicTracks.add(track);
       }
 
@@ -347,6 +337,9 @@ class RenderLayoutGrid extends RenderBox
     }
 
     double freeSpace = initialFreeSpace - baseSizesWithoutMaximization;
+    gridSizing.setFreeSpaceForAxis(freeSpace, sizingAxis);
+    gridSizing.setMinMaxForAxis(baseSizesWithoutMaximization,
+        growthLimitsWithoutMaximization, sizingAxis);
 
     // We're already overflowing
     if (isAxisDefinite && freeSpace < 0) {
@@ -354,12 +347,15 @@ class RenderLayoutGrid extends RenderBox
     }
 
     if (isAxisDefinite) {
-      _distributeFreeSpace(freeSpace, tracks, [], _IntrinsicDimension.min);
+      freeSpace =
+          _distributeFreeSpace(freeSpace, tracks, [], _IntrinsicDimension.min);
     } else {
       for (final track in tracks) {
+        freeSpace -= track.growthLimit - track.baseSize;
         track.baseSize = track.growthLimit;
       }
     }
+    gridSizing.setFreeSpaceForAxis(freeSpace, sizingAxis);
 
     // 4. Size flexible tracks to fill remaining space, if any
 
@@ -373,7 +369,7 @@ class RenderLayoutGrid extends RenderBox
     // functions.
     // https://drafts.csswg.org/css-grid/#valdef-grid-template-columns-flex
     final flexFraction =
-        findFlexFactorUnitSize(tracks, flexibleTracks, initialFreeSpace);
+        _findFlexFactorUnitSize(tracks, flexibleTracks, initialFreeSpace);
 
     for (final track in flexibleTracks) {
       track.baseSize = flexFraction * track.sizeFunction.flex;
@@ -383,6 +379,7 @@ class RenderLayoutGrid extends RenderBox
       growthLimitsWithoutMaximization += track.baseSize;
     }
 
+    gridSizing.setFreeSpaceForAxis(freeSpace, sizingAxis);
     gridSizing.setMinMaxForAxis(baseSizesWithoutMaximization,
         growthLimitsWithoutMaximization, sizingAxis);
 
@@ -499,7 +496,7 @@ class RenderLayoutGrid extends RenderBox
     }
   }
 
-  void _distributeFreeSpace(
+  double _distributeFreeSpace(
     double freeSpace,
     List<GridTrack> tracks,
     List<GridTrack> growableAboveMaxTracks,
@@ -559,17 +556,19 @@ class RenderLayoutGrid extends RenderBox
             : math.max(track.growthLimit, track.sizeDuringDistribution);
       }
     }
+
+    return freeSpace;
   }
 
-  double findFlexFactorUnitSize(
+  double _findFlexFactorUnitSize(
     List<GridTrack> tracks,
     List<GridTrack> flexibleTracks,
-    double leftOverSpace,
+    double freeSpace,
   ) {
     double flexSum = 0;
     for (final track in tracks) {
       if (!track.sizeFunction.isFlexible) {
-        leftOverSpace -= track.baseSize;
+        freeSpace -= track.baseSize;
       } else {
         flexSum += track.sizeFunction.flex;
       }
@@ -579,7 +578,25 @@ class RenderLayoutGrid extends RenderBox
     // TODO(shyndman): This is not to spec. We need to consider track base sizes
     // (when measuring the content minimum) that are bigger than what the flex
     // would provide.
-    return leftOverSpace / flexSum;
+    return freeSpace / flexSum;
+  }
+
+  void _stretchIntrinsicTracks(TrackType type, GridSizingInfo gridSizing) {
+    final sizingAxis = measurementAxisForTrackType(type);
+    final freeSpace = gridSizing.freeSpaceForAxis(sizingAxis);
+    if (freeSpace <= 0) return;
+
+    final tracks = gridSizing.tracksForType(type);
+    final intrinsicTracks = tracks.where((t) =>
+        t.sizeFunction.isIntrinsicForConstraints(type, effectiveConstraints));
+    if (intrinsicTracks.isEmpty) return;
+
+    final shareForTrack = freeSpace / intrinsicTracks.length;
+    for (final track in intrinsicTracks) {
+      track.baseSize += shareForTrack;
+    }
+
+    gridSizing.setFreeSpaceForAxis(0, sizingAxis);
   }
 
   @override
@@ -679,11 +696,13 @@ class GridSizingInfo {
   GridSizingInfo({
     @required this.columnTracks,
     @required this.rowTracks,
+    @required this.columnGap,
+    @required this.rowGap,
     @required this.textDirection,
-    this.columnGap,
-    this.rowGap,
   })  : assert(columnTracks != null),
         assert(rowTracks != null),
+        assert(columnGap != null),
+        assert(rowGap != null),
         assert(textDirection != null);
 
   GridSizingInfo.fromTrackSizeFunctions({
@@ -701,8 +720,8 @@ class GridSizingInfo {
         );
 
   Size gridSize;
-  double columnGap = 0.0;
-  double rowGap = 0.0;
+  final double columnGap;
+  final double rowGap;
 
   final List<GridTrack> columnTracks;
   final List<GridTrack> rowTracks;
@@ -737,6 +756,9 @@ class GridSizingInfo {
   double maxWidth = 0.0;
   double maxHeight = 0.0;
 
+  double columnFreeSpace = 0.0;
+  double rowFreeSpace = 0.0;
+
   bool hasColumnSizing = false;
   bool hasRowSizing = false;
 
@@ -765,6 +787,18 @@ class GridSizingInfo {
     } else {
       hasRowSizing = true;
     }
+  }
+
+  double freeSpaceForAxis(Axis sizingAxis) =>
+      sizingAxis == Axis.horizontal ? columnFreeSpace : rowFreeSpace;
+
+  double setFreeSpaceForAxis(double freeSpace, Axis sizingAxis) {
+    if (sizingAxis == Axis.horizontal) {
+      columnFreeSpace = freeSpace;
+    } else {
+      rowFreeSpace = freeSpace;
+    }
+    return freeSpace;
   }
 
   void setMinMaxForAxis(double min, double max, Axis sizingAxis) {
