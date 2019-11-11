@@ -485,8 +485,7 @@ class RenderLayoutGrid extends RenderBox
 
     // Filter to the intrinsicly sized tracks in the span
     final intrinsicTracks = spannedTracks
-        .where((track) =>
-            track.sizeFunction.isIntrinsicForConstraints(type, constraints))
+        .where((track) => track.sizeFunction.isIntrinsic)
         .toList(growable: false);
 
     // Now distribute the free space between them
@@ -587,8 +586,7 @@ class RenderLayoutGrid extends RenderBox
     if (freeSpace <= 0) return;
 
     final tracks = gridSizing.tracksForType(type);
-    final intrinsicTracks = tracks.where((t) =>
-        t.sizeFunction.isIntrinsicForConstraints(type, effectiveConstraints));
+    final intrinsicTracks = tracks.where((t) => t.sizeFunction.isIntrinsic);
     if (intrinsicTracks.isEmpty) return;
 
     final shareForTrack = freeSpace / intrinsicTracks.length;

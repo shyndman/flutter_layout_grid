@@ -25,8 +25,7 @@ int Function(RenderBox) getSpan(Axis axis) {
 
 bool Function(GridTrack) isIntrinsic(
     TrackType type, BoxConstraints gridConstraints) {
-  return (track) =>
-      track.sizeFunction.isIntrinsicForConstraints(type, gridConstraints);
+  return (track) => track.sizeFunction.isIntrinsic;
 }
 
 bool Function(GridTrack) isFlexible(

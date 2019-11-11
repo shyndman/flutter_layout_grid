@@ -40,8 +40,7 @@ abstract class TrackSize {
 
   /// Returns whether this sizing function requires measurement of a track's
   /// items to resolve its size.
-  bool isIntrinsicForConstraints(
-      TrackType type, BoxConstraints gridConstraints) {
+  bool get isIntrinsic {
     return false;
   }
 
@@ -229,8 +228,7 @@ class IntrinsicContentTrackSize extends TrackSize {
   const IntrinsicContentTrackSize();
 
   @override
-  bool isIntrinsicForConstraints(
-      TrackType type, BoxConstraints gridConstraints) {
+  bool get isIntrinsic {
     return true;
   }
 
