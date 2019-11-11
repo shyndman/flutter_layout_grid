@@ -169,67 +169,6 @@ class FixedTrackSize extends TrackSize {
   String toString() => '$runtimeType(size=${debugFormatDouble(sizeInPx)})';
 }
 
-/// Sizes the track to a fraction of the grid's constraints' `maxWidth` or
-/// `maxHeight`.
-///
-/// NOTE: This is an expensive track sizing algorithm to use if the grid's
-/// constraints are loose, running in O(n) time. If the grid's constraints are
-/// tight, the algorithm is constant time.
-class FractionalTrackSize extends TrackSize {
-  /// Creates a track size based on a fraction of the grid's constraints
-  /// `maxWidth` or `maxHeight`.
-  ///
-  /// The [fractionalSize] argument must not be null.
-  const FractionalTrackSize(this.fractionalSize)
-      : assert(fractionalSize != null);
-
-  /// The fraction of the grid's constraints' `maxWidth` or `maxHeight` that
-  /// this track should occupy.
-  final double fractionalSize;
-
-  @override
-  bool isFixedForConstraints(TrackType type, BoxConstraints gridConstraints) {
-    // If a grid is dependendent on the sizes of its tracks to determine its
-    // size, we have to measure our items first.
-    return type == TrackType.column
-        ? gridConstraints.hasTightWidth
-        : gridConstraints.hasTightHeight;
-  }
-
-  @override
-  bool isIntrinsicForConstraints(
-      TrackType type, BoxConstraints gridConstraints) {
-    // If a grid is dependendent on the sizes of its tracks to determine its
-    // size, we have to measure our items first.
-    return !isFixedForConstraints(type, gridConstraints);
-  }
-
-  @override
-  double minIntrinsicSize(
-    TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
-    double Function(RenderBox) crossAxisSizeForItem,
-  }) {
-    if (!measurementAxisMaxSize.isFinite) return 0.0;
-    return fractionalSize * measurementAxisMaxSize;
-  }
-
-  @override
-  double maxIntrinsicSize(
-    TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
-    double Function(RenderBox) crossAxisSizeForItem,
-  }) {
-    if (!measurementAxisMaxSize.isFinite) return 0.0;
-    return fractionalSize * measurementAxisMaxSize;
-  }
-
-  @override
-  String toString() => '$runtimeType(fractionalSize=$fractionalSize)';
-}
-
 /// Sizes the track by taking a part of the remaining space once all
 /// the other tracks have been laid out on the same axis.
 ///
