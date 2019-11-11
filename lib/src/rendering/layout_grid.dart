@@ -201,6 +201,7 @@ class RenderLayoutGrid extends RenderBox
     final gridSizing = GridSizingInfo.fromTrackSizeFunctions(
       columnSizeFunctions: _templateColumnSizes,
       rowSizeFunctions: _templateRowSizes,
+      textDirection: textDirection,
     );
 
     // Determine the size of the column tracks
@@ -217,32 +218,26 @@ class RenderLayoutGrid extends RenderBox
     // maximizeTrackSizing(
     //     columnTracks, minConstraintForAxis(constraints, Axis.horizontal));
 
+    final gridWidth =
+        columnTracks.fold<double>(0, (acc, track) => track.baseSize);
+    final gridHeight =
+        rowTracks.fold<double>(0, (acc, track) => track.baseSize);
+    gridSizing.gridSize =
+        size = constraints.constrain(Size(gridWidth, gridHeight));
+
     // Position and lay out the grid items
     var child = firstChild;
     while (child != null) {
       final parentData = child.parentData as GridParentData;
       final area = _placementGrid.itemAreas[child];
 
-      final width = columnTracks
-          .getRange(area.columnStart, area.columnEnd)
-          .fold<double>(0, (acc, track) => acc + track.baseSize);
-      final height = rowTracks
-          .getRange(area.rowStart, area.rowEnd)
-          .fold<double>(0, (acc, track) => acc + track.baseSize);
-
       parentData.offset = gridSizing.offsetForArea(area);
-      child.layout(BoxConstraints.tightFor(width: width, height: height));
+      child.layout(BoxConstraints.tight(gridSizing.sizeForArea(area)));
 
       child = parentData.nextSibling;
     }
 
-    final gridWidth =
-        columnTracks.fold<double>(0, (acc, track) => track.baseSize);
-    final gridHeight =
-        rowTracks.fold<double>(0, (acc, track) => track.baseSize);
-
     this.gridSizing = gridSizing;
-    size = constraints.constrain(Size(gridWidth, gridHeight));
   }
 
   /// Determines where each grid item is positioned in the grid, using the
@@ -646,29 +641,35 @@ class GridSizingInfo {
   GridSizingInfo({
     @required this.columnTracks,
     @required this.rowTracks,
+    @required this.textDirection,
   })  : assert(columnTracks != null),
-        assert(rowTracks != null);
+        assert(rowTracks != null),
+        assert(textDirection != null);
 
   GridSizingInfo.fromTrackSizeFunctions({
     @required List<TrackSize> columnSizeFunctions,
     @required List<TrackSize> rowSizeFunctions,
+    @required TextDirection textDirection,
   }) : this(
           columnTracks: _sizesToTracks(columnSizeFunctions),
           rowTracks: _sizesToTracks(rowSizeFunctions),
+          textDirection: textDirection,
         );
 
-  List<GridTrack> columnTracks;
-  List<GridTrack> rowTracks;
+  final TextDirection textDirection;
 
-  List<double> _columnStarts;
+  final List<GridTrack> columnTracks;
+  final List<GridTrack> rowTracks;
+
+  List<double> _ltrColumnStarts;
   List<double> get columnStarts {
-    if (_columnStarts == null) {
-      _columnStarts = cumulativeSum(
+    if (_ltrColumnStarts == null) {
+      _ltrColumnStarts = cumulativeSum(
         columnTracks.map((t) => t.baseSize),
         includeLast: false,
       ).toList(growable: false);
     }
-    return _columnStarts;
+    return _ltrColumnStarts;
   }
 
   List<double> _rowStarts;
@@ -688,11 +689,26 @@ class GridSizingInfo {
   double maxWidth = 0.0;
   double maxHeight = 0.0;
 
+  Size gridSize;
+
   bool hasColumnSizing = false;
   bool hasRowSizing = false;
 
   Offset offsetForArea(GridArea area) {
-    return Offset(columnStarts[area.columnStart], rowStarts[area.rowStart]);
+    return Offset(
+        textDirection == TextDirection.ltr
+            ? columnStarts[area.columnStart]
+            : gridSize.width -
+                columnStarts[area.columnStart] -
+                sizeForAreaOnAxis(area, Axis.horizontal),
+        rowStarts[area.rowStart]);
+  }
+
+  Size sizeForArea(GridArea area) {
+    return Size(
+      sizeForAreaOnAxis(area, Axis.horizontal),
+      sizeForAreaOnAxis(area, Axis.vertical),
+    );
   }
 
   void markTrackTypeSized(TrackType type) {

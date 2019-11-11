@@ -19,6 +19,7 @@ void main() {
             FixedTrackSize(40),
             IntrinsicContentTrackSize(),
           ],
+          textDirection: TextDirection.ltr,
         ),
         constraints: BoxConstraints.tight(Size(400, 300)),
       );
