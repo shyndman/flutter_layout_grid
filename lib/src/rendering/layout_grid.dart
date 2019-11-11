@@ -209,23 +209,13 @@ class RenderLayoutGrid extends RenderBox
     gridSizing.hasColumnSizing = true;
 
     // Determine the size of the row tracks
-    final rowTracks = performTrackSizing(TrackType.row, gridSizing,
-        constraints: constraints);
+    final rowTracks =
+        performTrackSizing(TrackType.row, gridSizing, constraints: constraints);
     gridSizing.hasRowSizing = true;
 
     // Now our track sizes are definite, and we can go ahead
     // maximizeTrackSizing(
     //     columnTracks, minConstraintForAxis(constraints, Axis.horizontal));
-
-    final columnStarts = [0.0];
-    for (int i = 0; i < columnTracks.length - 1; i++) {
-      columnStarts.add(columnStarts[i] + columnTracks[i].baseSize);
-    }
-
-    final rowStarts = [0.0];
-    for (int i = 0; i < rowTracks.length - 1; i++) {
-      rowStarts.add(rowStarts[i] + rowTracks[i].baseSize);
-    }
 
     // Position and lay out the grid items
     var child = firstChild;
@@ -240,8 +230,7 @@ class RenderLayoutGrid extends RenderBox
           .getRange(area.rowStart, area.rowEnd)
           .fold<double>(0, (acc, track) => acc + track.baseSize);
 
-      parentData.offset =
-          Offset(columnStarts[area.columnStart], rowStarts[area.rowStart]);
+      parentData.offset = gridSizing.offsetForArea(area);
       child.layout(BoxConstraints.tightFor(width: width, height: height));
 
       child = parentData.nextSibling;
@@ -671,8 +660,27 @@ class GridSizingInfo {
   List<GridTrack> columnTracks;
   List<GridTrack> rowTracks;
 
-  List<double> columnStarts;
-  List<double> rowStarts;
+  List<double> _columnStarts;
+  List<double> get columnStarts {
+    if (_columnStarts == null) {
+      _columnStarts = cumulativeSum(
+        columnTracks.map((t) => t.baseSize),
+        includeLast: false,
+      ).toList(growable: false);
+    }
+    return _columnStarts;
+  }
+
+  List<double> _rowStarts;
+  List<double> get rowStarts {
+    if (_rowStarts == null) {
+      _rowStarts = cumulativeSum(
+        rowTracks.map((t) => t.baseSize),
+        includeLast: false,
+      ).toList(growable: false);
+    }
+    return _rowStarts;
+  }
 
   double minWidth = 0.0;
   double minHeight = 0.0;
@@ -682,6 +690,10 @@ class GridSizingInfo {
 
   bool hasColumnSizing = false;
   bool hasRowSizing = false;
+
+  Offset offsetForArea(GridArea area) {
+    return Offset(columnStarts[area.columnStart], rowStarts[area.rowStart]);
+  }
 
   void markTrackTypeSized(TrackType type) {
     if (type == TrackType.column) {
