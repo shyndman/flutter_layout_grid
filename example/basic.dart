@@ -43,9 +43,10 @@ class LayoutGridExample extends StatelessWidget {
       width: double.infinity,
       height: 300,
       child: LayoutGrid(
+        columnGap: 10,
+        rowGap: 10,
         templateColumnSizes: [
           FixedTrackSize(40),
-          FixedTrackSize(10),
           FlexibleTrackSize(1),
         ],
         templateRowSizes: [
@@ -67,8 +68,8 @@ class LayoutGridExample extends StatelessWidget {
             ),
           ),
           GridPlacement(
-            columnStart: 2,
             rowStart: 0,
+            columnStart: 1,
             child: Container(
               width: 100,
               height: 100,
@@ -77,7 +78,7 @@ class LayoutGridExample extends StatelessWidget {
           ),
           GridPlacement(
             columnStart: 0,
-            columnSpan: 3,
+            columnSpan: 2,
             rowStart: 2,
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: 10),

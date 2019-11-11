@@ -70,10 +70,14 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     this.gridFit = GridFit.expand,
     this.templateColumnSizes,
     this.templateRowSizes,
+    double rowGap,
+    double columnGap,
     this.textDirection,
     List<Widget> children = const [],
   })  : assert(templateRowSizes != null && templateRowSizes.isNotEmpty),
         assert(templateColumnSizes != null && templateColumnSizes.isNotEmpty),
+        this.rowGap = rowGap ?? 0,
+        this.columnGap = columnGap ?? 0,
         super(key: key, children: children);
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
@@ -89,6 +93,12 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// Defines the track sizing functions of the grid's rows.
   final List<TrackSize> templateRowSizes;
 
+  /// Space between column tracks
+  final double columnGap;
+
+  /// Space between row tracks
+  final double rowGap;
+
   /// The text direction used to resolve column ordering.
   ///
   /// Defaults to the ambient [Directionality].
@@ -101,6 +111,8 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       gridFit: gridFit,
       templateColumnSizes: templateColumnSizes,
       templateRowSizes: templateRowSizes,
+      columnGap: columnGap,
+      rowGap: rowGap,
       textDirection: textDirection ?? Directionality.of(context),
     );
   }
@@ -112,6 +124,8 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       ..gridFit = gridFit
       ..templateColumnSizes = templateColumnSizes
       ..templateRowSizes = templateRowSizes
+      ..columnGap = columnGap
+      ..rowGap = rowGap
       ..textDirection = textDirection ?? Directionality.of(context);
   }
 }
