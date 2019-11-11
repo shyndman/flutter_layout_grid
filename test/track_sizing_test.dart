@@ -10,7 +10,7 @@ void main() {
       final renderGrid = RenderLayoutGrid(textDirection: TextDirection.ltr);
       renderGrid.performTrackSizing(
         TrackType.column,
-        GridSizing.fromTrackSizeFunctions(
+        GridSizingInfo.fromTrackSizeFunctions(
           columnSizeFunctions: [
             FixedTrackSize(40),
             IntrinsicContentTrackSize(),

@@ -95,6 +95,7 @@ class RenderLayoutGrid extends RenderBox
 
   bool _needsPlacement = true;
   PlacementGrid _placementGrid;
+  GridSizingInfo gridSizing;
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
   /// auto-placed items get flowed into the grid.
@@ -197,7 +198,7 @@ class RenderLayoutGrid extends RenderBox
     performItemPlacement();
 
     // Ready a sizing grid
-    final gridSizing = GridSizing.fromTrackSizeFunctions(
+    final gridSizing = GridSizingInfo.fromTrackSizeFunctions(
       columnSizeFunctions: _templateColumnSizes,
       rowSizeFunctions: _templateRowSizes,
     );
@@ -208,8 +209,8 @@ class RenderLayoutGrid extends RenderBox
     gridSizing.hasColumnSizing = true;
 
     // Determine the size of the row tracks
-    final rowTracks =
-        performTrackSizing(TrackType.row, gridSizing, constraints: constraints);
+    final rowTracks = performTrackSizing(TrackType.row, gridSizing,
+        constraints: constraints);
     gridSizing.hasRowSizing = true;
 
     // Now our track sizes are definite, and we can go ahead
@@ -250,6 +251,8 @@ class RenderLayoutGrid extends RenderBox
         columnTracks.fold<double>(0, (acc, track) => track.baseSize);
     final gridHeight =
         rowTracks.fold<double>(0, (acc, track) => track.baseSize);
+
+    this.gridSizing = gridSizing;
     size = constraints.constrain(Size(gridWidth, gridHeight));
   }
 
@@ -266,7 +269,7 @@ class RenderLayoutGrid extends RenderBox
   /// steps left out because our model is simpler.
   List<GridTrack> performTrackSizing(
     TrackType typeBeingSized,
-    GridSizing gridSizing, {
+    GridSizingInfo gridSizing, {
     @visibleForTesting BoxConstraints constraints,
   }) {
     constraints ??= this.constraints;
@@ -369,7 +372,7 @@ class RenderLayoutGrid extends RenderBox
     Axis sizingAxis,
     List<GridTrack> tracks,
     List<GridTrack> intrinsicTracks,
-    GridSizing gridSizing,
+    GridSizingInfo gridSizing,
     BoxConstraints constraints,
     double freeSpace,
   ) {
@@ -414,7 +417,6 @@ class RenderLayoutGrid extends RenderBox
 
         // Calculate the min-size of the spanned items, and distribute the
         // additional space to the spanned tracks' base sizes.
-        print(freeSpace);
         final minSpanSize = intrinsicTrack.sizeFunction.minIntrinsicSize(
             type, spanItemsInTrack, freeSpace,
             crossAxisSizeForItem: crossAxisSizeForItem);
@@ -651,14 +653,14 @@ List<GridTrack> _sizesToTracks(Iterable<TrackSize> sizes) => enumerate(sizes)
     .map((s) => GridTrack(s.index, s.value))
     .toList(growable: false);
 
-class GridSizing {
-  GridSizing({
+class GridSizingInfo {
+  GridSizingInfo({
     @required this.columnTracks,
     @required this.rowTracks,
   })  : assert(columnTracks != null),
         assert(rowTracks != null);
 
-  GridSizing.fromTrackSizeFunctions({
+  GridSizingInfo.fromTrackSizeFunctions({
     @required List<TrackSize> columnSizeFunctions,
     @required List<TrackSize> rowSizeFunctions,
   }) : this(
