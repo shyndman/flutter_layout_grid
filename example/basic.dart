@@ -42,50 +42,83 @@ class LayoutGridExample extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
-      child: LayoutGrid(
-        columnGap: 10,
-        rowGap: 10,
-        templateColumnSizes: [
-          FixedTrackSize(40),
-          IntrinsicContentTrackSize(),
-        ],
-        templateRowSizes: [
-          FixedTrackSize(40),
-          IntrinsicContentTrackSize(),
-          FlexibleTrackSize(1),
-        ],
-        children: [
-          Container(color: Colors.red[600]),
-          GridPlacement(
-            rowStart: 1,
-            columnSpan: 1,
-            child: Container(
-              color: Colors.blue,
-              child: Text(
-                'This is a test test test',
-                style: TextStyle(fontSize: 11),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 64.0),
+        child: LayoutGrid(
+          columnGap: 12,
+          rowGap: 12,
+          templateColumnSizes: [
+            FlexibleTrackSize(1),
+            FlexibleTrackSize(1),
+            FlexibleTrackSize(1),
+            FlexibleTrackSize(0.75),
+          ],
+          templateRowSizes: [
+            FixedTrackSize(32),
+            FixedTrackSize(32),
+            FixedTrackSize(32),
+          ],
+          children: [
+            GridPlacement(
+              rowStart: 0,
+              columnStart: 0,
+              columnSpan: 4,
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(8),
               ),
             ),
-          ),
-          GridPlacement(
-            rowStart: 0,
-            columnStart: 1,
-            child: Container(
-              width: 100,
-              height: 100,
-              color: Colors.purple,
+            GridPlacement(
+              rowStart: 1,
+              columnStart: 0,
+              columnSpan: 3,
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(8),
+              ),
             ),
-          ),
-          GridPlacement(
-            columnStart: 0,
-            columnSpan: 2,
-            rowStart: 2,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: 10),
-              child: Container(color: Colors.amber),
+            GridPlacement(
+              rowStart: 1,
+              columnStart: 3,
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(8),
+              ),
             ),
-          ),
-        ],
+            GridPlacement(
+              rowStart: 2,
+              columnStart: 0,
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(8),
+              ),
+            ),
+            GridPlacement(
+              rowStart: 2,
+              columnStart: 1,
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(8),
+              ),
+            ),
+            GridPlacement(
+              rowStart: 2,
+              columnStart: 2,
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(8),
+              ),
+            ),
+            GridPlacement(
+              rowStart: 2,
+              columnStart: 3,
+              child: Container(
+                color: Colors.blue,
+                padding: EdgeInsets.all(8),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

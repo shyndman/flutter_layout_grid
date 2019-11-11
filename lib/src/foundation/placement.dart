@@ -1,6 +1,68 @@
 import 'dart:math';
 
-import '../rendering/placement.dart';
+import 'package:flutter/painting.dart';
+import 'package:meta/meta.dart';
+import 'package:quiver/core.dart';
+
+/// Represents a rectangular region on the grid.
+@immutable
+class GridArea {
+  GridArea({
+    this.name,
+    this.columnStart,
+    this.columnEnd,
+    this.rowStart,
+    this.rowEnd,
+  });
+
+  GridArea.withSpans({
+    this.name,
+    this.columnStart,
+    int columnSpan,
+    this.rowStart,
+    int rowSpan,
+  })  : this.columnEnd = columnStart + columnSpan,
+        this.rowEnd = rowStart + rowSpan;
+
+  final String name;
+
+  final int columnStart;
+
+  /// The end column, exclusive
+  final int columnEnd;
+  int get columnSpan => columnEnd - columnStart;
+
+  final int rowStart;
+
+  /// The end row, exclusive
+  final int rowEnd;
+  int get rowSpan => rowEnd - rowStart;
+
+  int startForAxis(Axis axis) =>
+      axis == Axis.horizontal ? columnStart : rowStart;
+  int endForAxis(Axis axis) => axis == Axis.horizontal ? columnEnd : rowEnd;
+  int spanForAxis(Axis axis) => endForAxis(axis) - startForAxis(axis);
+
+  @override
+  int get hashCode =>
+      hashObjects(<dynamic>[name, columnStart, columnEnd, rowStart, rowEnd]);
+
+  @override
+  bool operator ==(dynamic other) {
+    if (other.runtimeType != runtimeType) return false;
+    final typedOther = other as GridArea;
+    return typedOther.name == name &&
+        typedOther.columnStart == columnStart &&
+        typedOther.columnEnd == columnEnd &&
+        typedOther.rowStart == rowStart &&
+        typedOther.rowEnd == rowEnd;
+  }
+
+  @override
+  String toString() {
+    return 'GridArea(name=$name, columnSpan=[$columnStart–$columnEnd], rowSpan=[$rowStart–$rowEnd])';
+  }
+}
 
 Map<String, GridArea> gridTemplateAreas(List<String> specRows) {
   final gridAreaBuilders = <String, _GridAreaBuilder>{};
@@ -65,7 +127,7 @@ class _GridAreaBuilder {
       _maxColumn = max(_maxColumn, column);
     } else {
       throw ArgumentError(
-          'Cell out of range, column=$column row=$row name=$areaName');
+          'Area disjoint, column=$column row=$row name=$areaName');
     }
 
     if (_minRow == null) {
@@ -76,7 +138,7 @@ class _GridAreaBuilder {
       _maxRow = max(_maxRow, row);
     } else {
       throw ArgumentError(
-          'Cell out of range, column=$column row=$row name=$areaName');
+          'Area disjoint, column=$column row=$row name=$areaName');
     }
 
     _missingCells--;
@@ -103,9 +165,9 @@ class _GridAreaBuilder {
     return GridArea(
       name: areaName,
       columnStart: _minColumn,
-      columnEnd: _maxColumn,
+      columnEnd: _maxColumn + 1,
       rowStart: _minRow,
-      rowEnd: _maxRow,
+      rowEnd: _maxRow + 1,
     );
   }
 }

@@ -6,8 +6,8 @@ import 'package:meta/meta.dart';
 import 'package:quiver/iterables.dart';
 
 import '../../flutter_layout_grid.dart';
+import '../foundation/collections.dart';
 import 'placement.dart';
-import 'util.dart';
 
 /// Parent data for use with [RenderLayoutGrid].
 class GridParentData extends ContainerBoxParentData<RenderBox> {
@@ -399,7 +399,9 @@ class RenderLayoutGrid extends RenderBox
         .expand((t) => getChildrenInTrack(type, t.index))
         .where(removeDuplicates());
 
-    final itemsBySpan = groupBy(itemsInIntrinsicTracks, getSpan(sizingAxis));
+    final itemsBySpan = groupBy(itemsInIntrinsicTracks, (RenderObject item) {
+      return _placementGrid.itemAreas[item].spanForAxis(sizingAxis);
+    });
     final sortedSpans = itemsBySpan.keys.toList()..sort();
 
     // Iterate over the spans we find in our items list, in ascending order.
@@ -418,11 +420,11 @@ class RenderLayoutGrid extends RenderBox
         final spannedTracks = tracks.getRange(i, i + span);
         final spanItemsInTrack = spanItemsByTrack[i];
         final intrinsicTrack = spannedTracks
-            .firstWhere(isIntrinsic(type, constraints), orElse: () => null);
+            .firstWhere((t) => t.sizeFunction.isIntrinsic, orElse: () => null);
 
         // We don't size flexible tracks until later
         if (intrinsicTrack == null ||
-            spannedTracks.any(isFlexible(type, constraints))) {
+            spannedTracks.any((t) => t.sizeFunction.isFlexible)) {
           continue;
         }
 
@@ -525,7 +527,7 @@ class RenderLayoutGrid extends RenderBox
           : track.isInfinite ? track.baseSize : track.growthLimit;
     }
 
-    tracks.sort(sortByGrowthPotential);
+    tracks.sort(_sortByGrowthPotential);
 
     // Distribute the free space between tracks
     distribute(tracks, (track, availableShare) {
@@ -832,4 +834,9 @@ class GridSizingInfo {
     final gapSize = (area.spanForAxis(axis) - 1) * unitGapAlongAxis(axis);
     return sum(trackBaseSizes) + gapSize;
   }
+}
+
+int _sortByGrowthPotential(GridTrack a, GridTrack b) {
+  if (a.isInfinite != b.isInfinite) return a.isInfinite ? -1 : 1;
+  return (a.growthLimit - a.baseSize).compareTo(b.growthLimit - b.baseSize);
 }
