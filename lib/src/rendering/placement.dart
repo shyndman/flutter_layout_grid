@@ -305,8 +305,11 @@ class PlacementGridCursor {
   }
 }
 
+/// Represents a rectangular region on the grid.
+@immutable
 class GridArea {
   GridArea({
+    this.name,
     this.columnStart,
     this.columnEnd,
     this.rowStart,
@@ -314,12 +317,15 @@ class GridArea {
   });
 
   GridArea.withSpans({
+    this.name,
     this.columnStart,
     int columnSpan,
     this.rowStart,
     int rowSpan,
   })  : this.columnEnd = columnStart + columnSpan,
         this.rowEnd = rowStart + rowSpan;
+
+  final String name;
 
   final int columnStart;
   final int columnEnd;
@@ -337,6 +343,7 @@ class GridArea {
   @override
   int get hashCode => hash4(columnStart, columnEnd, rowStart, rowEnd);
 
+  @override
   bool operator ==(dynamic other) {
     if (other.runtimeType != runtimeType) return false;
     final typedOther = other as GridArea;
@@ -345,8 +352,14 @@ class GridArea {
         typedOther.rowStart == rowStart &&
         typedOther.rowEnd == rowEnd;
   }
+
+  @override
+  String toString() {
+    return 'GridArea(name=$name, columnSpan=[$columnStart–$columnEnd], rowSpan=[$rowStart–$rowEnd])';
+  }
 }
 
+@immutable
 class GridCell {
   GridCell(this.grid, this.index);
 
