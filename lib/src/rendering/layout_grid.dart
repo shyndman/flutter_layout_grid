@@ -118,6 +118,21 @@ class RenderLayoutGrid extends RenderBox
     markNeedsLayout();
   }
 
+  BoxConstraints get effectiveConstraints {
+    switch (gridFit) {
+      case GridFit.expand:
+        return BoxConstraints.tight(constraints.biggest);
+
+      case GridFit.loose:
+        return constraints.loosen();
+
+      case GridFit.passthrough:
+        return constraints;
+    }
+
+    throw StateError('$gridFit is not a valid gridFit');
+  }
+
   /// Defines the sizing functions of the grid's columns.
   List<TrackSize> get templateColumnSizes => _templateColumnSizes;
   List<TrackSize> _templateColumnSizes;
@@ -206,12 +221,12 @@ class RenderLayoutGrid extends RenderBox
 
     // Determine the size of the column tracks
     final columnTracks = performTrackSizing(TrackType.column, gridSizing,
-        constraints: constraints);
+        constraints: effectiveConstraints);
     gridSizing.hasColumnSizing = true;
 
     // Determine the size of the row tracks
-    final rowTracks =
-        performTrackSizing(TrackType.row, gridSizing, constraints: constraints);
+    final rowTracks = performTrackSizing(TrackType.row, gridSizing,
+        constraints: effectiveConstraints);
     gridSizing.hasRowSizing = true;
 
     // Now our track sizes are definite, and we can go ahead
