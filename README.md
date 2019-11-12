@@ -6,8 +6,10 @@
 <img src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet.png"
 alt="Example of Flutter Layout Grid" width="320">
 
-A grid-based layout system for Flutter, optimized for user interface design. Inspired by [CSS Grid
-Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout). Featuring:
+A grid-based layout system for Flutter, optimized for user interface design, inspired by [CSS Grid
+Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout).
+
+✨Featuring:✨
 
 - Fixed, flexible, and content-based row and column sizing
 - Precise control over placement of items if desired, including the ability to span rows, columns,
@@ -41,8 +43,6 @@ class Piet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 240,
-      height: 200,
       color: background,
       child: LayoutGrid(
         columnGap: 12,
@@ -135,6 +135,16 @@ When an arbitrary widget is provided to `LayoutGrid.children`, it will be allott
 placed automatically according to the `LayoutGrid.autoPlacement` algorithm ([described
 here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout)).
 
+```dart
+LayoutGrid(
+  templateColumnSizes = [/*...*/];
+  templateRowSizes = [/*...*/];
+  children: [
+    MyWidget(), // Will occupy a 1x1 in the first vacant cell
+  ],
+)
+```
+
 Precise control over placement of an item is provided via the `GridPlacement` widget. You can think
 of `GridPlacement` as the
 [`Positioned`](https://api.flutter.dev/flutter/widgets/Positioned-class.html) equivalent for
@@ -142,6 +152,8 @@ of `GridPlacement` as the
 
 ```dart
 LayoutGrid(
+  templateColumnSizes = [/*...*/];
+  templateRowSizes = [/*...*/];
   children: [
     GridPlacement(
       // All parameters optional
@@ -166,11 +178,10 @@ will flow around those that have been placed definitely.
 
 #### Accessibility and Placement
 
-Take note that the meaning you convey visually through placement may not be clear to all users, as
-the [`Semantics`](https://api.flutter.dev/flutter/widgets/Semantics-class.html) widget expose items
-to the accessibility system in the same order as the `LayoutGrid.children` list.
+Take note that the meaning you convey visually through placement may not be clear when presented
+by assitive technologies, as Flutter defaults to exposing information in source order.
 
-In situations where your visual ordering differs from ordering in the source, the accessible
+In situations where your semantic (visual) ordering differs from ordering in the source, the
 ordering can be configured via the `Semantics` widget's
 [`sortKey`](https://api.flutter.dev/flutter/semantics/SemanticsSortKey-class.html) parameter.
 
@@ -189,15 +200,15 @@ Things in CSS Grid Layout that are not supported:
 Differences:
 
 - In `flutter_layout_grid`, flexible tracks do not account for their content's base sizes as they do
-  in CSS. It's expensive to measure, and I felt this was an acceptable tradeoff.
+  in CSS. It's expensive to measure, and I opted for speed.
 - Flexible tracks whose flex factors sum to < 1
 
 ## Why not Slivers?
 
 This library is not [Sliver](https://medium.com/flutter/slivers-demystified-6ff68ab0296f)-based. I'd
 considered it, but my use cases required the content-based sizing of rows and columns, and I didn't
-want to figure out the UI challenges associated with resizing. I might be interested in taking those
-on at some point.
+want to figure out the UI challenges associated with resizing tracks during scroll. I might be
+interested in taking those on at some point.
 
 ## Roadmap
 
