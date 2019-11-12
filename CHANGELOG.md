@@ -1,3 +1,6 @@
+## [0.5.3]
+* README tweak
+
 ## [0.5.2]
 * Add a license (MIT)
 
