@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Piet",
+      "program": "example/piet.dart",
+      "type": "dart",
+      "request": "launch",
+    },
+    {
       "name": "Basic",
       "program": "example/basic.dart",
       "request": "launch",
