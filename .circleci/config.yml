@@ -1,0 +1,23 @@
+version: 2.1
+executors:
+  dart_sdk_image:
+    docker:
+      - image: google/dart
+  flutter_sdk_image:
+    docker:
+      - image: cirrusci/flutter:latest
+
+jobs:
+  build:
+    executor: flutter_sdk_image
+    environment:
+      - FLUTTER: true
+    steps:
+      - checkout
+      - run: tool/ci_build.sh
+
+workflows:
+  version: 2.1
+  default:
+    jobs:
+      - build
