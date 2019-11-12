@@ -130,6 +130,7 @@ Things in CSS Grid Layout that are not supported:
   certainly on the table, but I need some time to think about it (and write a
   better data structure for my placement grid).
 * minmax(), percentages, aspect ratios track sizing
+* No named areas, although they're coming
 
 Differences:
 * In `flutter_layout_grid`, flexible tracks do not account for their content's
@@ -146,6 +147,7 @@ resizing. I might be interested in taking those on at some point.
 
 ## Roadmap
 
+* [ ] Tests!
 * [ ] Named template areas, for friendlier item placement
 * [ ] Improved track sizing, including minimum/maximums and aspect ratios
 * [ ] The ability to specify row and column gaps at specific line locations via
