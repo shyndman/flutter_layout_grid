@@ -4,9 +4,7 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
-# For some reason, `flutter packages get` tries to run in the example/
-# directory, not the root, but `pub get works fine`.
-pub get
+flutter packages get
 flutter analyze
 flutter test --coverage --coverage-path coverage/lcov.info
 

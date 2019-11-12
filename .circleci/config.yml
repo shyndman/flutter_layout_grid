@@ -8,14 +8,14 @@ executors:
       - image: cirrusci/flutter:latest
 
 jobs:
-  build:
+  test:
     executor: flutter_sdk_image
     steps:
       - checkout
-      - run: tool/ci_build.sh
+      - run: tool/ci_test.sh
 
 workflows:
   version: 2.1
   default:
     jobs:
-      - build
+      - test
