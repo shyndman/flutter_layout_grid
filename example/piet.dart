@@ -48,8 +48,6 @@ class Piet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 240,
-      height: 200,
       color: background,
       child: LayoutGrid(
         columnGap: 12,
