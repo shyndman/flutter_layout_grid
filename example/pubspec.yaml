@@ -1,5 +1,13 @@
 name: flutter_layout_grid_examples
 description: Examples for flutter_layout_grid.
 private: true
+version: 0.5.0
 
-version: 1.0.0
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_layout_grid:
+    path: ../
