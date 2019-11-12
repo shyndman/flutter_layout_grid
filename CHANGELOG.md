@@ -1,3 +1,6 @@
+## [0.5.2]
+* Add a license (MIT)
+
 ## [0.5.1]
 * Dependency version fix
 
