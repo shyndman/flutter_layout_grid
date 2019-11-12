@@ -75,7 +75,7 @@ class RenderLayoutGrid extends RenderBox
         RenderBoxContainerDefaultsMixin<RenderBox, GridParentData> {
   /// Creates a layout grid render object.
   RenderLayoutGrid({
-    AutoPlacement autoPlacementMode = AutoPlacement.rowSparse,
+    AutoPlacement autoPlacement = AutoPlacement.rowSparse,
     GridFit gridFit = GridFit.expand,
     List<RenderBox> children,
     double columnGap = 0,
@@ -83,10 +83,10 @@ class RenderLayoutGrid extends RenderBox
     @required List<TrackSize> templateColumnSizes,
     @required List<TrackSize> templateRowSizes,
     TextDirection textDirection = TextDirection.ltr,
-  })  : assert(autoPlacementMode != null),
+  })  : assert(autoPlacement != null),
         assert(gridFit != null),
         assert(textDirection != null),
-        _autoPlacementMode = autoPlacementMode,
+        _autoPlacementMode = autoPlacement,
         _gridFit = gridFit,
         _templateColumnSizes = templateColumnSizes,
         _templateRowSizes = templateRowSizes,

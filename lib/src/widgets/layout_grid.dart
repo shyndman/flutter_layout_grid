@@ -66,7 +66,7 @@ enum GridFit {
 class LayoutGrid extends MultiChildRenderObjectWidget {
   LayoutGrid({
     Key key,
-    this.autoPlacementMode = AutoPlacement.rowSparse,
+    this.autoPlacement = AutoPlacement.rowSparse,
     this.gridFit = GridFit.expand,
     this.templateColumnSizes,
     this.templateRowSizes,
@@ -82,7 +82,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
   /// auto-placed items get flowed into the grid.
-  final AutoPlacement autoPlacementMode;
+  final AutoPlacement autoPlacement;
 
   /// Determines the constraints available to the grid layout algorithm.
   final GridFit gridFit;
@@ -107,7 +107,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   @override
   RenderLayoutGrid createRenderObject(BuildContext context) {
     return RenderLayoutGrid(
-      autoPlacementMode: autoPlacementMode,
+      autoPlacement: autoPlacement,
       gridFit: gridFit,
       templateColumnSizes: templateColumnSizes,
       templateRowSizes: templateRowSizes,
@@ -120,7 +120,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   @override
   void updateRenderObject(BuildContext context, RenderLayoutGrid renderObject) {
     renderObject
-      ..autoPlacement = autoPlacementMode
+      ..autoPlacement = autoPlacement
       ..gridFit = gridFit
       ..templateColumnSizes = templateColumnSizes
       ..templateRowSizes = templateRowSizes

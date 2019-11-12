@@ -10,7 +10,7 @@ void main() {
     test('not sure yet', () {
       final fixed40 = const FixedTrackSize(40);
       final grid = RenderLayoutGrid(
-        autoPlacementMode: AutoPlacement.rowSparse,
+        autoPlacement: AutoPlacement.rowSparse,
         textDirection: TextDirection.ltr,
         templateColumnSizes: [
           fixed40,
