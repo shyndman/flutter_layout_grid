@@ -25,14 +25,12 @@ class GridArea {
         this.rowEnd = rowStart + rowSpan;
 
   final String name;
-
   final int columnStart;
+  final int rowStart;
 
   /// The end column, exclusive
   final int columnEnd;
   int get columnSpan => columnEnd - columnStart;
-
-  final int rowStart;
 
   /// The end row, exclusive
   final int rowEnd;
@@ -60,13 +58,16 @@ class GridArea {
 
   @override
   String toString() {
-    return 'GridArea(name=$name, columnSpan=[$columnStart–$columnEnd], rowSpan=[$rowStart–$rowEnd])';
+    return 'GridArea(' +
+        (name != null ? 'name=$name, ' : '') +
+        'columnSpan=[$columnStart–$columnEnd], rowSpan=[$rowStart–$rowEnd])';
   }
 }
 
+/// TODO(shyndman): This should also produce column and row counts. Maybe sizes
+/// too?
 Map<String, GridArea> gridTemplateAreas(List<String> specRows) {
   final gridAreaBuilders = <String, _GridAreaBuilder>{};
-
   int columnCount;
 
   for (int currentRow = 0; currentRow < specRows.length; currentRow++) {
@@ -107,6 +108,8 @@ bool _isNullCellToken(String token) => _nullCellPattern.hasMatch(token);
 final _namedCellPattern = RegExp(r'^[a-zA-Z][\w\d-_]*$');
 bool _isNamedCellToken(String token) => _namedCellPattern.hasMatch(token);
 
+/// Determines the region of a [GridArea] by adding individual (column, row)
+/// pairs.
 class _GridAreaBuilder {
   _GridAreaBuilder(this.areaName);
   final String areaName;
@@ -115,6 +118,11 @@ class _GridAreaBuilder {
   int _maxColumn;
   int _minRow;
   int _maxRow;
+
+  /// When a new column or row is introduced to the area when adding a cell,
+  /// there will be a number of cells that require filling in order for the area
+  /// to become a complete rectangle. This keeps track of that count. If
+  /// non-zero, the [build] method will throw.
   int _missingCells = 0;
 
   void addCell(int column, int row) {
