@@ -204,9 +204,9 @@ class RenderLayoutGrid extends RenderBox
   double computeMaxIntrinsicHeight(double width) =>
       _computeIntrinsicHeights().maxHeight;
 
-  GridSizingInfo _computeIntrinsicWidths() {}
+  GridSizingInfo _computeIntrinsicWidths() => null;
 
-  GridSizingInfo _computeIntrinsicHeights() {}
+  GridSizingInfo _computeIntrinsicHeights() => null;
 
   @override
   double computeDistanceToActualBaseline(TextBaseline baseline) {
