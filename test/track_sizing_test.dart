@@ -7,17 +7,20 @@ import 'package:flutter_layout_grid/src/rendering/layout_grid.dart';
 void main() {
   group('track sizing', () {
     test('not sure yet', () {
-      final renderGrid = RenderLayoutGrid(textDirection: TextDirection.ltr);
+      final renderGrid = RenderLayoutGrid(
+        templateColumnSizes: null,
+        templateRowSizes: null,
+      );
       renderGrid.performTrackSizing(
         TrackType.column,
         GridSizingInfo.fromTrackSizeFunctions(
           columnSizeFunctions: [
             FixedTrackSize(40),
-            IntrinsicContentTrackSize(),
+            FlexibleTrackSize(1),
           ],
           rowSizeFunctions: [
             FixedTrackSize(40),
-            IntrinsicContentTrackSize(),
+            FlexibleTrackSize(1),
           ],
           textDirection: TextDirection.ltr,
         ),

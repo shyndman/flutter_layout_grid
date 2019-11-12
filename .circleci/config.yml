@@ -10,8 +10,6 @@ executors:
 jobs:
   build:
     executor: flutter_sdk_image
-    environment:
-      - FLUTTER: true
     steps:
       - checkout
       - run: tool/ci_build.sh
