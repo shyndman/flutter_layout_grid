@@ -32,7 +32,22 @@ class GridPlacement extends ParentDataWidget<LayoutGrid> {
     int rowSpan = 1,
   })  : this.columnSpan = columnSpan ?? 1,
         this.rowSpan = rowSpan ?? 1,
+        this.name = null,
         super(key: key, child: child);
+
+  const GridPlacement.areaNamed({
+    Key key,
+    @required Widget child,
+    @required this.name,
+  })  : columnStart = null,
+        columnSpan = null,
+        rowStart = null,
+        rowSpan = null,
+        super(key: key, child: child);
+
+  /// The name of the area whose tracks will be used to place this widget's
+  /// child.
+  final String name;
 
   /// If `null`, the child will be auto-placed.
   final int columnStart;
