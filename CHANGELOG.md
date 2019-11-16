@@ -1,3 +1,6 @@
+## [0.6.0]
+* Supply grid items with loose constraints, not tight
+
 ## [0.5.3]
 * README tweak
 

@@ -263,7 +263,7 @@ class RenderLayoutGrid extends RenderBox
       final area = _placementGrid.itemAreas[child];
 
       parentData.offset = gridSizing.offsetForArea(area);
-      child.layout(BoxConstraints.tight(gridSizing.sizeForArea(area)));
+      child.layout(BoxConstraints.loose(gridSizing.sizeForArea(area)));
 
       child = parentData.nextSibling;
     }
