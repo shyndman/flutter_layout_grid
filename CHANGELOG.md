@@ -1,3 +1,6 @@
+## [0.6.1]
+* Size grid minimally if an infinite constraint is provided
+
 ## [0.6.0]
 * Supply grid items with loose constraints, not tight
 

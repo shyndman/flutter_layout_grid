@@ -291,8 +291,11 @@ class RenderLayoutGrid extends RenderBox
     final intrinsicTracks = <GridTrack>[];
     final flexibleTracks = <GridTrack>[];
     final tracks = gridSizing.tracksForType(typeBeingSized);
-    final initialFreeSpace = maxConstraintForAxis(constraints, sizingAxis) -
-        gridSizing.unitGapAlongAxis(sizingAxis) * (tracks.length - 1);
+    final maxConstraint = maxConstraintForAxis(constraints, sizingAxis);
+    final initialFreeSpace = maxConstraint.isFinite
+        ? maxConstraintForAxis(constraints, sizingAxis) -
+            gridSizing.unitGapAlongAxis(sizingAxis) * (tracks.length - 1)
+        : 0.0;
     final isAxisDefinite = isTightlyConstrainedForAxis(constraints, sizingAxis);
 
     // 1. Initialize track sizes
