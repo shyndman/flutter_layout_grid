@@ -1,7 +1,7 @@
 # Flutter Layout Grid
 
 [![Pub](https://img.shields.io/pub/v/flutter_layout_grid)](https://pub.dev/packages/flutter_layout_grid)
-[![CircleCI](https://img.shields.io/circleci/build/github/shyndman/flutter_layout_grid?token=36ca34954c9d7fb9aae7c67cb0644d6ce61b51f4)](https://circleci.com/gh/shyndman/flutter_layout_grid)
+[![CircleCI](https://img.shields.io/circleci/build/github/madewithfelt/flutter_layout_grid?token=36ca34954c9d7fb9aae7c67cb0644d6ce61b51f4)](https://circleci.com/gh/madewithfelt/flutter_layout_grid)
 
 <img src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet.png"
 alt="Example of Flutter Layout Grid" width="320">
