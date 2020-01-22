@@ -1,3 +1,6 @@
+## [0.6.3]
+* Fix broken badge links in README
+
 ## [0.6.2]
 * Fix several bugs in the examples
 * Add intrinsic-size computing functions. I don't know if they're right yet,
