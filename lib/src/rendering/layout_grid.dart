@@ -206,12 +206,8 @@ class RenderLayoutGrid extends RenderBox
   // TODO(https://github.com/madewithfelt/flutter_layout_grid/issues/1):
   // This implementation is not likely to be correct. Revisit once Flutter's
   // sizing rules are better understood.
-  GridSizingInfo _computeIntrinsicSize(BoxConstraints constraints) {
-    return performLayout(
-      constraintsOverride: constraints,
-      calculatingInstrinsicSizes: true,
-    );
-  }
+  GridSizingInfo _computeIntrinsicSize(BoxConstraints constraints) =>
+      _computeGridSize(constraints);
 
   @override
   double computeDistanceToActualBaseline(TextBaseline baseline) {
@@ -227,51 +223,9 @@ class RenderLayoutGrid extends RenderBox
   }
 
   @override
-  GridSizingInfo performLayout({
-    // TODO(shyndman): Both of these parameters are a bit of a hack in order to
-    // use the layout algorithm from the instrinsic size computers. Revisit
-    // whether this makes any sense.
-    BoxConstraints constraintsOverride,
-    bool calculatingInstrinsicSizes = false,
-  }) {
-    // Distribute grid items into cells
-    performItemPlacement();
-
-    // Ready a sizing grid
-    final gridSizing = GridSizingInfo.fromTrackSizeFunctions(
-      columnSizeFunctions: _templateColumnSizes,
-      rowSizeFunctions: _templateRowSizes,
-      textDirection: textDirection,
-      columnGap: columnGap,
-      rowGap: rowGap,
-    );
-
-    // Determine the size of the column tracks
-    final columnTracks = performTrackSizing(TrackType.column, gridSizing,
-        constraints: constraintsOverride ?? effectiveConstraints);
-    gridSizing.hasColumnSizing = true;
-
-    // Determine the size of the row tracks
-    final rowTracks = performTrackSizing(TrackType.row, gridSizing,
-        constraints: constraintsOverride ?? effectiveConstraints);
-    gridSizing.hasRowSizing = true;
-
-    // Stretch intrinsics
-    _stretchIntrinsicTracks(TrackType.column, gridSizing);
-    _stretchIntrinsicTracks(TrackType.row, gridSizing);
-
-    final gridWidth = sum(columnTracks.map((t) => t.baseSize)) +
-        columnGap * (columnTracks.length - 1);
-    final gridHeight =
-        sum(rowTracks.map((t) => t.baseSize)) + rowGap * (rowTracks.length - 1);
-    gridSizing.gridSize = constraints.constrain(Size(gridWidth, gridHeight));
-
-    // If we're calculating an instrinsic size, stop here and return the sizing
-    // information. Otherwise, go on to lay out the children.
-    if (calculatingInstrinsicSizes) {
-      return gridSizing;
-    }
-
+  void performLayout() {
+    // Size the grid
+    final gridSizing = _computeGridSize(effectiveConstraints);
     this.size = gridSizing.gridSize;
 
     // Position and lay out the grid items
@@ -284,6 +238,40 @@ class RenderLayoutGrid extends RenderBox
       child.layout(BoxConstraints.loose(gridSizing.sizeForArea(area)));
       child = parentData.nextSibling;
     }
+  }
+
+  GridSizingInfo _computeGridSize(BoxConstraints constraints) {
+    // Distribute grid items into cells
+    performItemPlacement();
+
+    // Ready an object that contains our sizing information
+    final gridSizing = GridSizingInfo.fromTrackSizeFunctions(
+      columnSizeFunctions: _templateColumnSizes,
+      rowSizeFunctions: _templateRowSizes,
+      textDirection: textDirection,
+      columnGap: columnGap,
+      rowGap: rowGap,
+    );
+
+    // Determine the size of the column tracks
+    final columnTracks = performTrackSizing(TrackType.column, gridSizing,
+        constraints: constraints);
+    gridSizing.hasColumnSizing = true;
+
+    // Determine the size of the row tracks
+    final rowTracks =
+        performTrackSizing(TrackType.row, gridSizing, constraints: constraints);
+    gridSizing.hasRowSizing = true;
+
+    // Stretch intrinsics
+    _stretchIntrinsicTracks(TrackType.column, gridSizing);
+    _stretchIntrinsicTracks(TrackType.row, gridSizing);
+
+    final gridWidth = sum(columnTracks.map((t) => t.baseSize)) +
+        columnGap * (columnTracks.length - 1);
+    final gridHeight =
+        sum(rowTracks.map((t) => t.baseSize)) + rowGap * (rowTracks.length - 1);
+    gridSizing.gridSize = constraints.constrain(Size(gridWidth, gridHeight));
 
     return gridSizing;
   }
