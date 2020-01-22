@@ -1,3 +1,8 @@
+## [0.6.2]
+* Fix several bugs in the examples
+* Add intrinsic-size computing functions. I don't know if they're right yet,
+  but it's a start.
+
 ## [0.6.1]
 * Size grid minimally if an infinite constraint is provided
 

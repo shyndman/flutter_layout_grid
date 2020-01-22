@@ -1,8 +1,7 @@
 name: flutter_layout_grid
 description: A grid-based layout system for Flutter, inspired by CSS Grid Layout
-version: 0.6.1
-author: Scott Hyndman <scotty.hyndman@gmail.com>
-homepage: https://github.com/shyndman/flutter_layout_grid
+version: 0.6.2
+homepage: https://github.com/madewithfelt/flutter_layout_grid
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
