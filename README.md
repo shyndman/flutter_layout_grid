@@ -111,8 +111,9 @@ class Piet extends StatelessWidget {
     );
   }
 
-  Widget _buildItemForColor(Color c) =>
-      DecoratedBox(decoration: BoxDecoration(color: c));
+  Widget _buildItemForColor(Color c) => SizedBox.expand(
+        child: DecoratedBox(decoration: BoxDecoration(color: c)),
+      );
 }
 ```
 
