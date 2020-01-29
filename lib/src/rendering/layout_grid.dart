@@ -374,9 +374,10 @@ class RenderLayoutGrid extends RenderBox
     }
 
     // TODO(shyndman): This is not to spec. Flexible rows should have a minimum
-    // size of their content's minimum contribution. We will add this as soon
+    // size of their content's minimum contribution. We may add this as soon
     // as we have the notion of distinct minimum and maximum track size
-    // functions.
+    // functions, but requires some consideration because of the expense to
+    // compute.
     // https://drafts.csswg.org/css-grid/#valdef-grid-template-columns-flex
     final flexFraction =
         _findFlexFactorUnitSize(tracks, flexibleTracks, initialFreeSpace);
