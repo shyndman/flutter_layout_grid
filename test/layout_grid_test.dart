@@ -5,7 +5,7 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_layout_grid/src/rendering/layout_grid.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../example/piet.dart';
+import '../example/flutter_layout_grid.dart';
 
 void main() {
   testWidgets('Computes fixed intrinsic sizes', (tester) async {
