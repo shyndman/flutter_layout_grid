@@ -1,3 +1,7 @@
+## [0.7.0]
+* Add extension method support for grid item placement —
+  Widget.withGridPlacement
+
 ## [0.6.3]
 * Fix broken badge links in README
 
