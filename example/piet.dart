@@ -67,55 +67,47 @@ class Piet extends StatelessWidget {
         ],
         children: [
           // Column 1
-          GridPlacement(
+          _buildItemForColor(cellRed).withGridPlacement(
             columnStart: 0,
             rowStart: 0,
             rowSpan: 2,
-            child: _buildItemForColor(cellRed),
           ),
-          GridPlacement(
+          _buildItemForColor(cellMustard).withGridPlacement(
             columnStart: 0,
             rowStart: 2,
             rowSpan: 2,
-            child: _buildItemForColor(cellMustard),
           ),
           // Column 2
-          GridPlacement(
+          _buildItemForColor(cellRed).withGridPlacement(
             columnStart: 1,
             rowStart: 0,
             rowSpan: 4,
-            child: _buildItemForColor(cellRed),
           ),
           // Column 3
-          GridPlacement(
+          _buildItemForColor(cellBlue).withGridPlacement(
             columnStart: 2,
             columnSpan: 3,
             rowStart: 0,
-            child: _buildItemForColor(cellBlue),
           ),
-          GridPlacement(
+          _buildItemForColor(cellMustard).withGridPlacement(
             columnStart: 2,
             columnSpan: 3,
             rowStart: 1,
             rowSpan: 2,
-            child: _buildItemForColor(cellMustard),
           ),
-          GridPlacement(
+          _buildItemForColor(cellGrey).withGridPlacement(
             columnStart: 2,
             rowStart: 3,
-            child: _buildItemForColor(cellGrey),
           ),
           // Column 4
-          GridPlacement(
+          _buildItemForColor(cellBlue).withGridPlacement(
             columnStart: 3,
             rowStart: 3,
-            child: _buildItemForColor(cellBlue),
           ),
           // Column 5
-          GridPlacement(
+          _buildItemForColor(cellMustard).withGridPlacement(
             columnStart: 4,
             rowStart: 3,
-            child: _buildItemForColor(cellMustard),
           ),
         ],
       ),

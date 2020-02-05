@@ -9,14 +9,16 @@
 # https://raw.githubusercontent.com/dart-lang/pedantic/master/lib/analysis_options.1.8.0.yaml
 
 analyzer:
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
+  enable-experiment:
+    - extension-methods
   errors:
     missing_required_param: error
     unawaited_futures: warning
     unused_import: error
     unused_local_variable: warning
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
 
 linter:
   rules:

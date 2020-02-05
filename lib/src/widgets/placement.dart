@@ -115,3 +115,23 @@ class GridPlacement extends ParentDataWidget<LayoutGrid> {
     }
   }
 }
+
+/// Extension methods for terse placement syntax
+extension GridPlacementExtensions on Widget {
+  GridPlacement withGridPlacement({
+    Key key,
+    int columnStart,
+    int columnSpan = 1,
+    int rowStart,
+    int rowSpan = 1,
+  }) {
+    return GridPlacement(
+      key: key,
+      columnStart: columnStart,
+      columnSpan: columnSpan,
+      rowStart: rowStart,
+      rowSpan: rowSpan,
+      child: this,
+    );
+  }
+}

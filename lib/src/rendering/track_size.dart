@@ -168,11 +168,12 @@ class FixedTrackSize extends TrackSize {
   String toString() => '$runtimeType(size=${debugFormatDouble(sizeInPx)})';
 }
 
-/// Sizes the track by taking a part of the remaining space once all
-/// the other tracks have been laid out on the same axis.
+/// Sizes the track by taking a part of the remaining space once all the other
+/// tracks have been laid out on the same axis.
 ///
-/// For example, if two columns have a [FlexibleTrackSize], then half the
-/// space will go to one and half the space will go to the other.
+/// For example, if two columns have a [FlexibleTrackSize] with the same
+/// [flexFactor], then half the space will go to one and half the space will go
+/// to the other.
 ///
 /// This is a cheap way to size a track.
 class FlexibleTrackSize extends TrackSize {
