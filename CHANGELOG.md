@@ -1,3 +1,6 @@
+## [0.8.0]
+* Added support for Flutter v1.14.0+
+
 ## [0.7.0]
 * Add extension method support for grid item placement —
   Widget.withGridPlacement
