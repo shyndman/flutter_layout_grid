@@ -10,7 +10,7 @@ bool Function(T) removeDuplicates<T>() {
 
 /// Sums the elements of [numbers], and returns the result.
 T sum<T extends num>(Iterable<T> numbers) {
-  return numbers.fold(zeroForType<T>(), (acc, number) => acc + number);
+  return numbers.fold(zeroForType<T>(), (acc, number) => (acc + number) as T);
 }
 
 /// Returns an iterable of [number]'s cumulative sums.
