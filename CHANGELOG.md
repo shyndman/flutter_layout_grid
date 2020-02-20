@@ -1,3 +1,10 @@
+## [0.9.0]
+* Reverted support for Flutter v1.14.0+, because it won't be stable for awhile.
+  Flutter v1.14.0+ support is published as 0.10.0-dev.0
+
+## [0.8.0]
+* Added support for Flutter v1.14.0+
+
 ## [0.7.0]
 * Add extension method support for grid item placement —
   Widget.withGridPlacement
