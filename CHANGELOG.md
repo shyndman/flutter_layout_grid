@@ -1,3 +1,6 @@
+## [0.9.1]
+* Mention the prerelease version supporting Flutter v1.14.0+ in the README
+
 ## [0.9.0]
 * Reverted support for Flutter v1.14.0+, because it won't be stable for awhile.
   Flutter v1.14.0+ support is published as 0.10.0-dev.0
