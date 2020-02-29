@@ -4,8 +4,6 @@ import '../rendering/track_size.dart';
 import '../rendering/layout_grid.dart';
 import 'placement.dart';
 
-final f = FontWeight();
-
 /// Controls how the auto-placement algorithm works, specifying exactly how
 /// auto-placed items get flowed into the grid.
 class AutoPlacement {
