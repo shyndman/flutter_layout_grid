@@ -4,13 +4,11 @@ import '../rendering/track_size.dart';
 import '../rendering/layout_grid.dart';
 import 'placement.dart';
 
+final f = FontWeight();
+
 /// Controls how the auto-placement algorithm works, specifying exactly how
 /// auto-placed items get flowed into the grid.
 class AutoPlacement {
-  const AutoPlacement._(this.trackType, this.packing);
-  final TrackType trackType;
-  final AutoPlacementPacking packing;
-
   /// Items are placed by filling each row in turn, adding new rows as
   /// necessary. If neither row nor column is provided, row is assumed.
   static const rowSparse =
@@ -34,6 +32,33 @@ class AutoPlacement {
   /// would fill in holes left by larger items.
   static const columnDense =
       AutoPlacement._(TrackType.column, AutoPlacementPacking.dense);
+
+  const AutoPlacement._(this.trackType, this.packing);
+  final TrackType trackType;
+  final AutoPlacementPacking packing;
+
+  @override
+  String toString() {
+    switch (this) {
+      case rowSparse:
+        return 'AutoPlacement.rowSparse';
+      case rowDense:
+        return 'AutoPlacement.rowDense';
+      case columnSparse:
+        return 'AutoPlacement.columnSparse';
+      case columnDense:
+        return 'AutoPlacement.columnDense';
+    }
+    return null;
+  }
+
+  /// The list of all available AutoPlacement values
+  static const List<AutoPlacement> values = [
+    rowSparse,
+    rowDense,
+    columnSparse,
+    columnDense,
+  ];
 }
 
 /// Determines the constraints available to the grid layout algorithm.
