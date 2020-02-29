@@ -1,3 +1,7 @@
+## [0.10.0-dev.1]
+* Make AutoPlacement class a little more enum-like, by adding a toString() that
+  resembles Dart enums and a static .values field
+
 ## [0.10.0-dev.0]
 * Added support for Flutter v1.14.0+
 
