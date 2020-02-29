@@ -1,3 +1,6 @@
+## [0.10.0-dev.2]
+* Correct Flutter version dependency in pubspec
+
 ## [0.10.0-dev.1]
 * Make AutoPlacement class a little more enum-like, by adding a toString() that
   resembles Dart enums and a static .values field
@@ -41,4 +44,3 @@
 
 ## [0.5.0]
 * First version. See the README.
-
