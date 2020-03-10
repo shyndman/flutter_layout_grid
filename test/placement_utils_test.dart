@@ -4,7 +4,7 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 void main() {
   group('template area parsing', () {
-    test('produces correct named GridAreas', () {
+    test('produces correctly named GridAreas', () {
       final templateAreas = gridTemplateAreas([
         'logo     nav      nav      nav',
         'bar      main     main     main',
