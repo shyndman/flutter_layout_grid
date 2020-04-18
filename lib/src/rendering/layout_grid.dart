@@ -847,7 +847,7 @@ class GridSizingInfo {
         .getRange(area.startForAxis(axis), area.endForAxis(axis))
         .map((t) => t.baseSize);
     final gapSize = (area.spanForAxis(axis) - 1) * unitGapAlongAxis(axis);
-    return sum(trackBaseSizes) + gapSize;
+    return math.max(0, sum(trackBaseSizes) + gapSize);
   }
 }
 
