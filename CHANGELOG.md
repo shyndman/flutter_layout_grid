@@ -1,3 +1,6 @@
+## [0.10.1-dev.0]
+* Invalidate placement in more situations
+
 ## [0.10.0-dev.2]
 * Correct Flutter version dependency in pubspec
 
