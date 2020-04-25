@@ -107,6 +107,7 @@ class RenderLayoutGrid extends RenderBox
     assert(value != null);
     if (_autoPlacementMode == value) return;
     _autoPlacementMode = value;
+    markNeedsPlacement();
     markNeedsLayout();
   }
 
@@ -141,6 +142,7 @@ class RenderLayoutGrid extends RenderBox
   set templateColumnSizes(List<TrackSize> value) {
     if (_templateColumnSizes == value) return;
     _templateColumnSizes = value;
+    markNeedsPlacement();
     markNeedsLayout();
   }
 
@@ -150,6 +152,7 @@ class RenderLayoutGrid extends RenderBox
   set templateRowSizes(List<TrackSize> value) {
     if (_templateRowSizes == value) return;
     _templateRowSizes = value;
+    markNeedsPlacement();
     markNeedsLayout();
   }
 
@@ -279,9 +282,10 @@ class RenderLayoutGrid extends RenderBox
   /// Determines where each grid item is positioned in the grid, using the
   /// auto-placement algorithm if necessary.
   void performItemPlacement() {
-    if (!_needsPlacement) return;
-    _needsPlacement = false;
-    _placementGrid = computeItemPlacement(this);
+    if (_needsPlacement) {
+      _needsPlacement = false;
+      _placementGrid = computeItemPlacement(this);
+    }
   }
 
   /// A rough approximation of
