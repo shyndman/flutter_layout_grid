@@ -28,11 +28,9 @@ terms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout#Glossary
 For inclusion in your pubspec, see
 [pub.dev](https://pub.dev/packages/flutter_layout_grid#-installing-tab-).
 
-### Flutter v1.14.0+ support
+### Flutter pre-v1.14.0 support
 
-Flutter v1.14.0 includes a [breaking change to
-ParentDataWidget](https://flutter.dev/docs/release/breaking-changes/parent-data-widget-generic-type),
-which is fixed in `flutter_layout_grid: 0.10.0-dev.0`.
+For Flutter versions before v1.14.0, use `flutter_layout_grid: ^0.9.0`
 
 ## Example
 
