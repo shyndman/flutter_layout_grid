@@ -22,7 +22,7 @@ enum AutoPlacementPacking {
 /// A widget that controls where a child of a [LayoutGrid] is placed. If a grid
 /// item is not wrapped by a [GridPlacement], it will be placed in the first
 /// available space, spanning one row and one column.
-class GridPlacement extends ParentDataWidget<LayoutGrid> {
+class GridPlacement extends ParentDataWidget<GridParentData> {
   const GridPlacement({
     Key key,
     @required Widget child,
@@ -114,6 +114,9 @@ class GridPlacement extends ParentDataWidget<LayoutGrid> {
       properties.add(IntProperty('rowSpan', rowSpan));
     }
   }
+
+  @override
+  Type get debugTypicalAncestorWidgetClass => LayoutGrid;
 }
 
 /// Extension methods for terse placement syntax
