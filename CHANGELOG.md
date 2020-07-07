@@ -1,3 +1,22 @@
+## [0.10.1]
+* Graduate 0.10.1-dev.0 to the release version now that Flutter 1.17 is out
+
+## [0.10.1-dev.0]
+* Invalidate placement in more situations
+
+## [0.10.0-dev.2]
+* Correct Flutter version dependency in pubspec
+
+## [0.10.0-dev.1]
+* Make AutoPlacement class a little more enum-like, by adding a toString() that
+  resembles Dart enums and a static .values field
+
+## [0.10.0-dev.0]
+* Added support for Flutter v1.14.0+
+
+## [0.9.4]
+* Invalidate placement in more situations
+
 ## [0.9.3]
 * Correct Flutter dependency in pubspec
 

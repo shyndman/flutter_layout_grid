@@ -62,18 +62,18 @@ class AutoPlacement {
 /// Determines the constraints available to the grid layout algorithm.
 enum GridFit {
   /// The constraints passed to the grid from its parent are tightened to the
-  /// biggest size allowed. For example, if the stack has loose constraints with
+  /// biggest size allowed. For example, if the grid has loose constraints with
   /// a width in the range 10 to 100 and a height in the range 0 to 600, then
   /// the children will be instructed to fill the entire 100×600 size.
   expand,
 
   /// The constraints passed to the grid from its parent are loosened. For
-  /// example, if the stack has constraints that force it to 350x600, then this
+  /// example, if the grid has constraints that force it to 350x600, then this
   /// would allow the children of the grid to collectively have a width between
   /// zero and 350 and a height from zero to 600.
   loose,
 
-  /// The constraints passed to the stack from its parent are passed unmodified
+  /// The constraints passed to the grid from its parent are passed unmodified
   /// to the children when determining their sizes.
   passthrough,
 }
