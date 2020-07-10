@@ -1,3 +1,6 @@
+## [0.10.2]
+* Add support for negative row/column gaps (thanks @daohoangson!)
+
 ## [0.10.1]
 * Graduate 0.10.1-dev.0 to the release version now that Flutter 1.17 is out
 
