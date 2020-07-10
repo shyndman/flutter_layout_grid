@@ -42,51 +42,45 @@ void main() {
           ),
         );
 
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            LayoutGrid(
-              columnGap: -borderWidth,
-              rowGap: -borderWidth,
-              gridFit: GridFit.passthrough,
-              templateColumnSizes: [
-                FlexibleTrackSize(1),
-                FlexibleTrackSize(1),
-                FlexibleTrackSize(1),
-              ],
-              templateRowSizes: [
-                IntrinsicContentTrackSize(),
-                IntrinsicContentTrackSize(),
-              ],
-              children: [
-                _box(color: Colors.red).withGridPlacement(
-                  columnStart: 0,
-                  rowStart: 0,
-                ),
-                _box(color: Colors.green).withGridPlacement(
-                  columnStart: 1,
-                  rowStart: 0,
-                ),
-                _box(color: Colors.blue).withGridPlacement(
-                  columnStart: 2,
-                  rowStart: 0,
-                ),
-                _box(color: Colors.purple).withGridPlacement(
-                  columnSpan: 2,
-                  columnStart: 0,
-                  rowStart: 1,
-                ),
-              ],
-            ),
-            Positioned.fill(child: _box()),
-          ],
-        ),
+    await tester.pumpWidget(
+      LayoutGrid(
+        columnGap: -borderWidth,
+        rowGap: -borderWidth,
+        textDirection: TextDirection.ltr,
+        gridFit: GridFit.passthrough,
+        templateColumnSizes: [
+          FlexibleTrackSize(1),
+          FlexibleTrackSize(1),
+          FlexibleTrackSize(1),
+        ],
+        templateRowSizes: [
+          IntrinsicContentTrackSize(),
+          IntrinsicContentTrackSize(),
+        ],
+        children: [
+          _box(color: Colors.red).withGridPlacement(
+            columnStart: 0,
+            rowStart: 0,
+          ),
+          _box(color: Colors.green).withGridPlacement(
+            columnStart: 1,
+            rowStart: 0,
+          ),
+          _box(color: Colors.blue).withGridPlacement(
+            columnStart: 2,
+            rowStart: 0,
+          ),
+          _box(color: Colors.purple).withGridPlacement(
+            columnSpan: 2,
+            columnStart: 0,
+            rowStart: 1,
+          ),
+        ],
       ),
-    ));
+    );
 
     await expectLater(
-      find.byType(MaterialApp),
+      find.byType(LayoutGrid),
       matchesGoldenFile('goldens/negative_gap.png'),
     );
   });
