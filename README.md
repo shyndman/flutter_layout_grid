@@ -6,7 +6,7 @@
 <img src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet.png"
 alt="Example of Flutter Layout Grid" width="320">
 
-A grid-based layout system for Flutter, optimized for user interface design, inspired by [CSS Grid
+A grid layout system for Flutter, optimized for user interface design, inspired by [CSS Grid
 Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout).
 
 ✨Featuring:✨
@@ -27,6 +27,10 @@ terms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout#Glossary
 
 For inclusion in your pubspec, see
 [pub.dev](https://pub.dev/packages/flutter_layout_grid#-installing-tab-).
+
+### Null-safe support
+
+For a null-safe version of the library, use `flutter_layout_grid: ^0.11.0-nullsafety.1`
 
 ### Flutter pre-v1.14.0 support
 
