@@ -6,7 +6,7 @@
   "configurations": [
     {
       "name": "Piet",
-      "program": "example/piet.dart",
+      "program": "example/flutter_layout_grid.dart",
       "type": "dart",
       "request": "launch",
     },
