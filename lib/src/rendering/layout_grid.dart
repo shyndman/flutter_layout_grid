@@ -221,7 +221,7 @@ class RenderLayoutGrid extends RenderBox
     return _placementGrid
         .getCellsInTrack(trackIndex, trackType)
         .expand((cell) => cell.occupants)
-        .where(removeDuplicates())
+        .removeDuplicates()
         .toList(growable: false);
   }
 
@@ -412,7 +412,7 @@ class RenderLayoutGrid extends RenderBox
   ) {
     final itemsInIntrinsicTracks = intrinsicTracks
         .expand((t) => getChildrenInTrack(type, t.index))
-        .where(removeDuplicates());
+        .removeDuplicates();
 
     final itemsBySpan = groupBy(itemsInIntrinsicTracks, (RenderObject item) {
       return _placementGrid.itemAreas[item].spanForAxis(sizingAxis);
