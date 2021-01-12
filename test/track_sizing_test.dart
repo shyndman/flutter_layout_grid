@@ -8,8 +8,9 @@ void main() {
   group('track sizing', () {
     test('not sure yet', () {
       final renderGrid = RenderLayoutGrid(
-        templateColumnSizes: null,
-        templateRowSizes: null,
+        templateColumnSizes: [],
+        templateRowSizes: [],
+        children: [],
       );
       renderGrid.performTrackSizing(
         TrackType.column,

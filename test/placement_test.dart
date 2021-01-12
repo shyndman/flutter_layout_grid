@@ -39,11 +39,11 @@ void main() {
 }
 
 RenderBox gridItem({
-  int columnStart,
+  int? columnStart,
   int columnSpan = 1,
-  int rowStart,
+  int? rowStart,
   int rowSpan = 1,
-  String debugLabel,
+  String? debugLabel,
 }) {
   return TestRenderBox()
     ..parentData = GridParentData(

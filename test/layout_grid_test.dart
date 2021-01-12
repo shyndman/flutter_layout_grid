@@ -34,7 +34,7 @@ void main() {
 
   testWidgets('Negative gap', (tester) async {
     final borderWidth = 5.0;
-    final _box = ({Widget child, Color color}) => Container(
+    final _box = ({Widget? child, required Color color}) => Container(
           child: child,
           decoration: BoxDecoration(
             border: Border.all(width: borderWidth),
