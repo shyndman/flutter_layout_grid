@@ -156,12 +156,18 @@ class _GridAreaBuilder {
   int _addedColumnCount(int column) {
     return column <= _minColumn
         ? _minColumn - column
-        : column >= _maxColumn ? column - _maxColumn : 0;
+        : column >= _maxColumn
+            ? column - _maxColumn
+            : 0;
   }
 
   bool _ensureRowInRange(int row) => _addedRowCount(row) <= 1;
   int _addedRowCount(int row) {
-    return row <= _minRow ? _minRow - row : row >= _maxRow ? row - _maxRow : 0;
+    return row <= _minRow
+        ? _minRow - row
+        : row >= _maxRow
+            ? row - _maxRow
+            : 0;
   }
 
   GridArea build() {

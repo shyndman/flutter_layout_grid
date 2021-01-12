@@ -487,7 +487,9 @@ class RenderLayoutGrid extends RenderBox
     for (final track in spannedTracks) {
       freeSpace -= dimension == _IntrinsicDimension.min
           ? track.baseSize
-          : track.isInfinite ? track.baseSize : track.growthLimit;
+          : track.isInfinite
+              ? track.baseSize
+              : track.growthLimit;
     }
 
     // If there's no free space to distribute, freeze the tracks and we're done
@@ -539,7 +541,9 @@ class RenderLayoutGrid extends RenderBox
     for (final track in tracks) {
       track.sizeDuringDistribution = dimension == _IntrinsicDimension.min
           ? track.baseSize
-          : track.isInfinite ? track.baseSize : track.growthLimit;
+          : track.isInfinite
+              ? track.baseSize
+              : track.growthLimit;
     }
 
     tracks.sort(_sortByGrowthPotential);
