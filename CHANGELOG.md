@@ -1,3 +1,6 @@
+## [0.11.0-nullsafety.0]
+* Add support for null safety
+
 ## [0.10.2]
 * Add support for negative row/column gaps (thanks @daohoangson!)
 
