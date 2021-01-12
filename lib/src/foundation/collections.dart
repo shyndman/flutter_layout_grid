@@ -21,9 +21,8 @@ T sum<T extends num>(Iterable<T> numbers) {
 /// ```
 Iterable<T> cumulativeSum<T extends num>(
   Iterable<T> numbers, {
-  bool? includeLast,
+  bool includeLast = true,
 }) sync* {
-  includeLast ??= true;
   T current = zeroForType<T>();
   for (final i in numbers) {
     yield current;
