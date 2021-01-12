@@ -77,7 +77,7 @@ class RenderLayoutGrid extends RenderBox
   RenderLayoutGrid({
     AutoPlacement autoPlacement = AutoPlacement.rowSparse,
     GridFit gridFit = GridFit.expand,
-    required List<RenderBox> children,
+    List<RenderBox>? children,
     double columnGap = 0,
     double rowGap = 0,
     required List<TrackSize> templateColumnSizes,
@@ -222,7 +222,7 @@ class RenderLayoutGrid extends RenderBox
   void performLayout() {
     // Size the grid
     final gridSizing = _computeGridSize(effectiveConstraints);
-    this.size = gridSizing.gridSize!;
+    this.size = gridSizing.gridSize;
 
     // Position and lay out the grid items
     var child = firstChild;
@@ -628,7 +628,7 @@ class RenderLayoutGrid extends RenderBox
   /// on next layout.
   void markNeedsPlacementIfRequired(RenderObject child) {
     if (_needsPlacement) return;
-    final parentData = child.parentData as GridParentData;
+    final parentData = child.parentData as GridParentData?;
     if (parentData != null && !parentData.isDefinitelyPlaced) {
       markNeedsPlacement();
     }
@@ -637,7 +637,7 @@ class RenderLayoutGrid extends RenderBox
   void markNeedsPlacement() => _needsPlacement = true;
 
   @override
-  bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
     return defaultHitTestChildren(result, position: position);
   }
 
@@ -727,7 +727,7 @@ class GridSizingInfo {
           rowGap: rowGap,
         );
 
-  Size? gridSize;
+  late Size gridSize;
   final double columnGap;
   final double rowGap;
 

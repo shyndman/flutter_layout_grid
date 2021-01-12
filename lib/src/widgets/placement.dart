@@ -33,16 +33,6 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
   })  : this.name = null,
         super(key: key, child: child);
 
-  const GridPlacement.areaNamed({
-    Key? key,
-    required Widget child,
-    required this.name,
-  })   : columnStart = null,
-        columnSpan = null,
-        rowStart = null,
-        rowSpan = null,
-        super(key: key, child: child);
-
   /// The name of the area whose tracks will be used to place this widget's
   /// child.
   final String? name;
@@ -51,13 +41,13 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
   final int? columnStart;
 
   /// The number of columns spanned by the child. Defaults to `1`.
-  final int? columnSpan;
+  final int columnSpan;
 
   /// If `null`, the child will be auto-placed.
   final int? rowStart;
 
   /// The number of rows spanned by the child. Defaults to `1`.
-  final int? rowSpan;
+  final int rowSpan;
 
   @override
   void applyParentData(RenderObject renderObject) {

@@ -133,7 +133,7 @@ abstract class TrackSize {
 ///
 /// This is the cheapest way to size a track.
 class FixedTrackSize extends TrackSize {
-  const FixedTrackSize(this.sizeInPx) : assert(sizeInPx != null);
+  const FixedTrackSize(this.sizeInPx);
 
   /// The size (width for columns, height for rows) the track should occupy
   /// in logical pixels.

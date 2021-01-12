@@ -10,7 +10,6 @@ void main() {
       final renderGrid = RenderLayoutGrid(
         templateColumnSizes: [],
         templateRowSizes: [],
-        children: [],
       );
       renderGrid.performTrackSizing(
         TrackType.column,
