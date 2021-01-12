@@ -28,6 +28,10 @@ terms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout#Glossary
 For inclusion in your pubspec, see
 [pub.dev](https://pub.dev/packages/flutter_layout_grid#-installing-tab-).
 
+### Null-safe support
+
+For a null-safe version of the library, use `flutter_layout_grid: ^0.11.0-nullsafety.0`
+
 ### Flutter pre-v1.14.0 support
 
 For Flutter versions before v1.14.0, use `flutter_layout_grid: ^0.9.0`
