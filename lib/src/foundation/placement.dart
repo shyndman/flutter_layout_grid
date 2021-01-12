@@ -48,12 +48,13 @@ class GridArea {
   @override
   bool operator ==(dynamic other) {
     if (other.runtimeType != runtimeType) return false;
-    final typedOther = other as GridArea;
-    return typedOther.name == name &&
-        typedOther.columnStart == columnStart &&
-        typedOther.columnEnd == columnEnd &&
-        typedOther.rowStart == rowStart &&
-        typedOther.rowEnd == rowEnd;
+    if (identical(other, this)) return true;
+    return other is GridArea &&
+        other.name == name &&
+        other.columnStart == columnStart &&
+        other.columnEnd == columnEnd &&
+        other.rowStart == rowStart &&
+        other.rowEnd == rowEnd;
   }
 
   @override
