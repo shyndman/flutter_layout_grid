@@ -1,3 +1,8 @@
+## [0.10.3]
+* Mention nullsafety release in pubspec
+* Format code using latest formatter
+* Fix a lint
+
 ## [0.10.2]
 * Add support for negative row/column gaps (thanks @daohoangson!)
 
