@@ -21,7 +21,7 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
   final remainingChildren = <RenderBox>[];
 
   // 0. Bucket children into lists based on their placement priority
-  RenderBox child = grid.firstChild;
+  RenderBox? child = grid.firstChild;
   while (child != null) {
     final childParentData = child.parentData as GridParentData;
 
@@ -86,7 +86,7 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
 /// information.
 class PlacementGrid {
   PlacementGrid({
-    @required this.grid,
+    required this.grid,
   })  : explicitColumnCount = grid.templateColumnSizes.length,
         explicitRowCount = grid.templateRowSizes.length {
     _cells = List<GridCell>.generate(
@@ -98,7 +98,7 @@ class PlacementGrid {
   final int explicitRowCount;
 
   Map<RenderBox, GridArea> itemAreas = {};
-  List<GridCell> _cells;
+  late List<GridCell> _cells;
 
   GridCell getCellAt(int column, int row) =>
       _cells[row * explicitColumnCount + column];
@@ -138,7 +138,7 @@ class PlacementGrid {
     if (area.columnEnd > explicitColumnCount) {
       throw FlutterError.fromParts([
         ErrorSummary('GridPlacement.columnEnd cannot exceed column count\n'),
-        grid?.toDiagnosticsNode(name: 'grid'),
+        grid.toDiagnosticsNode(name: 'grid'),
         item.toDiagnosticsNode(name: 'gridItem'),
       ]);
     }
@@ -146,7 +146,7 @@ class PlacementGrid {
     if (area.rowEnd > explicitRowCount) {
       throw FlutterError.fromParts([
         ErrorSummary('GridPlacement.rowEnd cannot exceed row count\n'),
-        grid?.toDiagnosticsNode(name: 'grid'),
+        grid.toDiagnosticsNode(name: 'grid'),
         item.toDiagnosticsNode(name: 'gridItem'),
       ]);
     }
@@ -176,10 +176,10 @@ class PlacementGridCursor {
   });
 
   final PlacementGrid grid;
-  final AutoPlacement autoPlacementMode;
+  final AutoPlacement? autoPlacementMode;
 
   Axis get autoPlacementTraversalAxis =>
-      autoPlacementMode.trackType == TrackType.row
+      autoPlacementMode!.trackType == TrackType.row
           ? Axis.horizontal
           : Axis.vertical;
 
@@ -207,10 +207,10 @@ class PlacementGridCursor {
       : grid.explicitRowCount;
 
   /// The index of the track that we're currently searching for space.
-  int fixedTrackIndex;
+  int? fixedTrackIndex;
 
   /// horizontal for column, vertical for row
-  Axis fixedAxis;
+  Axis? fixedAxis;
 
   /// `true` if this cursor is fixed to traversing a single track
   bool get isFixedToTrack => fixedAxis != null;
@@ -218,9 +218,9 @@ class PlacementGridCursor {
   /// `true` if this cursor is fixed to an axis, but requires a
   /// [moveToNextEmptyArea] to be positioned correctly
   bool get requiresMoveToFixedAxisIndex =>
-      isFixedToTrack && currentIndexOnAxis(fixedAxis) != fixedTrackIndex;
+      isFixedToTrack && currentIndexOnAxis(fixedAxis!) != fixedTrackIndex;
 
-  void fixToAxisIndex(int fixedIndex, Axis fixedAxis) {
+  void fixToAxisIndex(int? fixedIndex, Axis fixedAxis) {
     this.fixedTrackIndex = fixedIndex;
     this.fixedAxis = fixedAxis;
   }
@@ -236,7 +236,7 @@ class PlacementGridCursor {
       moveFn = _moveFixedToNext;
     } else {
       // If we're packing dense, reset the cursor positioning
-      if (autoPlacementMode.packing == AutoPlacementPacking.dense) {
+      if (autoPlacementMode!.packing == AutoPlacementPacking.dense) {
         currentColumn = -1;
         currentRow = -1;
       }
@@ -247,19 +247,19 @@ class PlacementGridCursor {
   }
 
   Iterable<GridArea> _moveFixedToNext(int columnSpan, int rowSpan) sync* {
-    final traversalAxis = flipAxis(fixedAxis);
+    final traversalAxis = flipAxis(fixedAxis!);
     final traversalAxisIndex = () => currentIndexOnAxis(traversalAxis);
 
     if (requiresMoveToFixedAxisIndex) {
       if (currentColumn == -1 && currentRow == -1) {
         setCurrentIndexOnAxis(0, traversalAxis);
       } else {
-        final fixedAxisIndex = currentIndexOnAxis(fixedAxis);
-        if (fixedTrackIndex < fixedAxisIndex) {
+        final fixedAxisIndex = currentIndexOnAxis(fixedAxis!);
+        if (fixedTrackIndex! < fixedAxisIndex) {
           setCurrentIndexOnAxis(traversalAxisIndex() + 1, traversalAxis);
         }
       }
-      setCurrentIndexOnAxis(fixedTrackIndex, fixedAxis);
+      setCurrentIndexOnAxis(fixedTrackIndex!, fixedAxis!);
       yield _currentAreaForSpans(columnSpan, rowSpan);
     }
 
@@ -318,7 +318,7 @@ class GridCell {
   bool get isOccupied => occupants.isNotEmpty;
   bool get isVacant => !isOccupied;
 
-  String get debugLabel => occupants.isNotEmpty
+  String? get debugLabel => occupants.isNotEmpty
       ? (occupants.first.parentData as GridParentData).debugLabel
       : null;
 
@@ -331,13 +331,13 @@ class GridCell {
   }
 
   /// The cell next to this one in the row, or `null` if none.
-  GridCell get nextInRow {
+  GridCell? get nextInRow {
     final column = (index + 1) % grid.explicitColumnCount;
     return column == 0 ? null : grid._cells[index + 1];
   }
 
   /// The cell below this one in the column, or `null` if none.
-  GridCell get nextInColumn {
+  GridCell? get nextInColumn {
     final i = index + grid.explicitColumnCount;
     return i >= grid._cells.length ? null : grid._cells[i];
   }

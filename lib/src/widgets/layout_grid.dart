@@ -47,7 +47,7 @@ class AutoPlacement {
       case columnDense:
         return 'AutoPlacement.columnDense';
     }
-    return null;
+    throw StateError('Unknown AutoPlacement');
   }
 
   /// The list of all available AutoPlacement values
@@ -88,19 +88,17 @@ enum GridFit {
 /// be thrown during layout.
 class LayoutGrid extends MultiChildRenderObjectWidget {
   LayoutGrid({
-    Key key,
+    Key? key,
     this.autoPlacement = AutoPlacement.rowSparse,
     this.gridFit = GridFit.expand,
-    @required this.templateColumnSizes,
-    @required this.templateRowSizes,
-    double rowGap,
-    double columnGap,
+    required this.templateColumnSizes,
+    required this.templateRowSizes,
+    this.rowGap = 0,
+    this.columnGap = 0,
     this.textDirection,
     List<Widget> children = const [],
-  })  : assert(templateRowSizes != null && templateRowSizes.isNotEmpty),
-        assert(templateColumnSizes != null && templateColumnSizes.isNotEmpty),
-        this.rowGap = rowGap ?? 0,
-        this.columnGap = columnGap ?? 0,
+  })  : assert(templateRowSizes.isNotEmpty),
+        assert(templateColumnSizes.isNotEmpty),
         super(key: key, children: children);
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
@@ -125,7 +123,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// The text direction used to resolve column ordering.
   ///
   /// Defaults to the ambient [Directionality].
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   @override
   RenderLayoutGrid createRenderObject(BuildContext context) {

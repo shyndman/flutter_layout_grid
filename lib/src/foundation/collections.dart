@@ -21,16 +21,27 @@ T sum<T extends num>(Iterable<T> numbers) {
 /// ```
 Iterable<T> cumulativeSum<T extends num>(
   Iterable<T> numbers, {
-  bool includeLast,
+  bool? includeLast,
 }) sync* {
   includeLast ??= true;
   T current = zeroForType<T>();
   for (final i in numbers) {
     yield current;
-    current += i;
+    current = (current + i) as T;
   }
   if (includeLast) yield current;
 }
 
 /// Returns the representation of `0` for a [num] type `T`.
 T zeroForType<T extends num>() => (T == int ? 0 : 0.0) as T;
+
+
+extension IterableTryWhereExtensions<E> on Iterable<E> {
+  /// Like [firstWhere], but returns `null` if the element is not found.
+  E? tryFirstWhere(bool test(E element)) {
+    for (E element in this) {
+      if (test(element)) return element;
+    }
+    return null;
+  }
+}

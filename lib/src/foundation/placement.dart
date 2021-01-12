@@ -9,22 +9,22 @@ import 'package:quiver/core.dart';
 class GridArea {
   GridArea({
     this.name,
-    this.columnStart,
-    this.columnEnd,
-    this.rowStart,
-    this.rowEnd,
+    required this.columnStart,
+    required this.columnEnd,
+    required this.rowStart,
+    required this.rowEnd,
   });
 
   GridArea.withSpans({
     this.name,
-    this.columnStart,
-    int columnSpan,
-    this.rowStart,
-    int rowSpan,
+    required this.columnStart,
+    required int columnSpan,
+    required this.rowStart,
+    required int rowSpan,
   })  : this.columnEnd = columnStart + columnSpan,
         this.rowEnd = rowStart + rowSpan;
 
-  final String name;
+  final String? name;
   final int columnStart;
   final int rowStart;
 
@@ -68,7 +68,7 @@ class GridArea {
 /// too?
 Map<String, GridArea> gridTemplateAreas(List<String> specRows) {
   final gridAreaBuilders = <String, _GridAreaBuilder>{};
-  int columnCount;
+  int? columnCount;
 
   for (int currentRow = 0; currentRow < specRows.length; currentRow++) {
     final tokens = specRows[currentRow].trim().split(_tokenSeparatorPattern);
@@ -114,10 +114,10 @@ class _GridAreaBuilder {
   _GridAreaBuilder(this.areaName);
   final String areaName;
 
-  int _minColumn;
-  int _maxColumn;
-  int _minRow;
-  int _maxRow;
+  int? _minColumn;
+  late int _maxColumn;
+  int? _minRow;
+  late int _maxRow;
 
   /// When a new column or row is introduced to the area when adding a cell,
   /// there will be a number of cells that require filling in order for the area
@@ -130,8 +130,8 @@ class _GridAreaBuilder {
       _minColumn = _maxColumn = column;
       _missingCells++;
     } else if (_ensureColumnInRange(column)) {
-      _missingCells += _addedColumnCount(column) * (_maxRow - _minRow + 1);
-      _minColumn = min(_minColumn, column);
+      _missingCells += _addedColumnCount(column) * (_maxRow - _minRow! + 1);
+      _minColumn = min(_minColumn!, column);
       _maxColumn = max(_maxColumn, column);
     } else {
       throw ArgumentError(
@@ -141,8 +141,8 @@ class _GridAreaBuilder {
     if (_minRow == null) {
       _minRow = _maxRow = row;
     } else if (_ensureRowInRange(row)) {
-      _missingCells += _addedRowCount(row) * (_maxColumn - _minColumn + 1);
-      _minRow = min(_minRow, row);
+      _missingCells += _addedRowCount(row) * (_maxColumn - _minColumn! + 1);
+      _minRow = min(_minRow!, row);
       _maxRow = max(_maxRow, row);
     } else {
       throw ArgumentError(
@@ -154,14 +154,14 @@ class _GridAreaBuilder {
 
   bool _ensureColumnInRange(int column) => _addedColumnCount(column) <= 1;
   int _addedColumnCount(int column) {
-    return column <= _minColumn
-        ? _minColumn - column
+    return column <= _minColumn!
+        ? _minColumn! - column
         : column >= _maxColumn ? column - _maxColumn : 0;
   }
 
   bool _ensureRowInRange(int row) => _addedRowCount(row) <= 1;
   int _addedRowCount(int row) {
-    return row <= _minRow ? _minRow - row : row >= _maxRow ? row - _maxRow : 0;
+    return row <= _minRow! ? _minRow! - row : row >= _maxRow ? row - _maxRow : 0;
   }
 
   GridArea build() {
@@ -172,9 +172,9 @@ class _GridAreaBuilder {
 
     return GridArea(
       name: areaName,
-      columnStart: _minColumn,
+      columnStart: _minColumn!,
       columnEnd: _maxColumn + 1,
-      rowStart: _minRow,
+      rowStart: _minRow!,
       rowEnd: _maxRow + 1,
     );
   }
