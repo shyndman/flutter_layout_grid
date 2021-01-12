@@ -34,7 +34,6 @@ Iterable<T> cumulativeSum<T extends num>(
 /// Returns the representation of `0` for a [num] type `T`.
 T zeroForType<T extends num>() => (T == int ? 0 : 0.0) as T;
 
-
 extension IterableTryWhereExtensions<E> on Iterable<E> {
   /// Like [firstWhere], but returns `null` if the element is not found.
   E? tryFirstWhere(bool test(E element)) {

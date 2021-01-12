@@ -427,8 +427,8 @@ class RenderLayoutGrid extends RenderBox
       for (final i in spanItemsByTrack.keys) {
         final spannedTracks = tracks.getRange(i, i + span);
         final spanItemsInTrack = spanItemsByTrack[i]!;
-        final intrinsicTrack = spannedTracks
-            .tryFirstWhere((t) => t.sizeFunction.isIntrinsic);
+        final intrinsicTrack =
+            spannedTracks.tryFirstWhere((t) => t.sizeFunction.isIntrinsic);
 
         // We don't size flexible tracks until later
         if (intrinsicTrack == null ||

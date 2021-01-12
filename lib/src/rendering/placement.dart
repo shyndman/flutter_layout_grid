@@ -87,7 +87,7 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
 class PlacementGrid {
   PlacementGrid({
     required this.grid,
-  })  : explicitColumnCount = grid.templateColumnSizes.length,
+  })   : explicitColumnCount = grid.templateColumnSizes.length,
         explicitRowCount = grid.templateRowSizes.length {
     _cells = List<GridCell>.generate(
         explicitColumnCount * explicitRowCount, (i) => GridCell(this, i));
