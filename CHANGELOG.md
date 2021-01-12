@@ -1,4 +1,7 @@
 ## [0.11.0-nullsafety.0]
+* Formatted source, and fixed a couple lints
+
+## [0.11.0-nullsafety.0]
 * Add support for null safety
 
 ## [0.10.2]
