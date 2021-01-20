@@ -70,8 +70,7 @@ abstract class TrackSize with Diagnosticable {
   /// the cross axis sizing is known.
   double minIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   });
 
@@ -97,8 +96,7 @@ abstract class TrackSize with Diagnosticable {
   /// the cross axis sizing is known.
   double maxIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   });
 
@@ -158,8 +156,7 @@ class FixedTrackSize extends TrackSize {
   @override
   double minIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   }) {
     return sizeInPx;
@@ -168,8 +165,7 @@ class FixedTrackSize extends TrackSize {
   @override
   double maxIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   }) {
     return sizeInPx;
@@ -214,8 +210,7 @@ class FlexibleTrackSize extends TrackSize {
   @override
   double minIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   }) {
     return 0;
@@ -224,8 +219,7 @@ class FlexibleTrackSize extends TrackSize {
   @override
   double maxIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   }) {
     return 0;
@@ -257,8 +251,7 @@ class IntrinsicContentTrackSize extends TrackSize {
   @override
   double minIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   }) {
     crossAxisSizeForItem ??= (_) => double.infinity;
@@ -277,8 +270,7 @@ class IntrinsicContentTrackSize extends TrackSize {
   @override
   double maxIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items,
-    double measurementAxisMaxSize, {
+    Iterable<RenderBox> items, {
     double Function(RenderBox) crossAxisSizeForItem,
   }) {
     crossAxisSizeForItem ??= (_) => double.infinity;
