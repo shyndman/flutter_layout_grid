@@ -73,8 +73,7 @@ enum GridFit {
   /// zero and 350 and a height from zero to 600.
   loose,
 
-  /// The constraints passed to the grid from its parent are passed unmodified
-  /// to the children when determining their sizes.
+  /// The constraints passed to the grid from its parent are interpreted as-is.
   passthrough,
 }
 
