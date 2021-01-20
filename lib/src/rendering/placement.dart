@@ -20,7 +20,10 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
   final flowAxisPlacedChildren = <RenderBox>[];
   final remainingChildren = <RenderBox>[];
 
-  // 0. Bucket children into lists based on their placement priority
+  // 0. Bucket children into lists based on their placement priority:
+  //
+  //    definitely on 2 axes > definitely on 1 axis > rest
+  //
   RenderBox child = grid.firstChild;
   while (child != null) {
     final childParentData = child.parentData as GridParentData;
