@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import '../rendering/track_size.dart';
@@ -149,5 +150,26 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       ..columnGap = columnGap
       ..rowGap = rowGap
       ..textDirection = textDirection ?? Directionality.of(context);
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+
+    properties.add(IterableProperty(
+      'templateColumnSizes',
+      templateColumnSizes,
+    ));
+    properties.add(IterableProperty(
+      'templateRowSizes',
+      templateRowSizes,
+    ));
+    properties.add(EnumProperty('autoPlacement', autoPlacement));
+    properties.add(EnumProperty('gridFit', gridFit));
+    properties.add(DoubleProperty('columnGap', columnGap));
+    properties.add(DoubleProperty('rowGap', rowGap));
+    if (textDirection != null) {
+      properties.add(EnumProperty('textDirection', textDirection));
+    }
   }
 }
