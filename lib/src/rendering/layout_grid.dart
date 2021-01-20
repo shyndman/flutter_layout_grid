@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/iterables.dart';
 
-import '../../flutter_layout_grid.dart';
+import '../foundation/box.dart';
 import '../foundation/collections.dart';
 import 'placement.dart';
 
@@ -119,21 +119,6 @@ class RenderLayoutGrid extends RenderBox
     if (_gridFit == value) return;
     _gridFit = value;
     markNeedsLayout();
-  }
-
-  BoxConstraints get effectiveConstraints {
-    switch (gridFit) {
-      case GridFit.expand:
-        return BoxConstraints.tight(constraints.biggest);
-
-      case GridFit.loose:
-        return constraints.loosen();
-
-      case GridFit.passthrough:
-        return constraints;
-    }
-
-    throw StateError('$gridFit is not a valid gridFit');
   }
 
   /// Defines the sizing functions of the grid's columns.
@@ -296,7 +281,7 @@ class RenderLayoutGrid extends RenderBox
     GridSizingInfo gridSizing, {
     @visibleForTesting BoxConstraints constraints,
   }) {
-    constraints ??= this.constraints;
+    constraints ??= this.constraints.constraintsForGridFit(gridFit);
 
     final sizingAxis = measurementAxisForTrackType(typeBeingSized);
     final intrinsicTracks = <GridTrack>[];
