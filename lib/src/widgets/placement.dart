@@ -35,16 +35,6 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
         this.name = null,
         super(key: key, child: child);
 
-  const GridPlacement.areaNamed({
-    Key key,
-    @required Widget child,
-    @required this.name,
-  })  : columnStart = null,
-        columnSpan = null,
-        rowStart = null,
-        rowSpan = null,
-        super(key: key, child: child);
-
   /// The name of the area whose tracks will be used to place this widget's
   /// child.
   final String name;
