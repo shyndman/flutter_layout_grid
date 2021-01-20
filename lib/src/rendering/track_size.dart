@@ -27,10 +27,13 @@ Axis measurementAxisForTrackType(TrackType type) {
 ///
 /// Another algorithm that is relatively cheap include [FlexibleTrackSize],
 /// which distributes the space equally among the flexible tracks.
-abstract class TrackSize {
+abstract class TrackSize with Diagnosticable {
   /// Abstract const constructor. This constructor enables subclasses to provide
   /// const constructors so that they can be used in const expressions.
-  const TrackSize();
+  const TrackSize({this.debugLabel});
+
+  /// A label that is included in debug output
+  final String debugLabel;
 
   /// Returns whether this size can resolve to a fixed value provided the
   /// grid's box constraints.
@@ -126,14 +129,22 @@ abstract class TrackSize {
   }
 
   @override
-  String toString() => '$runtimeType';
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+
+    if (debugLabel != null) {
+      properties.add(StringProperty('debugLabel', debugLabel));
+    }
+  }
 }
 
 /// Sizes the track to a specific number of pixels.
 ///
 /// This is the cheapest way to size a track.
 class FixedTrackSize extends TrackSize {
-  const FixedTrackSize(this.sizeInPx) : assert(sizeInPx != null);
+  const FixedTrackSize(this.sizeInPx, {String debugLabel})
+      : assert(sizeInPx != null),
+        super(debugLabel: debugLabel);
 
   /// The size (width for columns, height for rows) the track should occupy
   /// in logical pixels.
@@ -165,7 +176,11 @@ class FixedTrackSize extends TrackSize {
   }
 
   @override
-  String toString() => '$runtimeType(size=${debugFormatDouble(sizeInPx)})';
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+
+    properties.add(DoubleProperty('sizeInPx', sizeInPx));
+  }
 }
 
 /// Sizes the track by taking a part of the remaining space once all the other
@@ -180,8 +195,9 @@ class FlexibleTrackSize extends TrackSize {
   /// Creates a track size based on a fraction of the grid's leftover space.
   ///
   /// The [flexFactor] argument must not be null.
-  const FlexibleTrackSize(this.flexFactor)
-      : assert(flexFactor != null && flexFactor > 0);
+  const FlexibleTrackSize(this.flexFactor, {String debugLabel})
+      : assert(flexFactor != null && flexFactor > 0),
+        super(debugLabel: debugLabel);
 
   /// The flex factor to use for this track
   ///
@@ -219,14 +235,19 @@ class FlexibleTrackSize extends TrackSize {
   double get flex => flexFactor;
 
   @override
-  String toString() => '$runtimeType(flexFactor=$flexFactor)';
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+
+    properties.add(DoubleProperty('flex', flex));
+  }
 }
 
 /// Sizes the track according to the intrinsic dimensions of all its cells.
 ///
 /// This is a very expensive way to size a column.
 class IntrinsicContentTrackSize extends TrackSize {
-  const IntrinsicContentTrackSize();
+  const IntrinsicContentTrackSize({String debugLabel})
+      : super(debugLabel: debugLabel);
 
   @override
   bool get isIntrinsic {
