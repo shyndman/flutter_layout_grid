@@ -222,14 +222,13 @@ class RenderLayoutGrid extends RenderBox
 
   @override
   void performLayout() {
-    final effectiveConstraints = constraints.constraintsForGridFit(gridFit);
     if (debugPrintGridLayout) {
-      debugPrint('Starting grid layout for constraints $effectiveConstraints');
+      debugPrint('Starting grid layout for constraints $constraints, '
+          'child constraints ${constraints.constraintsForGridFit(gridFit)}');
     }
 
     // Size the grid
-    final gridSizing =
-        this.lastGridSizing = computeGridSize(effectiveConstraints);
+    final gridSizing = this.lastGridSizing = computeGridSize(constraints);
     this.size = gridSizing.gridSize;
 
     if (debugPrintGridLayout) {
@@ -275,7 +274,12 @@ class RenderLayoutGrid extends RenderBox
   }
 
   @visibleForTesting
-  GridSizingInfo computeGridSize(BoxConstraints constraints) {
+  GridSizingInfo computeGridSize(
+    BoxConstraints gridConstraints, {
+    BoxConstraints childConstraints,
+  }) {
+    childConstraints ??= gridConstraints.constraintsForGridFit(gridFit);
+
     // Distribute grid items into cells
     performItemPlacement();
 
@@ -292,23 +296,26 @@ class RenderLayoutGrid extends RenderBox
     _performTrackSizing(
       TrackType.column,
       gridSizing,
-      constraints: constraints,
+      constraints: childConstraints,
     );
 
     // Determine the size of the row tracks
     _performTrackSizing(
       TrackType.row,
       gridSizing,
-      constraints: constraints,
+      constraints: childConstraints,
     );
 
     // Stretch intrinsics
     _stretchIntrinsicTracks(TrackType.column, gridSizing,
-        constraints: constraints);
+        constraints: childConstraints);
     _stretchIntrinsicTracks(TrackType.row, gridSizing,
-        constraints: constraints);
+        constraints: childConstraints);
 
-    gridSizing.gridSize = constraints.constrain(gridSizing.internalGridSize);
+    // Constrain the size of the grid to whatever the parent provides. This
+    // may overflow children.
+    gridSizing.gridSize =
+        gridConstraints.constrain(gridSizing.internalGridSize);
 
     return gridSizing;
   }
@@ -341,8 +348,6 @@ class RenderLayoutGrid extends RenderBox
     GridSizingInfo gridSizing, {
     BoxConstraints constraints,
   }) {
-    constraints ??= this.constraints.constraintsForGridFit(gridFit);
-
     final sizingAxis = measurementAxisForTrackType(typeBeingSized);
     final intrinsicTracks = <GridTrack>[];
     final flexibleTracks = <GridTrack>[];
