@@ -32,56 +32,56 @@ void main() {
     );
   });
 
-  testWidgets('Negative gap', (tester) async {
-    final borderWidth = 5.0;
-    final _box = ({Widget child, Color color}) => Container(
-          child: child,
-          decoration: BoxDecoration(
-            border: Border.all(width: borderWidth),
-            color: color,
-          ),
-        );
+  // testWidgets('Negative gap', (tester) async {
+  //   final borderWidth = 5.0;
+  //   final _box = ({Widget child, Color color}) => Container(
+  //         child: child,
+  //         decoration: BoxDecoration(
+  //           border: Border.all(width: borderWidth),
+  //           color: color,
+  //         ),
+  //       );
 
-    await tester.pumpWidget(
-      LayoutGrid(
-        columnGap: -borderWidth,
-        rowGap: -borderWidth,
-        textDirection: TextDirection.ltr,
-        gridFit: GridFit.passthrough,
-        templateColumnSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(1),
-        ],
-        templateRowSizes: [
-          IntrinsicContentTrackSize(),
-          IntrinsicContentTrackSize(),
-        ],
-        children: [
-          _box(color: Colors.red).withGridPlacement(
-            columnStart: 0,
-            rowStart: 0,
-          ),
-          _box(color: Colors.green).withGridPlacement(
-            columnStart: 1,
-            rowStart: 0,
-          ),
-          _box(color: Colors.blue).withGridPlacement(
-            columnStart: 2,
-            rowStart: 0,
-          ),
-          _box(color: Colors.purple).withGridPlacement(
-            columnSpan: 2,
-            columnStart: 0,
-            rowStart: 1,
-          ),
-        ],
-      ),
-    );
+  //   await tester.pumpWidget(
+  //     LayoutGrid(
+  //       columnGap: -borderWidth,
+  //       rowGap: -borderWidth,
+  //       textDirection: TextDirection.ltr,
+  //       gridFit: GridFit.passthrough,
+  //       templateColumnSizes: [
+  //         FlexibleTrackSize(1),
+  //         FlexibleTrackSize(1),
+  //         FlexibleTrackSize(1),
+  //       ],
+  //       templateRowSizes: [
+  //         IntrinsicContentTrackSize(),
+  //         IntrinsicContentTrackSize(),
+  //       ],
+  //       children: [
+  //         _box(color: Colors.red).withGridPlacement(
+  //           columnStart: 0,
+  //           rowStart: 0,
+  //         ),
+  //         _box(color: Colors.green).withGridPlacement(
+  //           columnStart: 1,
+  //           rowStart: 0,
+  //         ),
+  //         _box(color: Colors.blue).withGridPlacement(
+  //           columnStart: 2,
+  //           rowStart: 0,
+  //         ),
+  //         _box(color: Colors.purple).withGridPlacement(
+  //           columnSpan: 2,
+  //           columnStart: 0,
+  //           rowStart: 1,
+  //         ),
+  //       ],
+  //     ),
+  //   );
 
-    await expectLater(
-      find.byType(LayoutGrid),
-      matchesGoldenFile('goldens/negative_gap.png'),
-    );
-  });
+  //   await expectLater(
+  //     find.byType(LayoutGrid),
+  //     matchesGoldenFile('goldens/negative_gap.png'),
+  //   );
+  // });
 }
