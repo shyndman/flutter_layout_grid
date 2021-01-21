@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:flutter_layout_grid/src/foundation/box.dart';
 import 'package:flutter_layout_grid/src/rendering/layout_grid.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -21,8 +20,7 @@ GridSizingInfo sizeEmptyGrid({
     templateRowSizes: rowSizes,
     textDirection: TextDirection.ltr,
   );
-  return renderGrid.computeGridSize(
-      (constraints ?? testConstraints).constraintsForGridFit(gridFit));
+  return renderGrid.computeGridSize(constraints ?? testConstraints);
 }
 
 Future<GridSizingInfo> sizeGridWithChildren(
@@ -47,6 +45,10 @@ Future<GridSizingInfo> sizeGridWithChildren(
     ),
   );
 
+  return findGridSizing(tester);
+}
+
+GridSizingInfo findGridSizing(WidgetTester tester) {
   final renderGrid =
       tester.renderObject<RenderLayoutGrid>(find.byType(LayoutGrid));
   return renderGrid.lastGridSizing;
@@ -55,7 +57,7 @@ Future<GridSizingInfo> sizeGridWithChildren(
 Widget wrapInMinimalApp(Widget child) {
   return WidgetsApp(
     color: Colors.white,
-    builder: (context, child) => child,
+    builder: (context, _) => child,
   );
 }
 

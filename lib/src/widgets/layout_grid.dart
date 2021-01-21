@@ -66,6 +66,10 @@ enum GridFit {
   /// biggest size allowed. For example, if the grid has loose constraints with
   /// a width in the range 10 to 100 and a height in the range 0 to 600, then
   /// the children will be instructed to fill the entire 100×600 size.
+  ///
+  /// If the constraints passed to the grid are unbounded on a dimension, the
+  /// children will be allowed to maximize their sizes on that axis (column
+  /// taking preference).
   expand,
 
   /// The constraints passed to the grid from its parent are loosened. For
