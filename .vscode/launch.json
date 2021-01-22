@@ -5,6 +5,19 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Periodic Table",
+      "program": "example/periodic_table.dart",
+      "type": "dart",
+      "request": "launch",
+    },
+    {
+      "name": "Periodic Table (Profile)",
+      "program": "example/periodic_table.dart",
+      "type": "dart",
+      "flutterMode": "profile",
+      "request": "launch",
+    },
+    {
       "name": "Piet",
       "program": "example/flutter_layout_grid.dart",
       "type": "dart",
