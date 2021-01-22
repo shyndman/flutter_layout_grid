@@ -238,7 +238,7 @@ interested in taking those on at some point.
 
 ## Roadmap
 
-- [ ] Tests!
+- [x] Tests! (we now have a decent suite going)
 - [ ] Named template areas, for friendlier item placement
 - [ ] Improved track sizing, including minimum/maximums and aspect ratios
 - [ ] The ability to specify row and column gaps at specific line locations via a delegate
