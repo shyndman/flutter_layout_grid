@@ -57,9 +57,10 @@ void main() {
 
       expect(findGridSizing(tester).gridSize, Size(400, 400));
     });
+  });
 
-    testWidgets('Grids do not overflow, even if their children do',
-        (tester) async {
+  group('Overflowing children', () {
+    testWidgets('do not overflow the grid', (tester) async {
       await tester.pumpWidget(_gridFitHarness(
         constraints: BoxConstraints.tightFor(width: 400, height: 400),
         child: LayoutGrid(
@@ -70,7 +71,30 @@ void main() {
         ),
       ));
 
+      tester.takeException(); // Ignore overflow exception
+
       expect(findGridSizing(tester).gridSize, Size(400, 400));
+    });
+
+    testWidgets('are reported to the user', (tester) async {
+      await tester.pumpWidget(_gridFitHarness(
+        constraints: BoxConstraints.tightFor(width: 400, height: 400),
+        child: LayoutGrid(
+          gridFit: GridFit.expand,
+          templateColumnSizes: [fixed(800)],
+          templateRowSizes: [fixed(800)],
+          children: [Container()],
+        ),
+      ));
+
+      // Ignore overflow exception
+      final dynamic exception = tester.takeException();
+      expect(exception, isFlutterError);
+      expect(exception.diagnostics.first.level, DiagnosticLevel.summary);
+      expect(
+        exception.diagnostics.first.toString(),
+        startsWith('A RenderLayoutGrid overflowed by '),
+      );
     });
   });
 }

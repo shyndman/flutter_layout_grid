@@ -77,7 +77,8 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
 class RenderLayoutGrid extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, GridParentData>,
-        RenderBoxContainerDefaultsMixin<RenderBox, GridParentData> {
+        RenderBoxContainerDefaultsMixin<RenderBox, GridParentData>,
+        DebugOverflowIndicatorMixin {
   /// Creates a layout grid render object.
   RenderLayoutGrid({
     AutoPlacement autoPlacement = AutoPlacement.rowSparse,
@@ -106,6 +107,10 @@ class RenderLayoutGrid extends RenderBox
 
   @visibleForTesting
   GridSizingInfo lastGridSizing;
+
+  /// The union of children contained in this grid. Only set during debug
+  /// builds.
+  Rect _debugChildRect;
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
   /// auto-placed items get flowed into the grid.
@@ -261,14 +266,40 @@ class RenderLayoutGrid extends RenderBox
       debugPrint('Finished track sizing');
     }
 
+    bool shouldComputeChildRect = false;
+    assert(() {
+      _debugChildRect = Rect.zero;
+      shouldComputeChildRect = true;
+      return true;
+    }());
+
     // Position and lay out the grid items
     var child = firstChild;
     while (child != null) {
       final parentData = child.parentData as GridParentData;
       final area = _placementGrid.itemAreas[child];
+      final areaRect =
+          gridSizing.offsetForArea(area) & gridSizing.sizeForArea(area);
 
-      parentData.offset = gridSizing.offsetForArea(area);
-      child.layout(BoxConstraints.loose(gridSizing.sizeForArea(area)));
+      parentData.offset = areaRect.topLeft;
+
+      child.layout(
+        BoxConstraints.loose(areaRect.size),
+        // Note that we do not use the parentUsesSize argument, as we already
+        // ask for intrinsics sizes from every child that we care about, and
+        // that has the same effect of registering the grid for relayout
+        // whenever those children change.
+        //
+        // Unless, that is, we're in a debug mode. Then we do so that we can
+        // compute overflow.
+        parentUsesSize: shouldComputeChildRect,
+      );
+
+      if (shouldComputeChildRect) {
+        _debugChildRect =
+            _debugChildRect.expandToInclude(areaRect.topLeft & child.size);
+      }
+
       child = parentData.nextSibling;
     }
   }
@@ -737,6 +768,12 @@ class RenderLayoutGrid extends RenderBox
   @override
   void paint(PaintingContext context, Offset offset) {
     defaultPaint(context, offset);
+
+    assert(() {
+      paintOverflowIndicator(
+          context, offset, Offset.zero & size, _debugChildRect);
+      return true;
+    }());
   }
 
   @override
