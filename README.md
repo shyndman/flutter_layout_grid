@@ -3,8 +3,17 @@
 [![Pub](https://img.shields.io/pub/v/flutter_layout_grid)](https://pub.dev/packages/flutter_layout_grid)
 [![Github test](https://github.com/madewithfelt/flutter_layout_grid/workflows/test/badge.svg)](https://github.com/madewithfelt/flutter_layout_grid/actions?query=workflow%3Atest)
 
-<img src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet.png"
-alt="Example of Flutter Layout Grid" width="320">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/master/example/flutter_layout_grid.dart">
+  <img
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet.png"
+    alt="Piet painting recreated using Flutter Layout Grid" width="320">
+</a>
+
+<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/master/example/periodic_table.dart">
+  <img
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/periodic_table.png"
+    alt="Periodic table rendered using Flutter Layout Grid" width="320">
+</a>
 
 A grid layout system for Flutter, optimized for user interface design, inspired by [CSS Grid
 Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout).
