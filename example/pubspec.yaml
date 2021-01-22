@@ -3,10 +3,14 @@ description: Examples for flutter_layout_grid.
 private: true
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_layout_grid:
     path: ../
+
+flutter:
+  assets:
+    - periodic_table_data.json
