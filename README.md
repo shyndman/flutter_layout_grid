@@ -5,15 +5,18 @@
 
 <a href="https://github.com/madewithfelt/flutter_layout_grid/blob/master/example/flutter_layout_grid.dart">
   <img
-    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet_trimmed.png"
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
 </a>
-
+&nbsp;
+&nbsp;
 <a href="https://github.com/madewithfelt/flutter_layout_grid/blob/master/example/periodic_table.dart">
   <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/periodic_table.png"
     alt="Periodic table rendered using Flutter Layout Grid" height="220">
 </a>
+
+---
 
 A grid layout system for Flutter, optimized for user interface design, inspired by [CSS Grid
 Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout).
