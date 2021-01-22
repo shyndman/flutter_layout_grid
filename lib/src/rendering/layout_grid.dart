@@ -770,12 +770,17 @@ class RenderLayoutGrid extends RenderBox
     defaultPaint(context, offset);
 
     assert(() {
-      // We add an extra check here to make sure that we aren't invoking the
-      // overflow paint if the overflow is very minor
       final gridRect = Offset.zero & size;
-      if (_isOverflowing(gridRect, _debugChildRect)) {
-        paintOverflowIndicator(context, offset, gridRect, _debugChildRect);
-      }
+      // We massage the child rect a bit to make sure that we aren't marking
+      // overflows when they're very minor.
+      //
+      // The reason this isn't a boolean response is because tiny overflows are
+      // common, which is fine, but when one of the edges is overflowing by
+      // a meaningful amount, both edges will frequently show the indicator.
+      final childRect =
+          _childRectForOverflowComparison(gridRect, _debugChildRect);
+      paintOverflowIndicator(context, offset, gridRect, childRect);
+
       return true;
     }());
   }
@@ -1038,11 +1043,21 @@ int _sortByGrowthPotential(GridTrack a, GridTrack b) {
   return (a.growthLimit - a.baseSize).compareTo(b.growthLimit - b.baseSize);
 }
 
-bool _isOverflowing(Rect gridRect, Rect childRect) {
-  return childRect.right - gridRect.right > precisionErrorTolerance ||
-      childRect.bottom - gridRect.bottom > precisionErrorTolerance ||
-      gridRect.left - childRect.left > precisionErrorTolerance ||
-      gridRect.top - childRect.top > precisionErrorTolerance;
+Rect _childRectForOverflowComparison(Rect gridRect, Rect childRect) {
+  return Rect.fromLTRB(
+    gridRect.left - childRect.left < precisionErrorTolerance
+        ? gridRect.left
+        : childRect.left,
+    gridRect.top - childRect.top < precisionErrorTolerance
+        ? gridRect.top
+        : childRect.top,
+    childRect.right - gridRect.right < precisionErrorTolerance
+        ? gridRect.right
+        : childRect.right,
+    childRect.bottom - gridRect.bottom < precisionErrorTolerance
+        ? gridRect.bottom
+        : childRect.bottom,
+  );
 }
 
 class MinMax {

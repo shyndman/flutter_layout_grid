@@ -27,6 +27,7 @@ Axis measurementAxisForTrackType(TrackType type) {
 ///
 /// Another algorithm that is relatively cheap include [FlexibleTrackSize],
 /// which distributes the space equally among the flexible tracks.
+@immutable
 abstract class TrackSize with Diagnosticable {
   /// Abstract const constructor. This constructor enables subclasses to provide
   /// const constructors so that they can be used in const expressions.
