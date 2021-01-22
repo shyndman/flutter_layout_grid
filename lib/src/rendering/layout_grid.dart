@@ -770,8 +770,12 @@ class RenderLayoutGrid extends RenderBox
     defaultPaint(context, offset);
 
     assert(() {
-      paintOverflowIndicator(
-          context, offset, Offset.zero & size, _debugChildRect);
+      // We add an extra check here to make sure that we aren't invoking the
+      // overflow paint if the overflow is very minor
+      final gridRect = Offset.zero & size;
+      if (_isOverflowing(gridRect, _debugChildRect)) {
+        paintOverflowIndicator(context, offset, gridRect, _debugChildRect);
+      }
       return true;
     }());
   }
@@ -1032,6 +1036,13 @@ class GridSizingInfo {
 int _sortByGrowthPotential(GridTrack a, GridTrack b) {
   if (a.isInfinite != b.isInfinite) return a.isInfinite ? -1 : 1;
   return (a.growthLimit - a.baseSize).compareTo(b.growthLimit - b.baseSize);
+}
+
+bool _isOverflowing(Rect gridRect, Rect childRect) {
+  return childRect.right - gridRect.right > precisionErrorTolerance ||
+      childRect.bottom - gridRect.bottom > precisionErrorTolerance ||
+      gridRect.left - childRect.left > precisionErrorTolerance ||
+      gridRect.top - childRect.top > precisionErrorTolerance;
 }
 
 class MinMax {
