@@ -69,8 +69,6 @@ class Piet extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        // package:flutter_layout_grid/helpers.dart includes several track
-        // sizing extension methods
         templateColumnSizes: [1.0.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
         templateRowSizes: [
           1.0.fr,
