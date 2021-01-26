@@ -999,9 +999,8 @@ class GridSizingInfo {
     return tracksForType(type).map((t) => t.baseSize).toList();
   }
 
-  double totalBaseSizeOfTracksForType(TrackType type) {
-    return baseSizesForType(type).sum;
-  }
+  double totalBaseSizeOfTracksForType(TrackType type) =>
+      sum(baseSizesForType(type));
 
   void setMinMaxTrackSizesForAxis(double min, double max, Axis axis) {
     if (axis == Axis.horizontal) {

@@ -1,3 +1,6 @@
+## [0.10.5]
+* Remove the use of extension methods
+
 ## [0.10.4]
 * Massive overhaul in layout algorithm, fixing a number of serious issues
 * Debug painting support, where tracks and gaps are drawn differently
