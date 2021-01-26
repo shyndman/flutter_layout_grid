@@ -1,3 +1,15 @@
+## [0.10.4]
+* Massive overhaul in layout algorithm, fixing a number of serious issues
+* Debug painting support, where tracks and gaps are drawn differently
+* Child overflow indicators
+* Debug printing, behind a flag
+* Cool new periodic table example
+
+Technically, some of these changes are breaking from an API perspective, but
+I think that it's unlikely that people run into them. I originally wanted to
+publish under a new minor version, but `pub publish` is giving me issues because
+of my nullsafe prerelease.
+
 ## [0.10.3]
 * Mention nullsafety release in pubspec
 * Format code using latest formatter
