@@ -36,7 +36,7 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
 
   /// When `true`, [areaName] will be resolved and the column and row properties
   /// will be set.
-  bool _needsAreaResolution = false;
+  bool needsAreaResolution = false;
 
   String debugLabel;
 
@@ -52,7 +52,7 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
     // If an area name has been specified, we mark the data as needing area
     // resolution, and null out all fields.
     if (value != null) {
-      _needsAreaResolution = true;
+      needsAreaResolution = true;
       columnSpan = rowSpan = null;
     } else {
       // If no area name has been specified, we reset the data to base state.
@@ -117,6 +117,7 @@ class RenderLayoutGrid extends RenderBox
     double rowGap = 0,
     @required List<TrackSize> templateColumnSizes,
     @required List<TrackSize> templateRowSizes,
+    NamedGridAreas templateAreas,
     TextDirection textDirection = TextDirection.ltr,
   })  : assert(autoPlacement != null),
         assert(gridFit != null),
@@ -125,6 +126,7 @@ class RenderLayoutGrid extends RenderBox
         _gridFit = gridFit,
         _templateColumnSizes = templateColumnSizes,
         _templateRowSizes = templateRowSizes,
+        _templateAreas = templateAreas,
         _columnGap = columnGap,
         _rowGap = rowGap,
         _textDirection = textDirection {
@@ -179,6 +181,16 @@ class RenderLayoutGrid extends RenderBox
   set templateRowSizes(List<TrackSize> value) {
     if (_templateRowSizes == value) return;
     _templateRowSizes = value;
+    markNeedsPlacement();
+    markNeedsLayout();
+  }
+
+  /// Named areas that can be used for placement.
+  NamedGridAreas get templateAreas => _templateAreas;
+  NamedGridAreas _templateAreas;
+  set templateAreas(NamedGridAreas value) {
+    if (_templateAreas == value) return;
+    _templateAreas = value;
     markNeedsPlacement();
     markNeedsLayout();
   }

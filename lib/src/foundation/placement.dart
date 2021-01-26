@@ -65,9 +65,47 @@ class GridArea {
   }
 }
 
-/// TODO(shyndman): This should also produce column and row counts. Maybe sizes
-/// too?
-Map<String, GridArea> gridTemplateAreas(List<String> specRows) {
+/// Describes the named areas of a grid for [LayoutGrid.templateAreas].
+///
+/// Named areas can be used for the placement of grid items, via
+/// [NamedAreaGridPlacement].
+///
+/// Use [gridTemplateAreas] to produce one of these objects based on a string
+/// formatted similarly to CSS's `grid-template-areas`.
+/// ``
+class NamedGridAreas {
+  NamedGridAreas({
+    @required this.columnCount,
+    @required this.rowCount,
+    @required Map<String, GridArea> namedAreas,
+  }) : _namedAreas = namedAreas;
+
+  final int columnCount;
+  final int rowCount;
+  final Map<String, GridArea> _namedAreas;
+
+  /// The number of named areas
+  int get length => _namedAreas.length;
+
+  /// The [GridArea] named [areaName], or `null` if it does not exist
+  GridArea operator [](String areaName) => _namedAreas[areaName];
+}
+
+/// Parses a set of strings into a description of the grid's named areas.
+///
+/// The format of [specRows] is identical to the format supplied to CSS Grid
+/// Layout's `grid-template-areas` property:
+/// https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
+///
+/// Example input:
+///
+///     [
+///       "head head",
+///       "nav  main",
+///       "nav  foot",
+///     ];
+///
+NamedGridAreas gridTemplateAreas(List<String> specRows) {
   final gridAreaBuilders = <String, _GridAreaBuilder>{};
   int columnCount;
 
@@ -97,8 +135,13 @@ Map<String, GridArea> gridTemplateAreas(List<String> specRows) {
     }
   }
 
-  return gridAreaBuilders
-      .map((name, builder) => MapEntry(name, builder.build()));
+  return NamedGridAreas(
+    columnCount: columnCount,
+    rowCount: specRows.length,
+    namedAreas: gridAreaBuilders.map(
+      (name, builder) => MapEntry(name, builder.build()),
+    ),
+  );
 }
 
 final _tokenSeparatorPattern = RegExp(r'\s+');
