@@ -339,27 +339,29 @@ class RenderLayoutGrid extends RenderBox
     var child = firstChild;
     while (child != null) {
       final parentData = child.parentData as GridParentData;
-      final area = _placementGrid.itemAreas[child];
-      final areaRect =
-          gridSizing.offsetForArea(area) & gridSizing.sizeForArea(area);
+      if (parentData.isPlaced) {
+        final area = _placementGrid.itemAreas[child];
+        final areaRect =
+            gridSizing.offsetForArea(area) & gridSizing.sizeForArea(area);
 
-      parentData.offset = areaRect.topLeft;
+        parentData.offset = areaRect.topLeft;
 
-      child.layout(
-        BoxConstraints.loose(areaRect.size),
-        // Note that we do not use the parentUsesSize argument, as we already
-        // ask for intrinsics sizes from every child that we care about, and
-        // that has the same effect of registering the grid for relayout
-        // whenever those children change.
-        //
-        // Unless, that is, we're in a debug mode. Then we do so that we can
-        // compute overflow.
-        parentUsesSize: shouldComputeChildRect,
-      );
+        child.layout(
+          BoxConstraints.loose(areaRect.size),
+          // Note that we do not use the parentUsesSize argument, as we already
+          // ask for intrinsics sizes from every child that we care about, and
+          // that has the same effect of registering the grid for relayout
+          // whenever those children change.
+          //
+          // Unless, that is, we're in a debug mode. Then we do so that we can
+          // compute overflow.
+          parentUsesSize: shouldComputeChildRect,
+        );
 
-      if (shouldComputeChildRect) {
-        _debugChildRect =
-            _debugChildRect.expandToInclude(areaRect.topLeft & child.size);
+        if (shouldComputeChildRect) {
+          _debugChildRect =
+              _debugChildRect.expandToInclude(areaRect.topLeft & child.size);
+        }
       }
 
       child = parentData.nextSibling;
@@ -828,8 +830,23 @@ class RenderLayoutGrid extends RenderBox
   }
 
   @override
+  void visitChildrenForSemantics(visitor) {
+    var child = firstChild;
+    while (child != null) {
+      final GridParentData childParentData = child.parentData as GridParentData;
+      if (childParentData.isPlaced) {
+        visitor(child);
+      }
+      child = childParentData.nextSibling;
+    }
+  }
+
+  @override
   void paint(PaintingContext context, Offset offset) {
-    defaultPaint(context, offset);
+    visitChildrenForSemantics((child) {
+      final childParentData = child.parentData as GridParentData;
+      context.paintChild(child, childParentData.offset + offset);
+    });
 
     assert(() {
       final gridRect = Offset.zero & size;
