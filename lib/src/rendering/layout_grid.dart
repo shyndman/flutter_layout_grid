@@ -362,6 +362,9 @@ class RenderLayoutGrid extends RenderBox
           _debugChildRect =
               _debugChildRect.expandToInclude(areaRect.topLeft & child.size);
         }
+      } else if (debugPrintUnplacedChildren) {
+        debugPrint('Area "${parentData.areaName}" not found. \n'
+            '$child will not be rendered. ($parentData)');
       }
 
       child = parentData.nextSibling;
