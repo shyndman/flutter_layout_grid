@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import '../rendering/track_size.dart';
+import 'package:flutter_layout_grid/src/foundation/placement.dart';
+
 import '../rendering/layout_grid.dart';
+import '../rendering/track_size.dart';
 import 'placement.dart';
 
 /// Controls how the auto-placement algorithm works, specifying exactly how
@@ -82,8 +84,8 @@ enum GridFit {
   passthrough,
 }
 
-/// Lays out its children using an approximation of the CSS Grid Layout
-/// algorithm, described here:
+/// Lays out its children using a approximation of the CSS Grid Layout
+/// algorithm, as described here:
 ///
 /// https://drafts.csswg.org/css-grid/
 ///
@@ -97,6 +99,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     this.gridFit = GridFit.expand,
     @required this.templateColumnSizes,
     @required this.templateRowSizes,
+    this.templateAreas,
     double rowGap,
     double columnGap,
     this.textDirection,
@@ -120,6 +123,11 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// Defines the track sizing functions of the grid's rows.
   final List<TrackSize> templateRowSizes;
 
+  /// Defines named areas of the grid for placement of grid items by name.
+  ///
+  /// Can be `null`.
+  final NamedGridAreas templateAreas;
+
   /// Space between column tracks
   final double columnGap;
 
@@ -138,6 +146,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       gridFit: gridFit,
       templateColumnSizes: templateColumnSizes,
       templateRowSizes: templateRowSizes,
+      templateAreas: templateAreas,
       columnGap: columnGap,
       rowGap: rowGap,
       textDirection: textDirection ?? Directionality.of(context),
@@ -151,6 +160,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       ..gridFit = gridFit
       ..templateColumnSizes = templateColumnSizes
       ..templateRowSizes = templateRowSizes
+      ..templateAreas = templateAreas
       ..columnGap = columnGap
       ..rowGap = rowGap
       ..textDirection = textDirection ?? Directionality.of(context);
