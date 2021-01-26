@@ -34,10 +34,6 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
 
   String _areaName;
 
-  /// When `true`, [areaName] will be resolved and the column and row properties
-  /// will be set.
-  bool needsAreaResolution = false;
-
   String debugLabel;
 
   String get areaName => _areaName;
@@ -52,7 +48,6 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
     // If an area name has been specified, we mark the data as needing area
     // resolution, and null out all fields.
     if (value != null) {
-      needsAreaResolution = true;
       columnSpan = rowSpan = null;
     } else {
       // If no area name has been specified, we reset the data to base state.
@@ -78,10 +73,36 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
     );
   }
 
-  /// Returns `true` if the item has definite placement in the grid.
+  set area(GridArea value) {
+    // If null, clear out all track starts/spans
+    if (value == null) {
+      columnStart = columnSpan = rowStart = rowSpan = null;
+    }
+    // Otherwise set the specifics
+    else {
+      columnStart = value.columnStart;
+      columnSpan = value.columnSpan;
+      rowStart = value.rowStart;
+      rowSpan = value.rowSpan;
+    }
+  }
+
+  /// `true` if the item is placed in the grid, whether definitely or through
+  /// the auto-flow algorithm.
+  bool get isPlaced => !isNotPlaced;
+
+  /// `true` if the item is not placed in the grid at all (probably because
+  /// it references a named area that does not exist).
+  bool get isNotPlaced =>
+      columnStart == null &&
+      columnSpan == null &&
+      rowStart == null &&
+      rowSpan == null;
+
+  /// `true` if the item has definite placement in the grid.
   bool get isDefinitelyPlaced => columnStart != null && rowStart != null;
 
-  /// Returns `true` if the item is definitely placed on the provided axis.
+  /// `true` if the item is definitely placed on the provided axis.
   bool isDefinitelyPlacedOnAxis(Axis axis) =>
       axis == Axis.horizontal ? columnStart != null : rowStart != null;
 

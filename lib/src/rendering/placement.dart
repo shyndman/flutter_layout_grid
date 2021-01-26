@@ -18,7 +18,7 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
 
   final fullyPlacedChildren = <RenderBox>[];
   final flowAxisPlacedChildren = <RenderBox>[];
-  final remainingChildren = <RenderBox>[];
+  final toPlaceChildren = <RenderBox>[];
 
   // 0. Bucket children into lists based on their placement priority:
   //
@@ -28,12 +28,16 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
   while (child != null) {
     final childParentData = child.parentData as GridParentData;
 
+    if (childParentData.areaName != null) {
+      _resolveChildNamedArea(childParentData, grid);
+    }
+
     if (childParentData.isDefinitelyPlaced) {
       fullyPlacedChildren.add(child);
     } else if (childParentData.isDefinitelyPlacedOnAxis(growthAxis)) {
       flowAxisPlacedChildren.add(child);
-    } else {
-      remainingChildren.add(child);
+    } else if (childParentData.isPlaced) {
+      toPlaceChildren.add(child);
     }
 
     child = childParentData.nextSibling;
@@ -61,7 +65,7 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
   // 3. Distribute the rest of the children, using a cursor appropriate for the
   //    auto-flow mode.
   final autoFlowCursor = occupancy.createCursor(autoPlacement);
-  for (final child in remainingChildren) {
+  for (final child in toPlaceChildren) {
     final childParentData = child.parentData as GridParentData;
     if (childParentData.isDefinitelyPlacedOnAxis(fixedAxis)) {
       autoFlowCursor.fixToAxisIndex(
@@ -76,6 +80,15 @@ PlacementGrid computeItemPlacement(RenderLayoutGrid grid) {
   }
 
   return occupancy;
+}
+
+/// Resolves [childParentData]'s area to a concrete set of track starts and
+/// spans.
+void _resolveChildNamedArea(
+  GridParentData childParentData,
+  RenderLayoutGrid grid,
+) {
+  childParentData.area = grid.templateAreas[childParentData.areaName];
 }
 
 /// Used to determine unoccupied space by the auto-placement algorithm.
