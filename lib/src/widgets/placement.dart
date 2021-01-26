@@ -32,12 +32,7 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
     int rowSpan = 1,
   })  : this.columnSpan = columnSpan ?? 1,
         this.rowSpan = rowSpan ?? 1,
-        this.name = null,
         super(key: key, child: child);
-
-  /// The name of the area whose tracks will be used to place this widget's
-  /// child.
-  final String name;
 
   /// If `null`, the child will be auto-placed.
   final int columnStart;
@@ -56,6 +51,14 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
     assert(renderObject.parentData is GridParentData);
     final parentData = renderObject.parentData as GridParentData;
     bool needsLayout = false;
+
+    // TODO(shyndman): I don't like that we clear out a field that another
+    // placement widget uses. We should probably enter a mode specific to this
+    // placement widget, and have the ParentData figure out its internal state.
+    if (parentData.areaName != null) {
+      parentData.areaName = null;
+      needsLayout = true;
+    }
 
     if (parentData.columnStart != columnStart) {
       parentData.columnStart = columnStart;
@@ -79,8 +82,8 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
 
     if (needsLayout) {
       final AbstractNode targetParent = renderObject.parent;
-      if (targetParent is RenderObject) targetParent.markNeedsLayout();
       if (targetParent is RenderLayoutGrid) targetParent.markNeedsPlacement();
+      if (targetParent is RenderObject) targetParent.markNeedsLayout();
     }
   }
 
@@ -109,8 +112,54 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
   Type get debugTypicalAncestorWidgetClass => LayoutGrid;
 }
 
+/// Grid placement based on the name of an area provided to the grid via
+/// [LayoutGrid.templateAreas].
+///
+/// If [areaName] does not exist in the grid's [LayoutGrid.templateAreas], the
+/// child of this widget is not shown.
+class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
+  NamedAreaGridPlacement({
+    Key key,
+    @required this.areaName,
+    Widget child,
+  }) : super(key: key, child: child);
+
+  final String areaName;
+
+  @override
+  void applyParentData(RenderObject renderObject) {
+    assert(renderObject.parentData is GridParentData);
+    final parentData = renderObject.parentData as GridParentData;
+
+    if (parentData.areaName != areaName) {
+      parentData.areaName = areaName;
+
+      final AbstractNode targetParent = renderObject.parent;
+      if (targetParent is RenderLayoutGrid) targetParent.markNeedsPlacement();
+      if (targetParent is RenderObject) targetParent.markNeedsLayout();
+    }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('areaName', areaName));
+  }
+
+  @override
+  Type get debugTypicalAncestorWidgetClass => LayoutGrid;
+}
+
 /// Extension methods for terse placement syntax
 extension GridPlacementExtensions on Widget {
+  NamedAreaGridPlacement inGridArea({Key key, @required String areaName}) {
+    return NamedAreaGridPlacement(
+      key: key,
+      areaName: areaName,
+      child: this,
+    );
+  }
+
   GridPlacement withGridPlacement({
     Key key,
     int columnStart,

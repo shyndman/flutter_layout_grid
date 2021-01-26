@@ -26,13 +26,40 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
 
   /// If `null`, the item is auto-placed.
   int columnStart;
-  int columnSpan = 1;
+  int columnSpan;
 
   /// If `null`, the item is auto-placed.
   int rowStart;
-  int rowSpan = 1;
+  int rowSpan;
+
+  String _areaName;
+
+  /// When `true`, [areaName] will be resolved and the column and row properties
+  /// will be set.
+  bool _needsAreaResolution = false;
 
   String debugLabel;
+
+  String get areaName => _areaName;
+  set areaName(String value) {
+    if (value == _areaName) {
+      return;
+    }
+
+    _areaName = value;
+    columnStart = rowStart = null;
+
+    // If an area name has been specified, we mark the data as needing area
+    // resolution, and null out all fields.
+    if (value != null) {
+      _needsAreaResolution = true;
+      columnSpan = rowSpan = null;
+    } else {
+      // If no area name has been specified, we reset the data to base state.
+      // These values are likely to be overwritten momentarily.
+      columnSpan = rowSpan = 1;
+    }
+  }
 
   int startForAxis(Axis axis) =>
       axis == Axis.horizontal ? columnStart : rowStart;
@@ -43,6 +70,7 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
   GridArea get area {
     assert(isDefinitelyPlaced);
     return GridArea(
+      name: areaName,
       columnStart: columnStart,
       columnEnd: columnStart + columnSpan,
       rowStart: rowStart,
@@ -60,6 +88,7 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
   @override
   String toString() {
     final List<String> values = <String>[
+      if (areaName != null) 'areaName=$areaName',
       if (columnStart != null) 'columnStart=$columnStart',
       if (columnSpan != null) 'columnSpan=$columnSpan',
       if (rowStart != null) 'rowStart=$rowStart',
