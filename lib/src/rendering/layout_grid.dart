@@ -995,9 +995,8 @@ class GridSizingInfo {
         : MinMax(minHeightOfTracks, maxTracksHeight);
   }
 
-  List<double> baseSizesForType(TrackType type) {
-    return tracksForType(type).map((t) => t.baseSize).toList();
-  }
+  List<double> baseSizesForType(TrackType type) =>
+      tracksForType(type).map((t) => t.baseSize).toList();
 
   double totalBaseSizeOfTracksForType(TrackType type) =>
       sum(baseSizesForType(type));
