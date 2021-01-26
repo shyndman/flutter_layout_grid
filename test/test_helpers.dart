@@ -28,6 +28,7 @@ Future<GridSizingInfo> sizeGridWithChildren(
   GridFit gridFit = GridFit.passthrough,
   List<TrackSize> columnSizes,
   List<TrackSize> rowSizes,
+  NamedGridAreas namedAreas,
   List<Widget> children,
   BoxConstraints constraints,
 }) async {
@@ -39,6 +40,7 @@ Future<GridSizingInfo> sizeGridWithChildren(
           gridFit: gridFit,
           templateColumnSizes: columnSizes,
           templateRowSizes: rowSizes,
+          templateAreas: namedAreas,
           children: children,
         ),
       ),
