@@ -152,7 +152,7 @@ class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
 
 /// Extension methods for terse placement syntax
 extension GridPlacementExtensions on Widget {
-  NamedAreaGridPlacement inGridArea({Key key, @required String areaName}) {
+  NamedAreaGridPlacement inGridArea(String areaName, {Key key}) {
     return NamedAreaGridPlacement(
       key: key,
       areaName: areaName,
