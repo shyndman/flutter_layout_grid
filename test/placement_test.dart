@@ -27,11 +27,11 @@ void main() {
           'c c c c',
         ]),
         children: [
-          Container(key: keyA).inGridArea(areaName: 'a'),
-          Container(key: keyB).inGridArea(areaName: 'b'),
-          Container(key: keyC).inGridArea(areaName: 'c'),
-          Container(key: keyD).inGridArea(areaName: 'd'),
-          Container(key: keyE).inGridArea(areaName: 'e'),
+          Container(key: keyA).inGridArea('a'),
+          Container(key: keyB).inGridArea('b'),
+          Container(key: keyC).inGridArea('c'),
+          Container(key: keyD).inGridArea('d'),
+          Container(key: keyE).inGridArea('e'),
         ],
       );
 
