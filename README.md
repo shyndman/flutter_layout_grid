@@ -61,7 +61,7 @@ const cellGrey = Color(0xffcfd4e0);
 const cellBlue = Color(0xff1553be);
 const background = Color(0xff242830);
 
-class Piet extends StatelessWidget {
+class PietPainting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,6 +69,13 @@ class Piet extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
+        templateAreas: gridTemplateAreas([
+          'r R  b  b  b',
+          'r R  Y  Y  Y',
+          'y R  Y  Y  Y',
+          'y R sg sb sy',
+        ]),
+        // A number of extension methods are provided for concise track sizing
         templateColumnSizes: [1.0.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
         templateRowSizes: [
           1.0.fr,
@@ -78,56 +85,28 @@ class Piet extends StatelessWidget {
         ],
         children: [
           // Column 1
-          _buildItemForColor(cellRed).withGridPlacement(
-            columnStart: 0,
-            rowStart: 0,
-            rowSpan: 2,
-          ),
-          _buildItemForColor(cellMustard).withGridPlacement(
-            columnStart: 0,
-            rowStart: 2,
-            rowSpan: 2,
-          ),
+          _buildItemForColor(cellRed).inGridArea('r'),
+          _buildItemForColor(cellMustard).inGridArea('y'),
           // Column 2
-          _buildItemForColor(cellRed).withGridPlacement(
-            columnStart: 1,
-            rowStart: 0,
-            rowSpan: 4,
-          ),
+          _buildItemForColor(cellRed).inGridArea('R'),
           // Column 3
-          _buildItemForColor(cellBlue).withGridPlacement(
-            columnStart: 2,
-            columnSpan: 3,
-            rowStart: 0,
-          ),
-          _buildItemForColor(cellMustard).withGridPlacement(
-            columnStart: 2,
-            columnSpan: 3,
-            rowStart: 1,
-            rowSpan: 2,
-          ),
-          _buildItemForColor(cellGrey).withGridPlacement(
-            columnStart: 2,
-            rowStart: 3,
-          ),
+          _buildItemForColor(cellBlue).inGridArea('b'),
+          _buildItemForColor(cellMustard).inGridArea('Y'),
+          _buildItemForColor(cellGrey).inGridArea('sg'),
           // Column 4
-          _buildItemForColor(cellBlue).withGridPlacement(
-            columnStart: 3,
-            rowStart: 3,
-          ),
+          _buildItemForColor(cellBlue).inGridArea('sb'),
           // Column 5
-          _buildItemForColor(cellMustard).withGridPlacement(
-            columnStart: 4,
-            rowStart: 3,
-          ),
+          _buildItemForColor(cellMustard).inGridArea('sy'),
         ],
       ),
     );
   }
 
-  Widget _buildItemForColor(Color c) => SizedBox.expand(
-        child: DecoratedBox(decoration: BoxDecoration(color: c)),
-      );
+  Widget _buildItemForColor(Color c) {
+    return SizedBox.expand(
+      child: DecoratedBox(decoration: BoxDecoration(color: c)),
+    );
+  }
 }
 ```
 
@@ -137,17 +116,21 @@ class Piet extends StatelessWidget {
 
 There are currently three way to size tracks (rows or columns):
 
-- `FlexibleSizeTrack` — consumes remaining space after the initial layout has completed.
 - `FixedSizeTrack` — occupies a specific number of pixels on an axis
-- `IntrinsicContentTrackSize` — sized to contain its items' contents. Will also expand to fill
-  available space, once `FlexibleTrackSize` tracks have been given the opportunity.
+- `FlexibleSizeTrack` — consumes remaining space after the initial layout has
+  completed.
+- `IntrinsicContentTrackSize` — sized to contain its items' contents. Will also
+  expand to fill available space, once `FlexibleTrackSize` tracks have been
+  given the opportunity.
 
-Technically, you could define your own, but I wouldn't because the API will be evolving.
+Technically, you could define your own, but I wouldn't because the API will be
+evolving.
 
 ### Placing widgets in the `LayoutGrid`
 
-When an arbitrary widget is provided to `LayoutGrid.children`, it will be allotted a single cell and
-placed automatically according to the `LayoutGrid.autoPlacement` algorithm ([described
+When a widget is provided via `LayoutGrid.children`, it will be allotted a
+single cell and placed automatically according to the `LayoutGrid.autoPlacement`
+algorithm ([described
 here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout)).
 
 ```dart
@@ -160,15 +143,51 @@ LayoutGrid(
 )
 ```
 
-Precise control over placement of an item is provided via the `GridPlacement` widget. You can think
-of `GridPlacement` as the
-[`Positioned`](https://api.flutter.dev/flutter/widgets/Positioned-class.html) equivalent for
-`LayoutGrid` — it controls the where a widget is placed, and the cells it occupies.
+Precise control over placement of an item is provided via the
+`NamedAreaGridPlacement` and `GridPlacement` widgets.
+
+#### Placement in Named Areas
+
+Similarly to CSS's
+[`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas),
+areas of a grid can be named via `LayoutGrid.templateAreas` and
+the `NamedAreaGridPlacement` widget. For example:
+
+```dart
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+
+LayoutGrid(
+  templateAreas: gridTemplateAreas([
+    'a a .',
+    'a a b',
+    '. . b',
+  ]),
+  // Note that the number of columns and rows matches the grid above (3x3)
+  templateColumnSizes: [FixedTrackSize(100), FixedTrackSize(100), FixedTrackSize(100)],
+  templateRowSizes: [FixedTrackSize(100), FixedTrackSize(100), FixedTrackSize(100)],
+  children: [
+    // Using NamedAreaGridPlacement constructor
+    NamedAreaGridPlacement(
+      areaName: 'a',
+      child: Container(color: Colors.blue),
+    ),Î
+    // Same effect as above, but using an extension method
+    Container(color: Colors.red).inGridArea('b'),
+  ],
+)
+```
+
+#### Explicit placement via row/column indices
+
+You can think of `GridPlacement` as the
+[`Positioned`](https://api.flutter.dev/flutter/widgets/Positioned-class.html)
+equivalent for `LayoutGrid` — it controls the where a widget is placed, and the
+cells it occupies.
 
 ```dart
 LayoutGrid(
-  templateColumnSizes = [/*...*/];
-  templateRowSizes = [/*...*/];
+  templateColumnSizes: [/*...*/],
+  templateRowSizes: [/*...*/],
   children: [
     GridPlacement(
       // All parameters optional
@@ -201,14 +220,18 @@ LayoutGrid(
 )
 ```
 
-All of the `GridPlacement`'s constructor parameters are optional. It defaults to a 1x1 grid item
-that will be placed automatically by the grid. Specifying positioning or spanning information (via
-`columnStart`/`columnSpan`/`rowStart`/`rowSpan` parameters) will feed additional constraints into
-its algorithm.
+All of the `GridPlacement`'s constructor parameters are optional. It defaults to
+a 1x1 grid item that will be placed automatically by the grid. Specifying
+positioning or spanning information (via
+`columnStart`/`columnSpan`/`rowStart`/`rowSpan` parameters) will feed additional
+constraints into its algorithm.
 
-A definitely-placed item (meaning `columnStart` and `rowStart` have both been provided), will always
-be placed precisely, even if it overlaps other definitely-placed items. Automatically-placed items
-will flow around those that have been placed definitely.
+A definitely-placed item (meaning `columnStart` and `rowStart` have both been
+provided), will always be placed precisely, even if it overlaps other
+definitely-placed items. Automatically-placed items will flow around those that
+have been placed definitely.
+
+##### Named Areas
 
 #### Accessibility and Placement
 
@@ -247,8 +270,8 @@ interested in taking those on at some point.
 ## Roadmap
 
 - [x] Tests! (we now have a decent suite going)
-- [ ] Named template areas, for friendlier item placement
+- [x] Named template areas, for friendlier item placement
 - [ ] Improved track sizing, including minimum/maximums and aspect ratios
 - [ ] The ability to specify row and column gaps at specific line locations via a delegate
 - [ ] Implicit grid support (automatic growth along an axis as children are added)
-- [ ] Performance improvements, as soon as I can get this profiler running(!!!)
+- [x] Performance improvements, as soon as I can get this profiler running(!!!)
