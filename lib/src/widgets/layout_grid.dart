@@ -91,9 +91,8 @@ enum GridFit {
 ///
 /// https://drafts.csswg.org/css-grid/
 ///
-/// Note that implicit tracks are not currently supported. If a grid item falls
-/// outside of the area defined by the template tracks, an [FlutterError] will
-/// be thrown during layout.
+/// If a grid item falls outside of the area defined by the template tracks, an
+/// [FlutterError] will be thrown during layout.
 class LayoutGrid extends MultiChildRenderObjectWidget {
   LayoutGrid({
     Key key,
