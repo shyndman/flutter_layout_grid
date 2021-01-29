@@ -5,16 +5,16 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 void main() {
   group('template area parsing', () {
     test('produces correctly named GridAreas', () {
-      final templateAreas = gridTemplateAreas([
+      final areas = gridAreas([
         'logo     nav      nav      nav',
         'bar      main     main     main',
         'bar      main     main     main',
         'bar      main     main     main',
         'footer   footer   footer   footer',
       ]);
-      expect(templateAreas.length, 5);
+      expect(areas.length, 5);
       expect(
-        templateAreas['logo'],
+        areas['logo'],
         GridArea(
           name: 'logo',
           columnStart: 0,
@@ -24,7 +24,7 @@ void main() {
         ),
       );
       expect(
-        templateAreas['nav'],
+        areas['nav'],
         GridArea(
           name: 'nav',
           columnStart: 1,
@@ -34,7 +34,7 @@ void main() {
         ),
       );
       expect(
-        templateAreas['bar'],
+        areas['bar'],
         GridArea(
           name: 'bar',
           columnStart: 0,
@@ -44,7 +44,7 @@ void main() {
         ),
       );
       expect(
-        templateAreas['main'],
+        areas['main'],
         GridArea(
           name: 'main',
           columnStart: 1,
@@ -54,7 +54,7 @@ void main() {
         ),
       );
       expect(
-        templateAreas['footer'],
+        areas['footer'],
         GridArea(
           name: 'footer',
           columnStart: 0,
@@ -67,21 +67,21 @@ void main() {
 
     test('throws with disjoint area', () {
       expect(
-        () => gridTemplateAreas(['a . . a']),
+        () => gridAreas(['a . . a']),
         throwsA(isInstanceOf<ArgumentError>()),
       );
     });
 
     test('throws with invalid name', () {
       expect(
-        () => gridTemplateAreas(['\$aaa . . .']),
+        () => gridAreas(['\$aaa . . .']),
         throwsArgumentError,
       );
     });
 
     test('throws with incomplete area rectangles', () {
       expect(
-        () => gridTemplateAreas([
+        () => gridAreas([
           'a . . .',
           'a a . .',
           'a a . .',
@@ -92,7 +92,7 @@ void main() {
 
     test('throws with changing explicit grid columns', () {
       expect(
-        () => gridTemplateAreas([
+        () => gridAreas([
           'a . . .',
           'a . . . .',
           'a . . .',

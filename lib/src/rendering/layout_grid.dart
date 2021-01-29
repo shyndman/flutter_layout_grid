@@ -136,18 +136,18 @@ class RenderLayoutGrid extends RenderBox
     List<RenderBox> children,
     double columnGap = 0,
     double rowGap = 0,
-    @required List<TrackSize> templateColumnSizes,
-    @required List<TrackSize> templateRowSizes,
-    NamedGridAreas templateAreas,
+    NamedGridAreas areas,
+    @required List<TrackSize> columnSizes,
+    @required List<TrackSize> rowSizes,
     TextDirection textDirection = TextDirection.ltr,
   })  : assert(autoPlacement != null),
         assert(gridFit != null),
         assert(textDirection != null),
         _autoPlacementMode = autoPlacement,
         _gridFit = gridFit,
-        _templateColumnSizes = templateColumnSizes,
-        _templateRowSizes = templateRowSizes,
-        _templateAreas = templateAreas,
+        _columnSizes = columnSizes,
+        _rowSizes = rowSizes,
+        _areas = areas,
         _columnGap = columnGap,
         _rowGap = rowGap,
         _textDirection = textDirection {
@@ -186,32 +186,32 @@ class RenderLayoutGrid extends RenderBox
     markNeedsLayout();
   }
 
+  /// Named areas that can be used for placement.
+  NamedGridAreas get areas => _areas;
+  NamedGridAreas _areas;
+  set areas(NamedGridAreas value) {
+    if (_areas == value) return;
+    _areas = value;
+    markNeedsPlacement();
+    markNeedsLayout();
+  }
+
   /// Defines the sizing functions of the grid's columns.
-  List<TrackSize> get templateColumnSizes => _templateColumnSizes;
-  List<TrackSize> _templateColumnSizes;
-  set templateColumnSizes(List<TrackSize> value) {
-    if (_templateColumnSizes == value) return;
-    _templateColumnSizes = value;
+  List<TrackSize> get columnSizes => _columnSizes;
+  List<TrackSize> _columnSizes;
+  set columnSizes(List<TrackSize> value) {
+    if (_columnSizes == value) return;
+    _columnSizes = value;
     markNeedsPlacement();
     markNeedsLayout();
   }
 
   /// Defines the sizing functions of the grid's rows.
-  List<TrackSize> get templateRowSizes => _templateRowSizes;
-  List<TrackSize> _templateRowSizes;
-  set templateRowSizes(List<TrackSize> value) {
-    if (_templateRowSizes == value) return;
-    _templateRowSizes = value;
-    markNeedsPlacement();
-    markNeedsLayout();
-  }
-
-  /// Named areas that can be used for placement.
-  NamedGridAreas get templateAreas => _templateAreas;
-  NamedGridAreas _templateAreas;
-  set templateAreas(NamedGridAreas value) {
-    if (_templateAreas == value) return;
-    _templateAreas = value;
+  List<TrackSize> get rowSizes => _rowSizes;
+  List<TrackSize> _rowSizes;
+  set rowSizes(List<TrackSize> value) {
+    if (_rowSizes == value) return;
+    _rowSizes = value;
     markNeedsPlacement();
     markNeedsLayout();
   }
@@ -383,8 +383,8 @@ class RenderLayoutGrid extends RenderBox
 
     // Ready an object that contains our sizing information
     final gridSizing = GridSizingInfo.fromTrackSizeFunctions(
-      columnSizeFunctions: _templateColumnSizes,
-      rowSizeFunctions: _templateRowSizes,
+      columnSizeFunctions: _columnSizes,
+      rowSizeFunctions: _rowSizes,
       textDirection: textDirection,
       columnGap: columnGap,
       rowGap: rowGap,
@@ -879,8 +879,8 @@ class RenderLayoutGrid extends RenderBox
         ..color = const Color(0x90909090);
 
       var gapPath = Path()..addRect(offset & size);
-      for (int c = 0; c < _templateColumnSizes.length; c++) {
-        for (int r = 0; r < _templateRowSizes.length; r++) {
+      for (int c = 0; c < _columnSizes.length; c++) {
+        for (int r = 0; r < _rowSizes.length; r++) {
           final cellRect = lastGridSizing.rectForArea(GridArea(
             columnStart: c,
             columnEnd: c + 1,

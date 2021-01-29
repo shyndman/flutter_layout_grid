@@ -65,12 +65,12 @@ class GridArea {
   }
 }
 
-/// Describes the named areas of a grid for [LayoutGrid.templateAreas].
+/// Describes the named areas of a grid for [LayoutGrid.areas].
 ///
 /// Named areas can be used for the placement of grid items, via
 /// [NamedAreaGridPlacement].
 ///
-/// Use [gridTemplateAreas] to produce one of these objects based on a string
+/// Use [gridAreas] to produce one of these objects based on a string
 /// formatted similarly to CSS's `grid-template-areas`.
 /// ``
 class NamedGridAreas {
@@ -105,7 +105,7 @@ class NamedGridAreas {
 ///       "nav  foot",
 ///     ];
 ///
-NamedGridAreas gridTemplateAreas(List<String> specRows) {
+NamedGridAreas gridAreas(List<String> specRows) {
   final gridAreaBuilders = <String, _GridAreaBuilder>{};
   int columnCount;
 

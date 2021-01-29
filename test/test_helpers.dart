@@ -16,8 +16,8 @@ GridSizingInfo sizeEmptyGrid({
 }) {
   final renderGrid = RenderLayoutGrid(
     gridFit: gridFit,
-    templateColumnSizes: columnSizes,
-    templateRowSizes: rowSizes,
+    columnSizes: columnSizes,
+    rowSizes: rowSizes,
     textDirection: TextDirection.ltr,
   );
   return renderGrid.computeGridSize(constraints ?? testConstraints);
@@ -38,9 +38,9 @@ Future<GridSizingInfo> sizeGridWithChildren(
         constraints: constraints ?? testConstraints,
         child: LayoutGrid(
           gridFit: gridFit,
-          templateColumnSizes: columnSizes,
-          templateRowSizes: rowSizes,
-          templateAreas: namedAreas,
+          columnSizes: columnSizes,
+          rowSizes: rowSizes,
+          areas: namedAreas,
           children: children,
         ),
       ),

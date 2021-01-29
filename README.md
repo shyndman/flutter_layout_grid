@@ -66,15 +66,15 @@ class App extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        templateAreas: gridTemplateAreas([
+        namedAreas: gridAreas([
           'header header  header ',
           'nav    content aside  ',
           'nav    content .      ',
           'footer footer  footer ',
         ]),
-        // Extension methods on num are provided for concise track sizing
-        templateColumnSizes: [240.px, 1.fr, auto],
-        templateRowSizes: [
+        // A number of extension methods are provided for concise track sizing
+        columnSizes: [240.px, 1.fr, auto],
+        rowSizes: [
           144.px,
           auto,
           1.fr,
@@ -138,21 +138,21 @@ Precise control over placement of an item is provided via the
 
 Similarly to CSS's
 [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas),
-areas of a grid can be named via `LayoutGrid.templateAreas` and
+areas of a grid can be named via `LayoutGrid.areas` and
 the `NamedAreaGridPlacement` widget. For example:
 
 ```dart
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 LayoutGrid(
-  templateAreas: gridTemplateAreas([
+  areas: gridAreas([
     'a a .',
     'a a b',
     '. . b',
   ]),
   // Note that the number of columns and rows matches the grid above (3x3)
-  templateColumnSizes: [fixed(100), fixed(100), fixed(100)],
-  templateRowSizes: [fixed(100), fixed(100), fixed(100)],
+  columnSizes: [fixed(100), fixed(100), fixed(100)],
+  rowSizes: [fixed(100), fixed(100), fixed(100)],
   children: [
     // Using NamedAreaGridPlacement constructor
     NamedAreaGridPlacement(
@@ -174,8 +174,8 @@ cells it occupies.
 
 ```dart
 LayoutGrid(
-  templateColumnSizes: [/*...*/],
-  templateRowSizes: [/*...*/],
+  columnSizes: [/*...*/],
+  rowSizes: [/*...*/],
   children: [
     GridPlacement(
       // All parameters optional

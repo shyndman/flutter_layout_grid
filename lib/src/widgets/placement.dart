@@ -113,9 +113,9 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
 }
 
 /// Grid placement based on the name of an area provided to the grid via
-/// [LayoutGrid.templateAreas].
+/// [LayoutGrid.areas].
 ///
-/// If [areaName] does not exist in the grid's [LayoutGrid.templateAreas], the
+/// If [areaName] does not exist in the grid's [LayoutGrid.areas], the
 /// child of this widget is not shown.
 class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
   NamedAreaGridPlacement({

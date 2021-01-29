@@ -15,8 +15,8 @@ void main() {
         // otherwise
         child: LayoutGrid(
           gridFit: GridFit.loose,
-          templateColumnSizes: [fixed(100)],
-          templateRowSizes: [fixed(100)],
+          columnSizes: [fixed(100)],
+          rowSizes: [fixed(100)],
           children: [],
         ),
       ));
@@ -31,8 +31,8 @@ void main() {
         // otherwise
         child: LayoutGrid(
           gridFit: GridFit.loose,
-          templateColumnSizes: [fixed(100)],
-          templateRowSizes: [fixed(100)],
+          columnSizes: [fixed(100)],
+          rowSizes: [fixed(100)],
           children: [],
         ),
       ));
@@ -49,8 +49,8 @@ void main() {
         constraints: BoxConstraints.tightFor(width: 400, height: 400),
         child: LayoutGrid(
           gridFit: GridFit.expand,
-          templateColumnSizes: [intrinsic()],
-          templateRowSizes: [intrinsic()],
+          columnSizes: [intrinsic()],
+          rowSizes: [intrinsic()],
           children: [],
         ),
       ));
@@ -65,8 +65,8 @@ void main() {
         constraints: BoxConstraints.tightFor(width: 400, height: 400),
         child: LayoutGrid(
           gridFit: GridFit.expand,
-          templateColumnSizes: [fixed(800)],
-          templateRowSizes: [fixed(800)],
+          columnSizes: [fixed(800)],
+          rowSizes: [fixed(800)],
           children: [Container()],
         ),
       ));
@@ -81,8 +81,8 @@ void main() {
         constraints: BoxConstraints.tightFor(width: 400, height: 400),
         child: LayoutGrid(
           gridFit: GridFit.expand,
-          templateColumnSizes: [fixed(800)],
-          templateRowSizes: [fixed(800)],
+          columnSizes: [fixed(800)],
+          rowSizes: [fixed(800)],
           children: [Container()],
         ),
       ));
