@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
@@ -16,12 +14,12 @@ class PietNamedAreasApp extends StatelessWidget {
       title: 'Layout Grid Desktop Example',
       debugShowCheckedModeBanner: false,
       color: Colors.white,
-      builder: (context, child) => PietPaintingNamedAreas(),
+      builder: (context, child) => PietPainting(),
     );
   }
 }
 
-class PietPaintingNamedAreas extends StatelessWidget {
+class PietPainting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,46 +28,35 @@ class PietPaintingNamedAreas extends StatelessWidget {
         columnGap: 12,
         rowGap: 12,
         templateAreas: gridTemplateAreas([
-          'r R  b  b  b',
-          'r R  Y  Y  Y',
-          'y R  Y  Y  Y',
-          'y R sg sb sy',
+          'r R B B  B',
+          'r R Y Y  Y',
+          'y R Y Y  Y',
+          'y R g b yy',
         ]),
-        templateColumnSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(3.5),
-          FlexibleTrackSize(1.3),
-          FlexibleTrackSize(1.3),
-          FlexibleTrackSize(1.3),
-        ],
+        // A number of extension methods are provided for concise track sizing
+        templateColumnSizes: [1.0.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
         templateRowSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(0.3),
-          FlexibleTrackSize(1.5),
-          FlexibleTrackSize(1.2),
+          1.0.fr,
+          0.3.fr,
+          1.5.fr,
+          1.2.fr,
         ],
         children: [
           // Column 1
-          _buildItemForColor(cellRed).inGridArea('r'),
-          _buildItemForColor(cellMustard).inGridArea('y'),
+          gridArea('r').containing(Container(color: cellRed)),
+          gridArea('y').containing(Container(color: cellMustard)),
           // Column 2
-          _buildItemForColor(cellRed).inGridArea('R'),
+          gridArea('R').containing(Container(color: cellRed)),
           // Column 3
-          _buildItemForColor(cellBlue).inGridArea('b'),
-          _buildItemForColor(cellMustard).inGridArea('Y'),
-          _buildItemForColor(cellGrey).inGridArea('sg'),
+          gridArea('B').containing(Container(color: cellBlue)),
+          gridArea('Y').containing(Container(color: cellMustard)),
+          gridArea('g').containing(Container(color: cellGrey)),
           // Column 4
-          _buildItemForColor(cellBlue).inGridArea('sb'),
+          gridArea('b').containing(Container(color: cellBlue)),
           // Column 5
-          _buildItemForColor(cellMustard).inGridArea('sy'),
+          gridArea('yy').containing(Container(color: cellMustard)),
         ],
       ),
-    );
-  }
-
-  Widget _buildItemForColor(Color c) {
-    return SizedBox.expand(
-      child: DecoratedBox(decoration: BoxDecoration(color: c)),
     );
   }
 }
