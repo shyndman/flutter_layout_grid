@@ -4,5 +4,6 @@ import 'package:flutter/widgets.dart';
 /// [debugPrint] function.
 bool debugPrintGridLayout = false;
 
-/// If `true`, unplaced children will be logged to the
+/// If `true`, unplaced children will be logged to the console via Flutter's
+/// [debugPrint] function.
 bool debugPrintUnplacedChildren = false;
