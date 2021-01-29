@@ -85,26 +85,20 @@ class PietPainting extends StatelessWidget {
         ],
         children: [
           // Column 1
-          _buildItemForColor(cellRed).inGridArea('r'),
-          _buildItemForColor(cellMustard).inGridArea('y'),
+          Container(color: cellRed).inGridArea('r'),
+          Container(color: cellMustard).inGridArea('y'),
           // Column 2
-          _buildItemForColor(cellRed).inGridArea('R'),
+          Container(color: cellRed).inGridArea('R'),
           // Column 3
-          _buildItemForColor(cellBlue).inGridArea('b'),
-          _buildItemForColor(cellMustard).inGridArea('Y'),
-          _buildItemForColor(cellGrey).inGridArea('sg'),
+          Container(color: cellBlue).inGridArea('b'),
+          Container(color: cellMustard).inGridArea('Y'),
+          Container(color: cellGrey).inGridArea('sg'),
           // Column 4
-          _buildItemForColor(cellBlue).inGridArea('sb'),
+          Container(color: cellBlue).inGridArea('sb'),
           // Column 5
-          _buildItemForColor(cellMustard).inGridArea('sy'),
+          Container(color: cellMustard).inGridArea('sy'),
         ],
       ),
-    );
-  }
-
-  Widget _buildItemForColor(Color c) {
-    return SizedBox.expand(
-      child: DecoratedBox(decoration: BoxDecoration(color: c)),
     );
   }
 }
