@@ -1,5 +1,9 @@
 library flutter_layout_grid;
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter_layout_grid/src/widgets/placement.dart';
+import 'package:meta/meta.dart';
+
 import 'src/rendering/track_size.dart';
 
 export 'src/foundation/placement.dart';
@@ -43,5 +47,47 @@ List<TrackSize> repeat(int times, List<TrackSize> tracks) =>
 Iterable<T> _repeat<T>(int times, Iterable<T> source) sync* {
   for (int i = 0; i < times; i++) {
     yield* source;
+  }
+}
+
+/// Convenience function for pretty grid definitions, ala:
+///
+///     LayoutGrid(
+///       templateAreas: gridTemplateAreas([
+///         'pink   pink   .',
+///         'pink   pink   red',
+///         'orange yellow red',
+///       ]),
+///       templateColumnSizes: [fixed(100), fixed(100), fixed(100)],
+///       templateRowSizes: [
+///         fixed(100),
+///         fixed(100),
+///         fixed(100),
+///        ],
+///       children: [
+///         //!!!
+///         gridArea('pink').containing(Container(color: Colors.pink)),
+///         gridArea('red').containing(Container(color: Colors.red)),
+///         gridArea('orange').containing(Container(color: Colors.orange)),
+///         gridArea('yellow').containing(Container(color: Colors.yellow)),
+///       ],
+///     )
+///
+NamedAreaGridPlacementBuilder gridArea(String name) {
+  return NamedAreaGridPlacementBuilder._(name);
+}
+
+/// Dumb little helper class for slightly cleaner grid child placement
+@immutable
+class NamedAreaGridPlacementBuilder {
+  NamedAreaGridPlacementBuilder._(this.name);
+
+  final String name;
+
+  NamedAreaGridPlacement containing(Widget child) {
+    return NamedAreaGridPlacement(
+      areaName: name,
+      child: child,
+    );
   }
 }
