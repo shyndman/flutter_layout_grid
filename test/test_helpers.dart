@@ -60,7 +60,3 @@ Widget wrapInMinimalApp(Widget child) {
     builder: (context, _) => child,
   );
 }
-
-FixedTrackSize fixed(double size) => FixedTrackSize(size);
-FlexibleTrackSize flex(double factor) => FlexibleTrackSize(factor);
-IntrinsicContentTrackSize intrinsic() => IntrinsicContentTrackSize();

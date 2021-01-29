@@ -54,7 +54,6 @@ This is the source for the sample you can see above.
 
 ```dart
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:flutter_layout_grid/helpers.dart';
 
 const cellRed = Color(0xffc73232);
 const cellMustard = Color(0xffd7aa22);
@@ -72,7 +71,7 @@ class Piet extends StatelessWidget {
         rowGap: 12,
         // package:flutter_layout_grid/helpers.dart includes several track
         // sizing extension methods
-        templateColumnSizes: [1.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
+        templateColumnSizes: [1.0.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
         templateRowSizes: [
           1.0.fr,
           0.3.fr,
