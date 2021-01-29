@@ -53,6 +53,9 @@ For Flutter versions before v1.14.0, use `flutter_layout_grid: ^0.9.0`
 This is the source for the sample you can see above.
 
 ```dart
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_layout_grid/helpers.dart';
+
 const cellRed = Color(0xffc73232);
 const cellMustard = Color(0xffd7aa22);
 const cellGrey = Color(0xffcfd4e0);
@@ -67,18 +70,14 @@ class Piet extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        templateColumnSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(3.5),
-          FlexibleTrackSize(1.3),
-          FlexibleTrackSize(1.3),
-          FlexibleTrackSize(1.3),
-        ],
+        // package:flutter_layout_grid/helpers.dart includes several track
+        // sizing extension methods
+        templateColumnSizes: [1.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
         templateRowSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(0.3),
-          FlexibleTrackSize(1.5),
-          FlexibleTrackSize(1.2),
+          1.0.fr,
+          0.3.fr,
+          1.5.fr,
+          1.2.fr,
         ],
         children: [
           // Column 1

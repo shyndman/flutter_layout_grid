@@ -10,6 +10,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_layout_grid/helpers.dart';
 
 void main() {
   runApp(PeriodicTableApp());
@@ -67,8 +68,8 @@ class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
   Widget _buildGrid(PeriodicTable table) {
     return LayoutGrid(
       gridFit: GridFit.loose,
-      templateColumnSizes: [FlexibleTrackSize(1)] * table.numColumns,
-      templateRowSizes: [IntrinsicContentTrackSize()] * table.numRows,
+      templateColumnSizes: repeat(table.numColumns, [1.fr]),
+      templateRowSizes: repeat(table.numRows, [auto]),
       columnGap: 0.4.vw,
       rowGap: 0.4.vw,
       children: [
