@@ -108,7 +108,14 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
         assert(templateColumnSizes != null && templateColumnSizes.isNotEmpty),
         this.rowGap = rowGap ?? 0,
         this.columnGap = columnGap ?? 0,
-        super(key: key, children: children);
+        super(key: key, children: children) {
+    assert(() {
+      if (templateAreas == null) return true;
+
+      return templateAreas.columnCount == templateColumnSizes.length &&
+          templateAreas.rowCount == templateRowSizes.length;
+    }());
+  }
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
   /// auto-placed items get flowed into the grid.
