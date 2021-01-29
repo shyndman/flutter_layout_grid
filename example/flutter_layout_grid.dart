@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_layout_grid/helpers.dart';
 
 void main() {
   runApp(PietApp());
@@ -32,17 +33,17 @@ class Piet extends StatelessWidget {
         columnGap: 12,
         rowGap: 12,
         templateColumnSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(3.5),
-          FlexibleTrackSize(1.3),
-          FlexibleTrackSize(1.3),
-          FlexibleTrackSize(1.3),
+          flex(1),
+          flex(3.5),
+          flex(1.3),
+          flex(1.3),
+          flex(1.3)
         ],
         templateRowSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(0.3),
-          FlexibleTrackSize(1.5),
-          FlexibleTrackSize(1.2),
+          flex(1),
+          flex(0.3),
+          flex(1.5),
+          flex(1.2),
         ],
         children: [
           // Column 1

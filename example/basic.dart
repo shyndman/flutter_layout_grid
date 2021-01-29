@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_layout_grid/helpers.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,16 +33,11 @@ class LayoutGridExample extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        templateColumnSizes: [
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(1),
-          FlexibleTrackSize(0.75),
-        ],
+        templateColumnSizes: [1.fr, 1.fr, 1.fr, 0.75.fr],
         templateRowSizes: [
-          FixedTrackSize(32),
-          FixedTrackSize(32),
-          FixedTrackSize(32),
+          32.px,
+          32.px,
+          32.px,
         ],
         children: [
           GridPlacement(

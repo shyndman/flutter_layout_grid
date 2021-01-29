@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_layout_grid/helpers.dart';
 
 void main() {
   runApp(MyApp());
@@ -55,16 +56,11 @@ class _AnimatedGapsExampleState extends State<AnimatedGapsExample>
     return LayoutGrid(
       columnGap: gapAnimation.value,
       rowGap: gapAnimation.value,
-      templateColumnSizes: [
-        FlexibleTrackSize(1),
-        FlexibleTrackSize(1),
-        FlexibleTrackSize(1),
-        FlexibleTrackSize(0.75),
-      ],
+      templateColumnSizes: [flex(1), flex(1), flex(1), flex(0.75)],
       templateRowSizes: [
-        FlexibleTrackSize(1),
-        FlexibleTrackSize(1),
-        FlexibleTrackSize(1),
+        flex(1),
+        flex(1),
+        flex(1),
       ],
       children: [
         GridPlacement(
