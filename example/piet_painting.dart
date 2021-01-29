@@ -26,45 +26,45 @@ class PietPainting extends StatelessWidget {
         ],
         children: [
           // Column 1
-          _buildItemForColor(cellRed).withGridPlacement(
+          Container(color: cellRed).withGridPlacement(
             columnStart: 0,
             rowStart: 0,
             rowSpan: 2,
           ),
-          _buildItemForColor(cellMustard).withGridPlacement(
+          Container(color: cellMustard).withGridPlacement(
             columnStart: 0,
             rowStart: 2,
             rowSpan: 2,
           ),
           // Column 2
-          _buildItemForColor(cellRed).withGridPlacement(
+          Container(color: cellRed).withGridPlacement(
             columnStart: 1,
             rowStart: 0,
             rowSpan: 4,
           ),
           // Column 3
-          _buildItemForColor(cellBlue).withGridPlacement(
+          Container(color: cellBlue).withGridPlacement(
             columnStart: 2,
             columnSpan: 3,
             rowStart: 0,
           ),
-          _buildItemForColor(cellMustard).withGridPlacement(
+          Container(color: cellMustard).withGridPlacement(
             columnStart: 2,
             columnSpan: 3,
             rowStart: 1,
             rowSpan: 2,
           ),
-          _buildItemForColor(cellGrey).withGridPlacement(
+          Container(color: cellGrey).withGridPlacement(
             columnStart: 2,
             rowStart: 3,
           ),
           // Column 4
-          _buildItemForColor(cellBlue).withGridPlacement(
+          Container(color: cellBlue).withGridPlacement(
             columnStart: 3,
             rowStart: 3,
           ),
           // Column 5
-          _buildItemForColor(cellMustard).withGridPlacement(
+          Container(color: cellMustard).withGridPlacement(
             columnStart: 4,
             rowStart: 3,
           ),
@@ -72,8 +72,4 @@ class PietPainting extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildItemForColor(Color c) => SizedBox.expand(
-        child: DecoratedBox(decoration: BoxDecoration(color: c)),
-      );
 }
