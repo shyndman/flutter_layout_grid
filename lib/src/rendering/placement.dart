@@ -88,7 +88,7 @@ void _resolveChildNamedArea(
   GridParentData childParentData,
   RenderLayoutGrid grid,
 ) {
-  childParentData.area = grid.templateAreas[childParentData.areaName];
+  childParentData.area = grid.areas[childParentData.areaName];
 }
 
 /// Used to determine unoccupied space by the auto-placement algorithm.
@@ -103,8 +103,8 @@ void _resolveChildNamedArea(
 class PlacementGrid {
   PlacementGrid({
     @required this.grid,
-  })  : explicitColumnCount = grid.templateColumnSizes.length,
-        explicitRowCount = grid.templateRowSizes.length {
+  })  : explicitColumnCount = grid.columnSizes.length,
+        explicitRowCount = grid.rowSizes.length {
     _cells = List<GridCell>.generate(
         explicitColumnCount * explicitRowCount, (i) => GridCell(this, i));
   }

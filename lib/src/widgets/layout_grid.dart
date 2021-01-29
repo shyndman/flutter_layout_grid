@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -97,23 +99,30 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     Key key,
     this.autoPlacement = AutoPlacement.rowSparse,
     this.gridFit = GridFit.expand,
-    @required this.templateColumnSizes,
-    @required this.templateRowSizes,
-    this.templateAreas,
+    this.areas,
+    @required List<TrackSize> columnSizes,
+    @Deprecated('templateColumnSizes is being shortened to columnSizes')
+        List<TrackSize> templateColumnSizes,
+    @required List<TrackSize> rowSizes,
+    @Deprecated('templateRowSizes is being shortened to rowSizes')
+        List<TrackSize> templateRowSizes,
     double rowGap,
     double columnGap,
     this.textDirection,
     List<Widget> children = const [],
-  })  : assert(templateRowSizes != null && templateRowSizes.isNotEmpty),
-        assert(templateColumnSizes != null && templateColumnSizes.isNotEmpty),
+  })  : this.columnSizes = columnSizes ?? templateColumnSizes,
+        this.rowSizes = rowSizes ?? templateRowSizes,
+        this.templateColumnSizes = columnSizes ?? templateColumnSizes,
+        this.templateRowSizes = rowSizes ?? templateRowSizes,
         this.rowGap = rowGap ?? 0,
         this.columnGap = columnGap ?? 0,
         super(key: key, children: children) {
+    assert(columnSizes != null && columnSizes.isNotEmpty);
+    assert(rowSizes != null && rowSizes.isNotEmpty);
     assert(() {
-      if (templateAreas == null) return true;
-
-      return templateAreas.columnCount == templateColumnSizes.length &&
-          templateAreas.rowCount == templateRowSizes.length;
+      if (areas == null) return true;
+      return areas.columnCount == columnSizes.length &&
+          areas.rowCount == rowSizes.length;
     }());
   }
 
@@ -125,15 +134,24 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   final GridFit gridFit;
 
   /// Defines the track sizing functions of the grid's columns.
-  final List<TrackSize> templateColumnSizes;
+  final List<TrackSize> columnSizes;
 
-  /// Defines the track sizing functions of the grid's rows.
-  final List<TrackSize> templateRowSizes;
+  /// Defines the track sizing functions of the grid's columns.
+  @Deprecated('templateColumnSizes is being shortened to columnSizes')
+  final List<TrackSize> templateColumnSizes;
 
   /// Defines named areas of the grid for placement of grid items by name.
   ///
-  /// Can be `null`.
-  final NamedGridAreas templateAreas;
+  /// Can be `null`, meaning that any grid item placed by name will not appear
+  /// in the grid.
+  final NamedGridAreas areas;
+
+  /// Defines the track sizing functions of the grid's rows.
+  final List<TrackSize> rowSizes;
+
+  /// Defines the track sizing functions of the grid's rows.
+  @Deprecated('templateRowSizes is being shortened to rowSizes')
+  final List<TrackSize> templateRowSizes;
 
   /// Space between column tracks
   final double columnGap;
@@ -151,9 +169,9 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     return RenderLayoutGrid(
       autoPlacement: autoPlacement,
       gridFit: gridFit,
-      templateColumnSizes: templateColumnSizes,
-      templateRowSizes: templateRowSizes,
-      templateAreas: templateAreas,
+      areas: areas,
+      columnSizes: columnSizes,
+      rowSizes: rowSizes,
       columnGap: columnGap,
       rowGap: rowGap,
       textDirection: textDirection ?? Directionality.of(context),
@@ -165,9 +183,9 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     renderObject
       ..autoPlacement = autoPlacement
       ..gridFit = gridFit
-      ..templateColumnSizes = templateColumnSizes
-      ..templateRowSizes = templateRowSizes
-      ..templateAreas = templateAreas
+      ..areas = areas
+      ..columnSizes = columnSizes
+      ..rowSizes = rowSizes
       ..columnGap = columnGap
       ..rowGap = rowGap
       ..textDirection = textDirection ?? Directionality.of(context);
@@ -178,12 +196,12 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     super.debugFillProperties(properties);
 
     properties.add(IterableProperty(
-      'templateColumnSizes',
-      templateColumnSizes,
+      'columnSizes',
+      columnSizes,
     ));
     properties.add(IterableProperty(
-      'templateRowSizes',
-      templateRowSizes,
+      'rowSizes',
+      rowSizes,
     ));
     properties.add(EnumProperty('autoPlacement', autoPlacement));
     properties.add(EnumProperty('gridFit', gridFit));

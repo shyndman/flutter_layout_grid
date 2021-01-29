@@ -20,7 +20,7 @@ void main() {
         tester,
         columnSizes: [fixed(10), fixed(10), fixed(10), fixed(10)],
         rowSizes: [fixed(10), fixed(10), fixed(10), fixed(10)],
-        namedAreas: gridTemplateAreas([
+        namedAreas: gridAreas([
           'a a a .',
           'a a a d',
           'b . . d',
@@ -52,12 +52,12 @@ void main() {
       final grid = RenderLayoutGrid(
         autoPlacement: AutoPlacement.rowSparse,
         textDirection: TextDirection.ltr,
-        templateColumnSizes: [
+        columnSizes: [
           fixed40,
           fixed40,
           fixed40,
         ],
-        templateRowSizes: [
+        rowSizes: [
           fixed40,
           fixed40,
           fixed40,

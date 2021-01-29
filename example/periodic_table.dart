@@ -67,8 +67,8 @@ class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
   Widget _buildGrid(PeriodicTable table) {
     return LayoutGrid(
       gridFit: GridFit.loose,
-      templateColumnSizes: repeat(table.numColumns, [1.fr]),
-      templateRowSizes: repeat(table.numRows, [auto]),
+      columnSizes: repeat(table.numColumns, [1.fr]),
+      rowSizes: repeat(table.numRows, [auto]),
       columnGap: 0.4.vw,
       rowGap: 0.4.vw,
       children: [

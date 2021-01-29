@@ -32,8 +32,8 @@ class LayoutGridExample extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        templateColumnSizes: [1.fr, 1.fr, 1.fr, 0.75.fr],
-        templateRowSizes: [
+        columnSizes: [1.fr, 1.fr, 1.fr, 0.75.fr],
+        rowSizes: [
           32.px,
           32.px,
           32.px,

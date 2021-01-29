@@ -17,8 +17,8 @@ class PietPainting extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        templateColumnSizes: [1.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
-        templateRowSizes: [
+        columnSizes: [1.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
+        rowSizes: [
           1.fr,
           0.3.fr,
           1.5.fr,

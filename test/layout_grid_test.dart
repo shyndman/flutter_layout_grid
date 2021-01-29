@@ -10,8 +10,8 @@ import '../example/flutter_layout_grid.dart';
 void main() {
   testWidgets('Computes fixed intrinsic sizes', (tester) async {
     final grid = LayoutGrid(
-      templateColumnSizes: [FixedTrackSize(10)],
-      templateRowSizes: [FixedTrackSize(10)],
+      columnSizes: [FixedTrackSize(10)],
+      rowSizes: [FixedTrackSize(10)],
       textDirection: TextDirection.ltr,
     );
     await tester.pumpWidget(grid);
@@ -48,12 +48,12 @@ void main() {
   //       rowGap: -borderWidth,
   //       textDirection: TextDirection.ltr,
   //       gridFit: GridFit.passthrough,
-  //       templateColumnSizes: [
+  //       columnSizes: [
   //         FlexibleTrackSize(1),
   //         FlexibleTrackSize(1),
   //         FlexibleTrackSize(1),
   //       ],
-  //       templateRowSizes: [
+  //       rowSizes: [
   //         IntrinsicContentTrackSize(),
   //         IntrinsicContentTrackSize(),
   //       ],
