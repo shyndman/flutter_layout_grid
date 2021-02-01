@@ -9,7 +9,6 @@ jobs:
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
     steps:
-
     - uses: actions/checkout@v1
 
     # Setup the flutter environment.
@@ -25,6 +24,10 @@ jobs:
 
     # Statically analyze the Dart code for any errors.
     - run: flutter analyze .
+
+    # Do the same for examples
+    - run: flutter analyze .
+      working-directory: ./example
 
     # Run widget tests for our flutter project.
     - run: flutter test
