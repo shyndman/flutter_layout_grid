@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:flutter_layout_grid/helpers.dart';
 
 void main() {
   runApp(PietApp());
