@@ -164,7 +164,7 @@ There are currently three way to size rows and columns:
 | Class Name                  | Description                                                                                                                                      | Usage                                                    |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
 | `FixedTrackSize`            | Occupies a specific number of pixels on an axis                                                                                                  | `FixedTrackSize(64)`<br>`fixed(64)`<br>`64.px`           |
-| `FlexibleSizeTrack`         | Fills remaining space after the initial layout has completed                                                                                     | `FlexibleTrackSize(1.5)`<br>`flexible(1.5)`<br>`1.5.fr`  |
+| `FlexibleSizeTrack`         | Fills remaining space after the initial layout has completed                                                                                     | `FlexibleTrackSize(1.5)`<br>`flex(1.5)`<br>`1.5.fr`  |
 | `IntrinsicContentTrackSize` | Sized to contain its itemsʼ contents. Will also expand to fill available space, once `FlexibleTrackSize` tracks have been given the opportunity. | `IntrinsicContentTrackSize()`<br>`intrinsic()`<br>`auto` |
 
 Technically, you can also define your own, but probably shouldnʼt as the API

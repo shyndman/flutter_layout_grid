@@ -24,6 +24,12 @@
       "request": "launch",
     },
     {
+      "name": "Scantron",
+      "program": "example/scantron_answer_sheet.dart",
+      "type": "dart",
+      "request": "launch",
+    },
+    {
       "name": "Basic",
       "program": "example/basic.dart",
       "request": "launch",

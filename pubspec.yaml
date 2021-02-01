@@ -8,9 +8,9 @@ environment:
   sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
-  collection: ^1.0.0
   flutter:
     sdk: flutter
+  collection: ^1.0.0
   meta: ^1.0.0
   quiver: ^2.0.0
 

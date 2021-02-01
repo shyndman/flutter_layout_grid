@@ -20,7 +20,7 @@ T sum<T extends num>(Iterable<T> numbers) {
   return numbers.fold(zeroForType<T>(), (acc, number) => (acc + number) as T);
 }
 
-/// Returns an iterable of [number]'s cumulative sums.
+/// Returns an iterable of [label]'s cumulative sums.
 ///
 /// ```
 /// cumulativeSum([1, 2, 3]) // 0, 1, 3, 6
