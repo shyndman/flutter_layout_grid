@@ -787,8 +787,9 @@ class RenderLayoutGrid extends RenderBox
     @required BoxConstraints constraints,
   }) {
     final minimumGridSize = constraintBoundsForType(constraints, type).min;
-    final freeSpace =
-        minimumGridSize - gridSizing.totalBaseSizeOfTracksForType(type);
+    final freeSpace = minimumGridSize -
+        gridSizing.totalBaseSizeOfTracksForType(type) -
+        gridSizing.totalGapForType(type);
 
     if (freeSpace <= 0) return;
 
@@ -800,6 +801,7 @@ class RenderLayoutGrid extends RenderBox
     for (final track in intrinsicTracks) {
       track.baseSize += shareForTrack;
     }
+    gridSizing.invalidateTrackStartsForType(type);
   }
 
   @override
@@ -903,7 +905,8 @@ class RenderLayoutGrid extends RenderBox
   }
 }
 
-MinMax constraintBoundsForType(BoxConstraints constraints, TrackType type) {
+MinMax<double> constraintBoundsForType(
+    BoxConstraints constraints, TrackType type) {
   return type == TrackType.column
       ? MinMax(constraints.minWidth, constraints.maxWidth)
       : MinMax(constraints.minHeight, constraints.maxHeight);
@@ -1096,6 +1099,12 @@ class GridSizingInfo {
   double unitGapAlongAxis(Axis axis) =>
       axis == Axis.horizontal ? columnGap : rowGap;
 
+  double unitGapForType(TrackType type) =>
+      unitGapAlongAxis(measurementAxisForTrackType(type));
+
+  double totalGapForType(TrackType type) =>
+      (tracksForType(type).length - 1) * unitGapForType(type);
+
   bool isAxisSized(Axis sizingAxis) =>
       sizingAxis == Axis.horizontal ? hasColumnSizing : hasRowSizing;
 
@@ -1115,6 +1124,14 @@ class GridSizingInfo {
         .map((t) => t.baseSize);
     final gapSize = (area.spanForAxis(axis) - 1) * unitGapAlongAxis(axis);
     return math.max(0, sum(trackBaseSizes) + gapSize);
+  }
+
+  void invalidateTrackStartsForType(TrackType type) {
+    if (type == TrackType.column) {
+      _ltrColumnStarts = null;
+    } else {
+      _rowStarts = null;
+    }
   }
 }
 
@@ -1140,8 +1157,14 @@ Rect _childRectForOverflowComparison(Rect gridRect, Rect childRect) {
   );
 }
 
-class MinMax {
+class MinMax<T extends num> {
   const MinMax(this.min, this.max);
-  final double min;
-  final double max;
+  final T min;
+  final T max;
+
+  String toString() {
+    return min == max
+        ? min.toStringAsFixed(1)
+        : '${min.toStringAsFixed(1)}->${max.toStringAsFixed(1)}';
+  }
 }
