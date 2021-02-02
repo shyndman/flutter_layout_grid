@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flutter_layout_grid/src/rendering/layout_grid.dart';
-import 'package:flutter_layout_grid/src/rendering/placement.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'test_helpers.dart';
 
@@ -43,37 +41,6 @@ void main() {
       // References an area that isn't in the named areas
       final notPlacedParentData = parentDataByKey(tester, keyE);
       expect(notPlacedParentData.isNotPlaced, true);
-    });
-  });
-
-  group('auto placement', () {
-    test('not sure yet', () {
-      final fixed40 = const FixedTrackSize(40);
-      final grid = RenderLayoutGrid(
-        autoPlacement: AutoPlacement.rowSparse,
-        textDirection: TextDirection.ltr,
-        columnSizes: [
-          fixed40,
-          fixed40,
-          fixed40,
-        ],
-        rowSizes: [
-          fixed40,
-          fixed40,
-          fixed40,
-        ],
-        children: [
-          gridItem(debugLabel: 'a', columnSpan: 2, rowSpan: 2),
-          gridItem(debugLabel: 'b'),
-          gridItem(debugLabel: 'c'),
-          gridItem(debugLabel: 'd'),
-          gridItem(debugLabel: '0', columnStart: 0, rowStart: 0),
-          gridItem(debugLabel: '2', rowStart: 2),
-        ],
-      );
-
-      final placementGrid = computeItemPlacement(grid);
-      print(placementGrid);
     });
   });
 }
