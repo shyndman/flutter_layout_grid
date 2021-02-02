@@ -458,7 +458,7 @@ class RenderLayoutGrid extends RenderBox
     final isAxisUpperBound = bounds.max.isFinite;
 
     if (debugPrintGridLayout) {
-      debugPrint('Sizing ${describeEnum(typeBeingSized)} tracks with a '
+      debugPrint('${describeEnum(typeBeingSized).toUpperCase()} tracks with a '
           'maximum free space of $initialFreeSpace, '
           'isAxisUpperBound=$isAxisUpperBound');
     }
@@ -481,7 +481,7 @@ class RenderLayoutGrid extends RenderBox
       } else {
         // Intrinsic sizing
         track.baseSize = 0;
-        track.growthLimit = double.infinity;
+        track.growthLimit = double.infinity; // Set in next step
         intrinsicTracks.add(track);
       }
 
@@ -507,8 +507,8 @@ class RenderLayoutGrid extends RenderBox
     gridSizing.setMinMaxTrackSizesForAxis(axisMinSize, axisMaxSize, sizingAxis);
 
     if (debugPrintGridLayout) {
-      debugPrint('Axis min-max: $axisMinSize->$axisMaxSize');
-      debugPrint('Free space: $freeSpace');
+      debugPrint('min-max: ${MinMax(axisMinSize, axisMaxSize)}');
+      debugPrint('free space: $freeSpace');
     }
 
     // We're already overflowing
@@ -571,7 +571,8 @@ class RenderLayoutGrid extends RenderBox
   ) {
     if (intrinsicTracks.isNotEmpty && debugPrintGridLayout) {
       debugPrint('Resolving intrinsic ${describeEnum(type)} '
-          '${type == TrackType.column ? 'widths' : 'heights'}');
+          '${type == TrackType.column ? 'widths' : 'heights'} '
+          '[${debugTrackIndicesString(intrinsicTracks)}]');
     }
 
     final itemsInIntrinsicTracks = intrinsicTracks
@@ -620,6 +621,12 @@ class RenderLayoutGrid extends RenderBox
         final minSpanSize = intrinsicTrack.sizeFunction.minIntrinsicSize(
             type, spanItemsInTrack,
             crossAxisSizeForItem: crossAxisSizeForItem);
+        if (debugPrintGridLayout) {
+          debugPrint('  min size of '
+              '${debugTrackIndicesString(spannedTracks, trackPrefix: true)} '
+              '= $minSpanSize');
+        }
+
         _distributeCalculatedSpaceToSpannedTracks(
             minSpanSize, type, spannedTracks, _IntrinsicDimension.min);
 
@@ -630,6 +637,11 @@ class RenderLayoutGrid extends RenderBox
             crossAxisSizeForItem: crossAxisSizeForItem);
         _distributeCalculatedSpaceToSpannedTracks(
             maxSpanSize, type, spannedTracks, _IntrinsicDimension.max);
+        if (debugPrintGridLayout) {
+          debugPrint('  max size of '
+              '${debugTrackIndicesString(spannedTracks, trackPrefix: true)} '
+              '= $maxSpanSize');
+        }
       }
     }
 
@@ -638,7 +650,8 @@ class RenderLayoutGrid extends RenderBox
       if (track.isInfinite) track.growthLimit = track.baseSize;
 
       if (debugPrintGridLayout) {
-        debugPrint('  ${track.index}: ${track.toPrettySizeString()}');
+        debugPrint('  update track ${track.index} = '
+            '${track.toPrettySizeString()}');
       }
     }
   }
@@ -691,8 +704,9 @@ class RenderLayoutGrid extends RenderBox
     assert(freeSpace >= 0);
 
     if (debugPrintGridLayout) {
-      debugPrint('Distributing $freeSpace across ${describeEnum(dimension)} '
-          'dimension');
+      debugPrint('  distributing $freeSpace across '
+          '${debugTrackIndicesString(tracks)} on '
+          '${describeEnum(dimension)}');
     }
 
     // Grab a mutable copy of our tracks
@@ -1163,8 +1177,7 @@ class MinMax<T extends num> {
   final T max;
 
   String toString() {
-    return min == max
-        ? min.toStringAsFixed(1)
-        : '${min.toStringAsFixed(1)}->${max.toStringAsFixed(1)}';
+    return '${min.toStringAsFixed(1)}->${max.toStringAsFixed(1)}' +
+        (min == max ? ' (same)' : '');
   }
 }
