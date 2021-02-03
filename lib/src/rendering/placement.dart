@@ -89,7 +89,8 @@ void _resolveChildNamedArea(
   GridParentData childParentData,
   RenderLayoutGrid grid,
 ) {
-  childParentData.area = grid.areas[childParentData.areaName];
+  childParentData.area =
+      grid.areas != null ? grid.areas[childParentData.areaName] : null;
 }
 
 /// Used to determine unoccupied space by the auto-placement algorithm.

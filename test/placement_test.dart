@@ -6,13 +6,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_helpers.dart';
 
 void main() {
-  group('named placement', () {
+  group('NameAreaGridPlacement', () {
     testWidgets('positions items correctly', (tester) async {
       final keyA = ValueKey('a'),
           keyB = ValueKey('b'),
           keyC = ValueKey('c'),
-          keyD = ValueKey('d'),
-          keyE = ValueKey('e');
+          keyD = ValueKey('d');
 
       await sizeGridWithChildren(
         tester,
@@ -23,13 +22,17 @@ void main() {
           c c c c
         ''',
         columnSizes: [fixed(10), fixed(10), fixed(10), fixed(10)],
-        rowSizes: [fixed(10), fixed(10), fixed(10), fixed(10)],
+        rowSizes: [
+          fixed(10),
+          fixed(10),
+          fixed(10),
+          fixed(10),
+        ],
         children: [
           Container(key: keyA).inGridArea('a'),
           Container(key: keyB).inGridArea('b'),
           Container(key: keyC).inGridArea('c'),
           Container(key: keyD).inGridArea('d'),
-          Container(key: keyE).inGridArea('e'),
         ],
       );
 
@@ -37,14 +40,57 @@ void main() {
       expect(definiteAreaByKey(tester, keyB), [0, 1, 2, 1]);
       expect(definiteAreaByKey(tester, keyC), [0, 4, 3, 1]);
       expect(definiteAreaByKey(tester, keyD), [3, 1, 1, 2]);
+    });
 
-      // References an area that isn't in the named areas
-      final notPlacedParentData = parentDataByKey(tester, keyE);
-      expect(notPlacedParentData.isNotPlaced, true);
+    testWidgets(
+        'is not placed when its area is not defined by LayoutGrid.areas',
+        (tester) async {
+      final keyA = ValueKey('a');
+      final keyNotInGrid = ValueKey('not-in-grid');
+
+      await sizeGridWithChildren(
+        tester,
+        areas: 'a',
+        columnSizes: [fixed(10)],
+        rowSizes: [
+          fixed(10),
+        ],
+        children: [
+          Container(key: keyA).inGridArea('a'),
+          Container(key: keyNotInGrid).inGridArea('not-in-grid'),
+        ],
+      );
+
+      // Just to be safe, we check the placed child
+      expect(definiteAreaByKey(tester, keyA), [0, 1, 0, 1]);
+
+      // Then check the child whose area is not defined
+      final notInGridParentData = parentDataByKey(tester, keyNotInGrid);
+      expect(notInGridParentData.isNotPlaced, true);
+    });
+
+    testWidgets('is not placed when LayoutGrid.areas is null', (tester) async {
+      final keyNotInGrid = ValueKey('not-in-grid');
+
+      await sizeGridWithChildren(
+        tester,
+        columnSizes: [fixed(10)],
+        rowSizes: [
+          fixed(10),
+        ],
+        children: [
+          Container(key: keyNotInGrid).inGridArea('not-in-grid'),
+        ],
+      );
+
+      // Then check the child whose area is not defined
+      final notInGridParentData = parentDataByKey(tester, keyNotInGrid);
+      expect(notInGridParentData.isNotPlaced, true);
     });
   });
 }
 
+/// Returned value is [colStart, colSpan, rowStart, rowSpan]
 List<int> definiteAreaByKey(WidgetTester tester, Key key) {
   final parentData = parentDataByKey(tester, key);
   final area = parentData.area;
