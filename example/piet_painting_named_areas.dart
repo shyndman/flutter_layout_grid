@@ -27,12 +27,12 @@ class PietPainting extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        areas: gridAreas([
-          'r R B B  B',
-          'r R Y Y  Y',
-          'y R Y Y  Y',
-          'y R g b yy',
-        ]),
+        areas: '''
+          r R B B  B
+          r R Y Y  Y
+          y R Y Y  Y
+          y R g b yy
+        ''',
         // A number of extension methods are provided for concise track sizing
         columnSizes: [1.0.fr, 3.5.fr, 1.3.fr, 1.3.fr, 1.3.fr],
         rowSizes: [

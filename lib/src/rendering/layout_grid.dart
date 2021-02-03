@@ -136,7 +136,7 @@ class RenderLayoutGrid extends RenderBox
     List<RenderBox> children,
     double columnGap = 0,
     double rowGap = 0,
-    NamedGridAreas areas,
+    String areasSpec,
     @required List<TrackSize> columnSizes,
     @required List<TrackSize> rowSizes,
     TextDirection textDirection = TextDirection.ltr,
@@ -147,7 +147,8 @@ class RenderLayoutGrid extends RenderBox
         _gridFit = gridFit,
         _columnSizes = columnSizes,
         _rowSizes = rowSizes,
-        _areas = areas,
+        _areasSpec = areasSpec,
+        _areas = areasSpec != null ? parseNamedAreasSpec(areasSpec) : null,
         _columnGap = columnGap,
         _rowGap = rowGap,
         _textDirection = textDirection {
@@ -184,6 +185,15 @@ class RenderLayoutGrid extends RenderBox
     if (_gridFit == value) return;
     _gridFit = value;
     markNeedsLayout();
+  }
+
+  /// The string representation of [areas].
+  String get areasSpec => _areasSpec;
+  String _areasSpec;
+  set areasSpec(String value) {
+    if (_areasSpec == value) return;
+    _areasSpec = value;
+    this.areas = value != null ? parseNamedAreasSpec(value) : null;
   }
 
   /// Named areas that can be used for placement.

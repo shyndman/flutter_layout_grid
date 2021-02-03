@@ -120,8 +120,9 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     assert(rowSizes != null && rowSizes.isNotEmpty);
     assert(() {
       if (areas == null) return true;
-      return areas.columnCount == columnSizes.length &&
-          areas.rowCount == rowSizes.length;
+      final parsedAreas = parseNamedAreasSpec(areas);
+      return parsedAreas.columnCount == columnSizes.length &&
+          parsedAreas.rowCount == rowSizes.length;
     }());
   }
 
@@ -141,9 +142,27 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
 
   /// Defines named areas of the grid for placement of grid items by name.
   ///
+  /// This string is similar to `grid-template-areas` in CSS, as described in
+  /// https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas,
+  /// but unlike CSS is a single multiline string.
+  ///
   /// Can be `null`, meaning that any grid item placed by name will not appear
   /// in the grid.
-  final NamedGridAreas areas;
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// LayoutGrid(
+  ///   areas: '''
+  ///     header header  header
+  ///     nav    content aside
+  ///     nav    content .
+  ///     footer footer  footer
+  ///   ''',
+  /// )
+  /// ```
+  ///
+  final String areas;
 
   /// Defines the track sizing functions of the grid's rows.
   final List<TrackSize> rowSizes;
@@ -168,7 +187,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     return RenderLayoutGrid(
       autoPlacement: autoPlacement,
       gridFit: gridFit,
-      areas: areas,
+      areasSpec: areas,
       columnSizes: columnSizes,
       rowSizes: rowSizes,
       columnGap: columnGap,
@@ -182,7 +201,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     renderObject
       ..autoPlacement = autoPlacement
       ..gridFit = gridFit
-      ..areas = areas
+      ..areasSpec = areas
       ..columnSizes = columnSizes
       ..rowSizes = rowSizes
       ..columnGap = columnGap

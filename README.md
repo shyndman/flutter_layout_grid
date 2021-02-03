@@ -66,12 +66,12 @@ class App extends StatelessWidget {
       child: LayoutGrid(
         columnGap: 12,
         rowGap: 12,
-        namedAreas: gridAreas([
-          'header header  header ',
-          'nav    content aside  ',
-          'nav    content .      ',
-          'footer footer  footer ',
-        ]),
+        areas: '''
+          header header  header
+          nav    content aside
+          nav    content .
+          footer footer  footer
+        ''',
         // A number of extension methods are provided for concise track sizing
         columnSizes: [240.px, 1.fr, auto],
         rowSizes: [
@@ -145,11 +145,11 @@ the `NamedAreaGridPlacement` widget. For example:
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 LayoutGrid(
-  areas: gridAreas([
-    'a a .',
-    'a a b',
-    '. . b',
-  ]),
+  areas: '''
+    a a .
+    a a b
+    . . b
+  ''',
   // Note that the number of columns and rows matches the grid above (3x3)
   columnSizes: [fixed(100), fixed(100), fixed(100)],
   rowSizes: [fixed(100), fixed(100), fixed(100)],

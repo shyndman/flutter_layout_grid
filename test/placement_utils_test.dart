@@ -1,17 +1,16 @@
+import 'package:flutter_layout_grid/src/foundation/placement.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 void main() {
   group('template area parsing', () {
     test('produces correctly named GridAreas', () {
-      final areas = gridAreas([
-        'logo     nav      nav      nav',
-        'bar      main     main     main',
-        'bar      main     main     main',
-        'bar      main     main     main',
-        'footer   footer   footer   footer',
-      ]);
+      final areas = parseNamedAreasSpec('''
+        logo     nav      nav      nav
+        bar      main     main     main
+        bar      main     main     main
+        bar      main     main     main
+        footer   footer   footer   footer
+      ''');
       expect(areas.length, 5);
       expect(
         areas['logo'],
@@ -67,36 +66,36 @@ void main() {
 
     test('throws with disjoint area', () {
       expect(
-        () => gridAreas(['a . . a']),
+        () => parseNamedAreasSpec('a . . a'),
         throwsA(isInstanceOf<ArgumentError>()),
       );
     });
 
     test('throws with invalid name', () {
       expect(
-        () => gridAreas(['\$aaa . . .']),
+        () => parseNamedAreasSpec('\$aaa . . .'),
         throwsArgumentError,
       );
     });
 
     test('throws with incomplete area rectangles', () {
       expect(
-        () => gridAreas([
-          'a . . .',
-          'a a . .',
-          'a a . .',
-        ]),
+        () => parseNamedAreasSpec('''
+          a . . .
+          a a . .
+          a a . .
+        '''),
         throwsArgumentError,
       );
     });
 
-    test('throws with changing explicit grid columns', () {
+    test('throws with varying column counts', () {
       expect(
-        () => gridAreas([
+        () => parseNamedAreasSpec('''
           'a . . .',
           'a . . . .',
           'a . . .',
-        ]),
+        '''),
         throwsArgumentError,
       );
     });
