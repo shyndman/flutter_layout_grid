@@ -390,6 +390,12 @@ class RenderLayoutGrid extends RenderBox
     }
   }
 
+  @override
+  @visibleForTesting
+  Size computeDryLayout(BoxConstraints constraints) {
+    return computeGridSize(constraints).gridSize;
+  }
+
   @visibleForTesting
   GridSizingInfo computeGridSize(
     BoxConstraints gridConstraints, {

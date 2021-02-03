@@ -116,6 +116,55 @@ void main() {
       expect(renderObject.getMaxIntrinsicHeight(double.infinity), 10);
     });
   });
+
+  group('computeDryLayout', () {
+    testWidgets('computes the same size that layout does', (tester) async {
+      final testConstraints = BoxConstraints.tightFor(width: 400, height: 400);
+      await tester.pumpWidget(_gridFitHarness(
+        constraints: testConstraints,
+        child: LayoutGrid(
+          gridFit: GridFit.expand,
+          columnSizes: [1.fr],
+          rowSizes: [1.fr],
+          children: [],
+        ),
+      ));
+
+      final renderGrid =
+          tester.renderObject<RenderLayoutGrid>(find.byType(LayoutGrid));
+      expect(
+        renderGrid.lastGridSizing.gridSize,
+        renderGrid.computeDryLayout(testConstraints),
+      );
+    });
+
+    testWidgets('does not call layout() in children', (tester) async {
+      final testConstraints = BoxConstraints.tightFor(width: 400, height: 400);
+
+      // This will layout the child once
+      await tester.pumpWidget(_gridFitHarness(
+        constraints: testConstraints,
+        child: LayoutGrid(
+          gridFit: GridFit.expand,
+          columnSizes: [auto],
+          rowSizes: [auto],
+          children: [TestLayoutCountingGridItem()],
+        ),
+      ));
+
+      final renderGrid =
+          tester.renderObject<RenderLayoutGrid>(find.byType(LayoutGrid));
+      final renderGridItem =
+          tester.renderObject<RenderTestLayoutCountingGridItem>(
+              find.byType(TestLayoutCountingGridItem));
+
+      // Ensure the child has been laid out once, then reset the count
+      expect(renderGridItem.layoutCount, 1);
+      renderGridItem.resetCount();
+      renderGrid.computeDryLayout(testConstraints);
+      expect(renderGridItem.layoutCount, 0);
+    });
+  });
 }
 
 Widget _gridFitHarness({

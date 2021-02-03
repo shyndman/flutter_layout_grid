@@ -62,3 +62,22 @@ Widget wrapInMinimalApp(Widget child) {
     builder: (context, _) => child,
   );
 }
+
+/// A widget whose [RenderObject] counts how many times it has been laid out.
+class TestLayoutCountingGridItem extends LeafRenderObjectWidget {
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      RenderTestLayoutCountingGridItem();
+}
+
+class RenderTestLayoutCountingGridItem extends RenderBox {
+  int layoutCount = 0;
+
+  void resetCount() => layoutCount = 0;
+
+  @override
+  void performLayout() {
+    layoutCount++;
+    this.size = constraints.biggest;
+  }
+}
