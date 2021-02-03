@@ -23,12 +23,12 @@ class DesktopLayout extends StatelessWidget {
     return Container(
       color: Colors.grey[400],
       child: LayoutGrid(
-        areas: gridAreas([
-          'header header  header',
-          'nav    content aside ',
-          'nav    content .     ',
-          'footer footer  footer',
-        ]),
+        areas: '''
+          header header  header
+          nav    content aside
+          nav    content .
+          footer footer  footer
+        ''',
         // A number of extension methods are provided for concise track sizing
         columnSizes: [224.px, 1.fr, auto],
         rowSizes: [

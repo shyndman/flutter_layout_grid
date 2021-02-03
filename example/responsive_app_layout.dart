@@ -31,12 +31,12 @@ class ResponsiveLayout extends StatelessWidget {
     if (viewportWidth > 700) {
       // Desktop
       return GridConfiguration(
-        areas: gridAreas([
-          'header header  header ',
-          'nav    content sidebar',
-          'nav    content ad     ',
-          'footer footer  footer ',
-        ]),
+        areas: '''
+          header header  header
+          nav    content sidebar
+          nav    content ad
+          footer footer  footer
+        ''',
         columnSizes: [186.px, 1.fr, 186.px],
         rowSizes: [
           144.px,
@@ -48,12 +48,12 @@ class ResponsiveLayout extends StatelessWidget {
     } else if (viewportWidth > 500) {
       // Larger mobile
       return GridConfiguration(
-        areas: gridAreas([
-          'header  header ',
-          'nav     nav    ',
-          'sidebar content',
-          'ad      footer ',
-        ]),
+        areas: '''
+          header  header
+          nav     nav
+          sidebar content
+          ad      footer
+        ''',
         columnSizes: [1.fr, 3.fr],
         rowSizes: [
           104.px,
@@ -65,14 +65,14 @@ class ResponsiveLayout extends StatelessWidget {
     } else {
       // Small mobile
       return GridConfiguration(
-        areas: gridAreas([
-          'header ',
-          'nav    ',
-          'content',
-          'sidebar',
-          'ad     ',
-          'footer ',
-        ]),
+        areas: '''
+          header
+          nav
+          content
+          sidebar
+          ad
+          footer
+        ''',
         columnSizes: [1.fr],
         rowSizes: [
           96.px,
@@ -110,7 +110,7 @@ class ResponsiveLayout extends StatelessWidget {
 }
 
 class GridConfiguration {
-  final NamedGridAreas areas;
+  final String areas;
   final List<TrackSize> columnSizes;
   final List<TrackSize> rowSizes;
   GridConfiguration({this.areas, this.columnSizes, this.rowSizes});

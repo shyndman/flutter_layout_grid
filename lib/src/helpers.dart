@@ -43,11 +43,11 @@ Iterable<T> _repeat<T>(int times, Iterable<T> source) sync* {
 /// Convenience function for pretty grid definitions, ala:
 ///
 ///     LayoutGrid(
-///       areas: gridAreas([
-///         'pink   pink   .',
-///         'pink   pink   red',
-///         'orange yellow red',
-///       ]),
+///       areas: '''
+///         pink   pink   .
+///         pink   pink   red
+///         orange yellow red
+///       ''',
 ///       columnSizes: [fixed(100), fixed(100), fixed(100)],
 ///       rowSizes: [
 ///         fixed(100),

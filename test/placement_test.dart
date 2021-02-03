@@ -16,14 +16,14 @@ void main() {
 
       await sizeGridWithChildren(
         tester,
+        areas: '''
+          a a a .
+          a a a d
+          b . . d
+          c c c c
+        ''',
         columnSizes: [fixed(10), fixed(10), fixed(10), fixed(10)],
         rowSizes: [fixed(10), fixed(10), fixed(10), fixed(10)],
-        namedAreas: gridAreas([
-          'a a a .',
-          'a a a d',
-          'b . . d',
-          'c c c c',
-        ]),
         children: [
           Container(key: keyA).inGridArea('a'),
           Container(key: keyB).inGridArea('b'),

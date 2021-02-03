@@ -26,9 +26,9 @@ GridSizingInfo sizeEmptyGrid({
 Future<GridSizingInfo> sizeGridWithChildren(
   WidgetTester tester, {
   GridFit gridFit = GridFit.passthrough,
+  String areas,
   List<TrackSize> columnSizes,
   List<TrackSize> rowSizes,
-  NamedGridAreas namedAreas,
   List<Widget> children,
   BoxConstraints constraints,
 }) async {
@@ -38,9 +38,9 @@ Future<GridSizingInfo> sizeGridWithChildren(
         constraints: constraints ?? testConstraints,
         child: LayoutGrid(
           gridFit: gridFit,
+          areas: areas,
           columnSizes: columnSizes,
           rowSizes: rowSizes,
-          areas: namedAreas,
           children: children,
         ),
       ),

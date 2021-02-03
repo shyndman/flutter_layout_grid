@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/painting.dart';
@@ -70,60 +71,71 @@ class GridArea {
 /// Named areas can be used for the placement of grid items, via
 /// [NamedAreaGridPlacement].
 ///
-/// Use [gridAreas] to produce one of these objects based on a string
+/// Use [parseNamedAreasSpec] to produce one of these objects based on a string
 /// formatted similarly to CSS's `grid-template-areas`.
 /// ``
 class NamedGridAreas {
   NamedGridAreas({
     @required this.columnCount,
     @required this.rowCount,
-    @required Map<String, GridArea> namedAreas,
-  }) : _namedAreas = namedAreas;
+    @required Map<String, GridArea> areas,
+  }) : _areas = areas;
 
   final int columnCount;
   final int rowCount;
-  final Map<String, GridArea> _namedAreas;
+  final Map<String, GridArea> _areas;
 
   /// The number of named areas
-  int get length => _namedAreas.length;
+  int get length => _areas.length;
 
   /// The [GridArea] named [areaName], or `null` if it does not exist
-  GridArea operator [](String areaName) => _namedAreas[areaName];
+  GridArea operator [](String areaName) => _areas[areaName];
 }
 
 /// Parses a set of strings into a description of the grid's named areas.
 ///
-/// The format of [specRows] is identical to the format supplied to CSS Grid
+/// The format of [namedAreasSpec] is similar to the format supplied to CSS Grid
 /// Layout's `grid-template-areas` property:
 /// https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
 ///
+/// The only difference is that it is a multiline string. Rows must be separated
+/// by newlines.
+///
 /// Example input:
 ///
-///     [
-///       "head head",
-///       "nav  main",
-///       "nav  foot",
-///     ];
+/// ```dart
+/// parseNamedAreasSpec('''
+///   head head,
+///   nav  main,
+///   nav  foot,
+/// ''');
+/// ```
 ///
-NamedGridAreas gridAreas(List<String> specRows) {
+NamedGridAreas parseNamedAreasSpec(String namedAreasSpec) {
   final gridAreaBuilders = <String, _GridAreaBuilder>{};
   int columnCount;
 
-  for (int currentRow = 0; currentRow < specRows.length; currentRow++) {
-    final tokens = specRows[currentRow].trim().split(_tokenSeparatorPattern);
+  final rowSpecs = LineSplitter.split(namedAreasSpec)
+      .map((line) => line.trim())
+      .where((line) => line.isNotEmpty)
+      .toList();
+
+  for (int currentRow = 0; currentRow < rowSpecs.length; currentRow++) {
+    final rowSpec = rowSpecs[currentRow];
+    final cellSpecs = rowSpec.split(_tokenSeparatorPattern);
 
     if (columnCount == null) {
-      columnCount = tokens.length;
-    } else if (columnCount != tokens.length) {
+      columnCount = cellSpecs.length;
+    } else if (columnCount != cellSpecs.length) {
       throw ArgumentError(
           'Row ($currentRow) has the wrong number of area names, '
-          'expected=$columnCount found=${tokens.length}');
+          'expected=$columnCount found=${cellSpecs.length}');
     }
 
     for (int currentColumn = 0;
-        currentColumn < tokens.length;
+        currentColumn < cellSpecs.length;
         currentColumn++) {
-      final token = tokens[currentColumn];
+      final token = cellSpecs[currentColumn];
       if (_isNamedCellToken(token)) {
         final builder =
             gridAreaBuilders.putIfAbsent(token, () => _GridAreaBuilder(token));
@@ -137,8 +149,8 @@ NamedGridAreas gridAreas(List<String> specRows) {
 
   return NamedGridAreas(
     columnCount: columnCount,
-    rowCount: specRows.length,
-    namedAreas: gridAreaBuilders.map(
+    rowCount: rowSpecs.length,
+    areas: gridAreaBuilders.map(
       (name, builder) => MapEntry(name, builder.build()),
     ),
   );
