@@ -11,6 +11,7 @@ class DesktopLayoutApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return WidgetsApp(
         color: Colors.white,
+        debugShowCheckedModeBanner: false,
         builder: (context, child) {
           return DesktopLayout();
         });
@@ -30,12 +31,12 @@ class DesktopLayout extends StatelessWidget {
           footer footer  footer
         ''',
         // A number of extension methods are provided for concise track sizing
-        columnSizes: [224.px, 1.fr, auto],
+        columnSizes: [152.px, 1.fr, 152.px],
         rowSizes: [
-          144.px,
+          112.px,
           auto,
           1.fr,
-          112.px,
+          64.px,
         ],
         children: [
           Header().inGridArea('header'),
