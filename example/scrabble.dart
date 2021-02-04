@@ -19,7 +19,7 @@ List<TileInfo> getTiles() {
   .  .  .  .  .  .  .  .  E  .  .  .  .  .  .
   .  .  .  .  .  .  .  .  A  .  .  G  .  .  .
   .  .  .  .  .  F  L  U  T  T  E  R  .  .  .
-  .  .  .  W  .  .  A  .  .  .  .  I  S  .  .
+  .  .  .  W  .  .  A  T  .  .  .  I  S  .  .
   .  .  .  O  .  .  Y  .  .  .  .  D  .  .  .
   .  .  A  W  E  S  O  M  E  .  .  .  .  .  .
   .  .  U  .  .  .  U  .  .  .  .  .  .  .  .
