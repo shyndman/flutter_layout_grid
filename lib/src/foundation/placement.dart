@@ -158,10 +158,10 @@ NamedGridAreas parseNamedAreasSpec(String namedAreasSpec) {
 
 final _tokenSeparatorPattern = RegExp(r'\s+');
 
-final _nullCellPattern = RegExp(r'^\.+$');
+final _nullCellPattern = RegExp(r'^\.$');
 bool _isNullCellToken(String token) => _nullCellPattern.hasMatch(token);
 
-final _namedCellPattern = RegExp(r'^[a-zA-Z][\w\d-_]*$');
+final _namedCellPattern = RegExp(r'^[^\.\s]+$');
 bool _isNamedCellToken(String token) => _namedCellPattern.hasMatch(token);
 
 /// Determines the region of a [GridArea] by adding individual (column, row)

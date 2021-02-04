@@ -71,13 +71,6 @@ void main() {
       );
     });
 
-    test('throws with invalid name', () {
-      expect(
-        () => parseNamedAreasSpec('\$aaa . . .'),
-        throwsArgumentError,
-      );
-    });
-
     test('throws with incomplete area rectangles', () {
       expect(
         () => parseNamedAreasSpec('''
