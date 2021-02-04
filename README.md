@@ -259,19 +259,7 @@ LayoutGrid(
       rowSpan: 2,
       child: MyWidget(),
     ),
-  ],
-)
-```
-
-Alternatively, `GridPlacement`s can be created using the
-`Widget.withGridPlacement` extension method. Using this method, the example
-above becomes:
-
-```dart
-LayoutGrid(
-  columnSizes: [/*...*/]
-  rowSizes: [/*...*/],
-  children: [
+    // Alternatively, an extension method on Widget is available
     MyWidget().withGridPlacement(
       columnStart: 1,
       columnSpan: 3,
@@ -282,7 +270,7 @@ LayoutGrid(
 )
 ```
 
-`GridPlacement` also has a special power — all of its parameters are optional.
+`GridPlacement` also has a super power — all of its parameters are optional.
 If, for example, you do not specify a `rowStart`, the [automatic placement
 algorithm](#automatic-child-placement) will attempt to place the child in the
 first vacant spot that it can find.
@@ -313,32 +301,8 @@ LayoutGrid(
       areaName: 'red',
       child: Container(color: Colors.red),
     ),
-    // ...
-  ],
-)
-```
-
-Alternatively, `NamedAreaGridPlacement`s can be created using the
-`Widget.inGridArea()` extension method. Using this method, the example above
-becomes:
-
-```dart
-LayoutGrid(
-  areas: '''
-    red red .
-    red red blue
-    .   .   blue
-  ''',
-  // Note that the number of columns and rows matches the grid above (3x3)
-  columnSizes: [100.px, 100.px, 100.px],
-  rowSizes: [
-    100.px,
-    100.px,
-    100.px,
-  ],
-  children: [
+    // Alternatively, an extension method on Widget is available
     Container(color: Colors.red).inGridArea('red'),
-    // ...
   ],
 )
 ```
