@@ -3,16 +3,16 @@
 [![Pub](https://img.shields.io/pub/v/flutter_layout_grid)](https://pub.dev/packages/flutter_layout_grid)
 [![Github test](https://github.com/madewithfelt/flutter_layout_grid/workflows/test/badge.svg)](https://github.com/madewithfelt/flutter_layout_grid/actions?query=workflow%3Atest)
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/master/example/piet_painting_named_areas.dart">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/main/example/piet_painting_named_areas.dart">
   <img
-    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet_trimmed.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/main/doc/images/piet_trimmed.png"
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 &nbsp;
-<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/master/example/periodic_table.dart">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/main/example/periodic_table.dart">
   <img
-    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/periodic_table.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/main/doc/images/periodic_table.png"
     alt="Periodic table rendered using Flutter Layout Grid" height="220">
 </a>
 
@@ -20,40 +20,69 @@ _Click images to see their code_
 
 ---
 
-A grid layout system for Flutter, optimized for user interface design, inspired by [CSS Grid
-Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout).
+A powerful grid layout system for Flutter, optimized for complex user interface
+design.
+
+Inspired by (and largely based on), the excellent [CSS Grid
+Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) spec.
 
 ✨Featuring:✨
 
-- Fixed, flexible, and content-based row and column sizing
-- Precise control over placement of items if desired, including the ability to span rows, columns,
-  and overlap items
-- Named areas 🆕
-- A configurable automatic grid item placement algorithm, capable of sparse and dense packing across
-  rows and columns
-- Right-to-left support, driven by ambient `Directionality` or configuation
-- Gutters!
+- 📐 Fixed, flexible, and content-sized rows and columns
+  ([docs](#sizing-of-rows-and-columns))
+- 👇 Precise control over placement of items, including the ability to span
+  rows, columns, and overlap items
+  ([docs](#positioning-child-widgets-in-the-layoutgrid))
+- 💬 Named grid areas for descriptive positioning of children
+  ([docs](#naming-areas-of-the-grid))
+- 🦾 A configurable automatic grid item placement algorithm, capable of sparse
+  and dense packing across rows and columns ([docs](#automatic-child-placement))
+- 🔚 Right-to-left support, driven by ambient `Directionality` or configuration
+- ♿ Accessibility considerations (**this is your responsibility** as a frontend
+  developer, so please read [docs](#accessibility-and-placement) and learn
+  related technologies)
+- 🩳 Extension methods and helper functions for descriptive, and short, layout
+  code
+- 🐛 Debugging aids, including widget property listings in
+  [DevTools](https://flutter.dev/docs/development/tools/devtools/overview),
+  Debug Painting, and visual indication of child overflow
 
 ## Getting Started
 
-All the terminology used in this library is shared with the CSS Grid Layout spec. If you're
-unfamiliar, I recommend taking a look at [MDN's glossary of grid
+All the terminology used in this library is shared with the CSS Grid Layout
+spec. If youʼre unfamiliar, I recommend taking a look at [MDNʼs glossary of grid
 terms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout#Glossary_entries).
 
 For inclusion in your pubspec, see
-[pub.dev](https://pub.dev/packages/flutter_layout_grid#-installing-tab-).
+[pub.dev](https://pub.dev/packages/flutter_layout_grid/install).
 
-### Null-safe support
+We also maintain a couple of specialized releases:
 
-For a null-safe version of the library, use `flutter_layout_grid: ^0.11.0-nullsafety.1`
+### Null-safe version
 
-### Flutter pre-v1.14.0 support
+```yaml
+dependencies:
+  flutter_layout_grid: ^0.11.0-nullsafety.1
+```
 
-For Flutter versions before v1.14.0, use `flutter_layout_grid: ^0.9.0`
+### Flutter pre-v1.14.0 version
+
+```yaml
+dependencies:
+  flutter_layout_grid: ^0.9.0
+```
 
 ## Example
 
-This is how you would specify an application layout using `LayoutGrid`:
+#### Visual:
+
+<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/main/example/app_layout.dart">
+  <img
+    src="/doc/images/app_layout.png"
+    alt="Desktop app layout rendered using Flutter Layout Grid" height="220">
+</a>
+
+#### Code:
 
 ```dart
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
@@ -64,23 +93,26 @@ class App extends StatelessWidget {
     return Container(
       color: background,
       child: LayoutGrid(
-        columnGap: 12,
-        rowGap: 12,
+        // ✨ ASCII-art named areas
         areas: '''
           header header  header
           nav    content aside
           nav    content .
           footer footer  footer
         ''',
-        // A number of extension methods are provided for concise track sizing
-        columnSizes: [240.px, 1.fr, auto],
+        // ✨ Concise track sizing extension methods
+        columnSizes: [152.px, 1.fr, 152.px],
         rowSizes: [
-          144.px,
+          112.px,
           auto,
           1.fr,
-          240.px,
+          64.px,
         ],
+        // ✨ Column and row gaps!
+        columnGap: 12,
+        rowGap: 12,
         children: [
+          // ✨ Handy widget placement extension methods
           Header().inGridArea('header'),
           Navigation().inGridArea('nav'),
           Content().inGridArea('content'),
@@ -103,85 +135,122 @@ For a similar example that includes responsive behavior, check out
 
 ### Sizing of Columns and Rows
 
-There are currently three way to size tracks (rows or columns):
+The sizes of the gridʼs columns and rows are set using
+`LayoutGrid.columnSizes` and `LayoutGrid.rowSizes`.
 
-| Class Name                  | Description                                                                                                                                       | Usage                                                  |
-|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| `FixedTrackSize`            | Occupies a specific number of pixels on an axis                                                                                                   | `FixedTrackSize(64)`, `fixed(64)`, or `64.px`          |
-| `FlexibleSizeTrack`         | Fills remaining space after the initial layout has completed                                                                                      | `FlexibleTrackSize(1)`, `flexible(1)`, or `1.fr`       |
-| `IntrinsicContentTrackSize` | Sized to contain its items' contents. Will also expand to fill available space,  once `FlexibleTrackSize` tracks have been given the opportunity. | `IntrinsicContentTrackSize()`, `intrisic()`, or `auto` |
-
-Technically, you could define your own, but I wouldn't because the API will be
-evolving.
-
-### Placing widgets in the `LayoutGrid`
-
-When a widget is provided to `LayoutGrid.children`, it will be allotted a
-single cell and placed automatically according to the `LayoutGrid.autoPlacement`
-algorithm ([described
-here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout)).
+Hereʼs what a 4⨉3 grid might look like (4 columns, 3 rows):
 
 ```dart
 LayoutGrid(
-  templateColumnSizes = [/*...*/];
-  templateRowSizes = [/*...*/];
-  children: [
-    MyWidget(), // Will occupy a 1x1 in the first vacant cell
+  columnSizes: [4.5.fr, 100.px, auto, 1.fr],
+  rowSizes: [
+    auto,
+    100.px,
+    1.fr,
   ],
 )
 ```
 
-Precise control over placement of an item is provided via the
-`NamedAreaGridPlacement` and `GridPlacement` widgets.
+Each element of `columnSizes` and `rowSizes` represents the function used to
+size a column or row (collectively known as **"track sizes"**).
 
-#### Placement in Named Areas
+There are currently three way to size rows and columns:
 
-Similarly to CSS's
-[`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas),
-areas of a grid can be named via `LayoutGrid.areas` and
-the `NamedAreaGridPlacement` widget. For example:
+| Class Name                  | Description                                                                                                                                      | Usage                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------|
+| `FixedTrackSize`            | Occupies a specific number of pixels on an axis                                                                                                  | `FixedTrackSize(64)`<br>`fixed(64)`<br>`64.px`           |
+| `FlexibleSizeTrack`         | Fills remaining space after the initial layout has completed                                                                                     | `FlexibleTrackSize(1.5)`<br>`flexible(1.5)`<br>`1.5.fr`  |
+| `IntrinsicContentTrackSize` | Sized to contain its itemsʼ contents. Will also expand to fill available space, once `FlexibleTrackSize` tracks have been given the opportunity. | `IntrinsicContentTrackSize()`<br>`intrinsic()`<br>`auto` |
+
+Technically, you can also define your own, but probably shouldnʼt as the API
+will likely be evolving as I tackle
+([#25](https://github.com/madewithfelt/flutter_layout_grid/issues/25))
+([`minmax()`](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax())
+support).
+
+### Naming areas of the grid
+
+A gridʼs rows and columns can be sliced into areas — rectangular regions
+containing one or more grid cells. These areas can be named (_optionally_), and
+used to place gridʼs children. The areas are named using an ASCII-art string
+provided to the `areas` parameter.
 
 ```dart
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-
 LayoutGrid(
   areas: '''
-    a a .
-    a a b
-    . . b
+    header header
+    nav    content
+    footer footer
   ''',
-  // Note that the number of columns and rows matches the grid above (3x3)
-  columnSizes: [fixed(100), fixed(100), fixed(100)],
-  rowSizes: [fixed(100), fixed(100), fixed(100)],
+  // ...
+)
+```
+
+> Note: We use the same format as CSSʼs
+> [`grid-template-areas`](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas),
+> except we use a multiline string.
+
+If an `areas` argument has been provided to a grid, you must specify the same
+number of sizes using `columnSizes` and `rowSizes` elements. For the example
+above:
+
+```dart
+LayoutGrid(
+  areas: '''
+    header header
+    nav    content
+    footer footer
+  ''',
+  // 2 columns, 3 rows, just like the areas string
+  columnSizes: [
+    auto, // contributes width to [nav, header, footer]
+    1.fr, // contributes width to [content, header, footer]
+  ],
+  rowSizes: [
+    96.px, // contributes height to [header]
+    1.fr,  // contributes height to [nav, content]
+    72.px, // contributes height to [footer]
+  ],
   children: [
-    // Using NamedAreaGridPlacement constructor
-    NamedAreaGridPlacement(
-      areaName: 'a',
-      child: Container(color: Colors.blue),
-    ),Î
-    // Same effect as above, but using an extension method
-    Container(color: Colors.red).inGridArea('b'),
+    // ...
   ],
 )
 ```
 
-#### Explicit placement via row/column indices
+The gridʼs children can now be assigned to named areas using the
+`NamedAreaGridPlacement` widget. For more information, see [assigning the child
+to a named area](#child-placement-in-named-areas).
 
-You can think of `GridPlacement` as the
-[`Positioned`](https://api.flutter.dev/flutter/widgets/Positioned-class.html)
-equivalent for `LayoutGrid` — it controls the where a widget is placed, and the
-cells it occupies.
+### Positioning child widgets in the `LayoutGrid`
+
+Once you have a grid, you have to tell its `children` which rows and columns
+they should occupy. There are three ways of doing this:
+
+- [Specifying row and column indexes](#child-placement-by-row-and-column-numbers)
+- [Assigning the child to a named area](#child-placement-in-named-areas)
+- [Using automatic placement](#automatic-child-placement)
+
+#### Child placement by row and column indexes
+
+A gridʼs child can be instructed to occupy a specific set of columns and rows
+by using the `GridPlacement` widget.
+
+For example, letʼs say you had a 4⨉3 grid, and you wanted a widget to be
+positioned from column 1–4 and row 0–2:
 
 ```dart
 LayoutGrid(
-  columnSizes: [/*...*/],
-  rowSizes: [/*...*/],
+  columnSizes: [1.fr, 1.fr, 1.fr, 1.fr],
+  rowSizes: [
+    1.fr,
+    1.fr,
+    1.fr,
+  ],
   children: [
     GridPlacement(
-      // All parameters optional
       columnStart: 1,
       columnSpan: 3,
-      rowStart: 5,
+      rowStart: 0,
       rowSpan: 2,
       child: MyWidget(),
     ),
@@ -189,75 +258,169 @@ LayoutGrid(
 )
 ```
 
-Alternatively, `GridPlacement`s can be created using the `withGridPlacement`
-extension method on `Widget`. Using this method, the example above becomes:
+Alternatively, `GridPlacement`s can be created using the
+`Widget.withGridPlacement` extension method. Using this method, the example
+above becomes:
 
 ```dart
 LayoutGrid(
-  templateColumnSizes = [/*...*/];
-  templateRowSizes = [/*...*/];
+  columnSizes: [/*...*/]
+  rowSizes: [/*...*/],
   children: [
     MyWidget().withGridPlacement(
-      // All parameters optional
       columnStart: 1,
       columnSpan: 3,
-      rowStart: 5,
+      rowStart: 0,
       rowSpan: 2,
     ),
   ],
 )
 ```
 
-All of the `GridPlacement`'s constructor parameters are optional. It defaults to
-a 1x1 grid item that will be placed automatically by the grid. Specifying
-positioning or spanning information (via
-`columnStart`/`columnSpan`/`rowStart`/`rowSpan` parameters) will feed additional
-constraints into its algorithm.
+`GridPlacement` also has a special power — all of its parameters are optional.
+If, for example, you do not specify a `rowStart`, the [automatic placement
+algorithm](#automatic-child-placement) will attempt to place the child in the
+first vacant spot that it can find.
 
-A definitely-placed item (meaning `columnStart` and `rowStart` have both been
-provided), will always be placed precisely, even if it overlaps other
-definitely-placed items. Automatically-placed items will flow around those that
-have been placed definitely.
+#### Child placement in named areas
+
+If your grid has [named areas](#naming-areas-of-the-grid) defined, you can
+place children in those areas using the `NamedAreaGridPlacement` widget. For
+example:
+
+```dart
+LayoutGrid(
+  areas: '''
+    red red .
+    red red blue
+    .   .   blue
+  ''',
+  // Note that the number of columns and rows matches the grid above (3x3)
+  columnSizes: [64.px, 64.px, 64.px],
+  rowSizes: [
+    64.px,
+    64.px,
+    64.px,
+  ],
+  children: [
+    // Using NamedAreaGridPlacement constructor
+    NamedAreaGridPlacement(
+      areaName: 'red',
+      child: Container(color: Colors.red),
+    ),
+    // ...
+  ],
+)
+```
+
+Alternatively, `NamedAreaGridPlacement`s can be created using the
+`Widget.inGridArea()` extension method. Using this method, the example above
+becomes:
+
+```dart
+LayoutGrid(
+  areas: '''
+    red red .
+    red red blue
+    .   .   blue
+  ''',
+  // Note that the number of columns and rows matches the grid above (3x3)
+  columnSizes: [100.px, 100.px, 100.px],
+  rowSizes: [
+    100.px,
+    100.px,
+    100.px,
+  ],
+  children: [
+    Container(color: Colors.red).inGridArea('red'),
+    // ...
+  ],
+)
+```
+
+**NOTE:** If a `NamedAreaGridPlacement` references a named area that doesnʼt
+exist, it will not be displayed in the grid. This can be helpful when switching
+between responsive layouts and some content is not displayed for all layouts.
+
+#### Automatic child placement
+
+Grid children can be placed into rows and columns automatically based on partial
+or non-existent placement information.
+
+The algorithm responsible for automatic placement has several modes, selected
+through the `LayoutGrid.autoPlacement` parameter. The behavior of these modes
+are identical to those supported by CSSʼs grid, described [described
+here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout).
+
+##### When no placement information is provided
+
+If a child is provided to the grid without being wrapped in a `GridPlacement` or
+`NamedAreaGridPlacement`, it will be allotted a single cell (1⨉1), and placed
+into the first vacant cell in the grid.
+
+##### When partial placement information is provided
+
+All of the `GridPlacement` widgetʼs parameters are optional. By specifying
+additional positioning or spanning information with
+`columnStart`/`columnSpan`/`rowStart`/`rowSpan` parameters, more
+constraints are fed into the placement algorithm.
+
+For example, if `columnStart` is provided, but not `rowStart`, the placement
+algorithm will walk across the gridʼs rows until it finds a vacant area, in the
+specified column, that accommodates the child.
+
+[Read more about CSSʼs grid placement
+algorithm](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout)
 
 #### Accessibility and Placement
 
-Take note that the meaning you convey visually through placement may not be clear when presented
-by assitive technologies, as Flutter defaults to exposing information in source order.
+Take note that the meaning you convey visually through placement may not be
+clear when presented by assitive technologies, as Flutter defaults to exposing
+information in source order.
 
-In situations where your semantic (visual) ordering differs from ordering in the source, the
-ordering can be configured via the `Semantics` widget's
-[`sortKey`](https://api.flutter.dev/flutter/semantics/SemanticsSortKey-class.html) parameter.
+In situations where your semantic (visual) ordering differs from ordering in the
+source, the ordering can be configured via the `Semantics` widgetʼs
+[`sortKey`](https://api.flutter.dev/flutter/semantics/SemanticsSortKey-class.html)
+parameter.
 
 ## Differences from CSS Grid Layout
 
 Things in CSS Grid Layout that are not supported:
 
-- Negative row/column starts/ends. In CSS, these values refer to positions relative to the end of a
-  grid's axis.
-- Any cells outside of the explicit grid. If an item is placed outside of the area defined by your
-  template rows/columns, we will throw an error. Support for automatic addition of rows and columns
-  to accommodate out of bound items is being considered.
+- Negative row/column starts/ends. In CSS, these values refer to positions
+  relative to the end of a gridʼs axis. Handy, but weʼre not there yet.
+  ([#5](https://github.com/madewithfelt/flutter_layout_grid/issues/5))
+- Any cells outside of the explicit grid. If an item is placed outside of the
+  area defined by your template rows/columns, we will throw an error. Support
+  for automatic addition of rows and columns to accommodate out of bound items
+  is being considered.
+  ([#7](https://github.com/madewithfelt/flutter_layout_grid/issues/7))
 - minmax(), percentages, aspect ratios track sizing
-- Named template areas, although they're coming
+  ([#25](https://github.com/madewithfelt/flutter_layout_grid/issues/25))
 
 Differences:
 
-- In `flutter_layout_grid`, flexible tracks do not account for their content's base sizes as they do
-  in CSS. It's expensive to measure, and I opted for speed.
+- In `flutter_layout_grid`, flexible tracks do not account for their contentʼs
+  base sizes as they do in CSS. Itʼs expensive to measure, and I opted for
+  speed.
 - Flexible tracks whose flex factors sum to < 1
 
 ## Why not Slivers?
 
-This library is not [Sliver](https://medium.com/flutter/slivers-demystified-6ff68ab0296f)-based. I'd
-considered it, but my use cases required the content-based sizing of rows and columns, and I didn't
-want to figure out the UI challenges associated with resizing tracks during scroll. I might be
-interested in taking those on at some point.
+This library is not
+[Sliver](https://medium.com/flutter/slivers-demystified-6ff68ab0296f)-based. Iʼd
+considered it, but my use cases required the content-based sizing of rows and
+columns, and I didnʼt want to figure out the UI challenges associated with
+resizing tracks during scroll. I might be interested in taking those on at some
+point.
 
 ## Roadmap
 
 - [x] Tests! (we now have a decent suite going)
 - [x] Named template areas, for friendlier item placement
 - [ ] Improved track sizing, including minimum/maximums and aspect ratios
-- [ ] The ability to specify row and column gaps at specific line locations via a delegate
-- [ ] Implicit grid support (automatic growth along an axis as children are added)
+- [ ] The ability to specify row and column gaps at specific line locations via
+      a delegate
+- [ ] Implicit grid support (automatic growth along an axis as children are
+      added)
 - [x] Performance improvements, as soon as I can get this profiler running(!!!)
