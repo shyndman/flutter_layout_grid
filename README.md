@@ -3,6 +3,9 @@
 [![Pub](https://img.shields.io/pub/v/flutter_layout_grid)](https://pub.dev/packages/flutter_layout_grid)
 [![Github test](https://github.com/madewithfelt/flutter_layout_grid/workflows/test/badge.svg)](https://github.com/madewithfelt/flutter_layout_grid/actions?query=workflow%3Atest)
 
+A powerful grid layout system for Flutter, optimized for complex user interface
+design.
+
 <a href="/example/piet_painting_named_areas.dart">
   <img
     src="/doc/images/piet_trimmed.png"
@@ -27,12 +30,6 @@ _Click images to see their code_
 
 ---
 
-A powerful grid layout system for Flutter, optimized for complex user interface
-design.
-
-Inspired by (and largely based on), the excellent [CSS Grid
-Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) spec.
-
 ✨Featuring:✨
 
 - 📐 Fixed, flexible, and content-sized rows and columns
@@ -53,6 +50,9 @@ Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) spec.
 - 🐛 Debugging aids, including widget property listings in
   [DevTools](https://flutter.dev/docs/development/tools/devtools/overview),
   Debug Painting, and visual indication of child overflow
+
+Inspired by (and largely based on), the excellent [CSS Grid
+Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) spec.
 
 ## Getting Started
 
