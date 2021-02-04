@@ -9,16 +9,16 @@
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
-&nbsp;
+
 <a href="/example/periodic_table.dart">
   <img
     src="/doc/images/periodic_table.png"
     alt="Periodic table rendered using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
-&nbsp;
+
 <a href="/example/scrabble.dart">
-  <img
+<img
     src="/doc/images/scrabble.png"
     alt="Scrabble board rendered using Flutter Layout Grid" height="330">
 </a>
@@ -100,14 +100,14 @@ class App extends StatelessWidget {
     return Container(
       color: background,
       child: LayoutGrid(
-        // ✨ ASCII-art named areas
+        // ASCII-art named areas 🔥
         areas: '''
           header header  header
           nav    content aside
           nav    content .
           footer footer  footer
         ''',
-        // ✨ Concise track sizing extension methods
+        // Concise track sizing extension methods 🔥
         columnSizes: [152.px, 1.fr, 152.px],
         rowSizes: [
           112.px,
@@ -115,11 +115,11 @@ class App extends StatelessWidget {
           1.fr,
           64.px,
         ],
-        // ✨ Column and row gaps!
+        // Column and row gaps! 🔥
         columnGap: 12,
         rowGap: 12,
+        // Handy grid placement extension methods on Widget 🔥
         children: [
-          // ✨ Handy widget placement extension methods
           Header().inGridArea('header'),
           Navigation().inGridArea('nav'),
           Content().inGridArea('content'),
@@ -233,7 +233,7 @@ to a named area](#child-placement-in-named-areas).
 Once you have a grid, you have to tell its `children` which rows and columns
 they should occupy. There are three ways of doing this:
 
-- [Specifying row and column indexes](#child-placement-by-row-and-column-numbers)
+- [Specifying row and column indexes](#child-placement-by-row-and-column-indexes)
 - [Assigning the child to a named area](#child-placement-in-named-areas)
 - [Using automatic placement](#automatic-child-placement)
 
@@ -347,7 +347,7 @@ LayoutGrid(
 
 **NOTE:** If a `NamedAreaGridPlacement` references a named area that doesnʼt
 exist, it will not be displayed in the grid. This can be helpful when switching
-between responsive layouts and some content is not displayed for all layouts.
+between responsive layouts.
 
 #### Automatic child placement
 
