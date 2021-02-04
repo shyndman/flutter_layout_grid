@@ -3,17 +3,24 @@
 [![Pub](https://img.shields.io/pub/v/flutter_layout_grid)](https://pub.dev/packages/flutter_layout_grid)
 [![Github test](https://github.com/madewithfelt/flutter_layout_grid/workflows/test/badge.svg)](https://github.com/madewithfelt/flutter_layout_grid/actions?query=workflow%3Atest)
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/main/example/piet_painting_named_areas.dart">
+<a href="/example/piet_painting_named_areas.dart">
   <img
-    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/main/doc/images/piet_trimmed.png"
+    src="/doc/images/piet_trimmed.png"
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 &nbsp;
-<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/main/example/periodic_table.dart">
+<a href="/example/periodic_table.dart">
   <img
-    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/main/doc/images/periodic_table.png"
+    src="/doc/images/periodic_table.png"
     alt="Periodic table rendered using Flutter Layout Grid" height="220">
+</a>
+&nbsp;
+&nbsp;
+<a href="/example/scrabble.dart">
+  <img
+    src="/doc/images/scrabble.png"
+    alt="Scrabble board rendered using Flutter Layout Grid" height="330">
 </a>
 
 _Click images to see their code_
@@ -76,7 +83,7 @@ dependencies:
 
 #### Visual:
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/blob/main/example/app_layout.dart">
+<a href="/example/app_layout.dart">
   <img
     src="/doc/images/app_layout.png"
     alt="Desktop app layout rendered using Flutter Layout Grid" height="220">
@@ -157,7 +164,7 @@ size a column or row (collectively known as **"track sizes"**).
 There are currently three way to size rows and columns:
 
 | Class Name                  | Description                                                                                                                                      | Usage                                                    |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------|
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
 | `FixedTrackSize`            | Occupies a specific number of pixels on an axis                                                                                                  | `FixedTrackSize(64)`<br>`fixed(64)`<br>`64.px`           |
 | `FlexibleSizeTrack`         | Fills remaining space after the initial layout has completed                                                                                     | `FlexibleTrackSize(1.5)`<br>`flexible(1.5)`<br>`1.5.fr`  |
 | `IntrinsicContentTrackSize` | Sized to contain its itemsʼ contents. Will also expand to fill available space, once `FlexibleTrackSize` tracks have been given the opportunity. | `IntrinsicContentTrackSize()`<br>`intrinsic()`<br>`auto` |
@@ -165,7 +172,7 @@ There are currently three way to size rows and columns:
 Technically, you can also define your own, but probably shouldnʼt as the API
 will likely be evolving as I tackle
 ([#25](https://github.com/madewithfelt/flutter_layout_grid/issues/25))
-([`minmax()`](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax())
+([`minmax()`](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax)
 support).
 
 ### Naming areas of the grid
