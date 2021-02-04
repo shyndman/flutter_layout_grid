@@ -138,9 +138,7 @@ This example is available at
 For a similar example that includes responsive behavior, check out
 [`example/responsive_app_layout.dart`](/example/responsive_app_layout.dart).
 
-## Usage
-
-### Sizing of Columns and Rows
+## Sizing of Columns and Rows
 
 The sizes of the gridʼs columns and rows are set using
 `LayoutGrid.columnSizes` and `LayoutGrid.rowSizes`.
@@ -175,7 +173,7 @@ will likely be evolving as I tackle
 ([`minmax()`](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax)
 support).
 
-### Naming areas of the grid
+## Naming areas of the grid
 
 A gridʼs rows and columns can be sliced into areas — rectangular regions
 containing one or more grid cells. These areas can be named (_optionally_), and
@@ -228,7 +226,7 @@ Grid children can be assigned to named areas using the `NamedAreaGridPlacement`
 widget. For more information, see [assigning the child to a named
 area](#child-placement-in-named-areas).
 
-### Positioning child widgets in the `LayoutGrid`
+## Positioning child widgets in the `LayoutGrid`
 
 Once you have a grid, you have to tell its `children` which rows and columns
 they should occupy. There are three ways of doing this:
@@ -237,7 +235,7 @@ they should occupy. There are three ways of doing this:
 - [Assigning the child to a named area](#child-placement-in-named-areas)
 - [Using automatic placement](#automatic-child-placement)
 
-#### Child placement by row and column indexes
+### Child placement by row and column indexes
 
 A gridʼs child can be instructed to occupy a specific set of columns and rows
 by using the `GridPlacement` widget.
@@ -289,7 +287,7 @@ If, for example, you do not specify a `rowStart`, the [automatic placement
 algorithm](#automatic-child-placement) will attempt to place the child in the
 first vacant spot that it can find.
 
-#### Child placement in named areas
+### Child placement in named areas
 
 If your grid has [named areas](#naming-areas-of-the-grid) defined, you can
 place children in those areas using the `NamedAreaGridPlacement` widget. For
@@ -349,7 +347,7 @@ LayoutGrid(
 exist, it will not be displayed in the grid. This can be helpful when switching
 between responsive layouts.
 
-#### Automatic child placement
+### Automatic child placement
 
 Grid children can be placed into rows and columns automatically based on partial
 or non-existent placement information.
@@ -359,13 +357,13 @@ through the `LayoutGrid.autoPlacement` parameter. The behavior of these modes
 are identical to those supported by CSSʼs grid, described [described
 here](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout).
 
-##### When no placement information is provided
+#### When no placement information is provided
 
 If a child is provided to the grid without being wrapped in a `GridPlacement` or
 `NamedAreaGridPlacement`, it will be allotted a single cell (1⨉1), and placed
 into the first vacant cell in the grid.
 
-##### When partial placement information is provided
+#### When partial placement information is provided
 
 All of the `GridPlacement` widgetʼs parameters are optional. By specifying
 additional positioning or spanning information with
@@ -379,7 +377,7 @@ specified column, that accommodates the child.
 [Read more about CSSʼs grid placement
 algorithm](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout)
 
-#### Accessibility and Placement
+### Accessibility and Placement
 
 Take note that the meaning you convey visually through placement may not be
 clear when presented by assitive technologies, as Flutter defaults to exposing
