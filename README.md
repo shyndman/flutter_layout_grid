@@ -224,9 +224,9 @@ LayoutGrid(
 )
 ```
 
-The gridʼs children can now be assigned to named areas using the
-`NamedAreaGridPlacement` widget. For more information, see [assigning the child
-to a named area](#child-placement-in-named-areas).
+Grid children can be assigned to named areas using the `NamedAreaGridPlacement`
+widget. For more information, see [assigning the child to a named
+area](#child-placement-in-named-areas).
 
 ### Positioning child widgets in the `LayoutGrid`
 
