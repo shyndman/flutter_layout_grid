@@ -410,15 +410,6 @@ Differences:
   speed.
 - Flexible tracks whose flex factors sum to < 1
 
-## Why not Slivers?
-
-This library is not
-[Sliver](https://medium.com/flutter/slivers-demystified-6ff68ab0296f)-based. Iʼd
-considered it, but my use cases required the content-based sizing of rows and
-columns, and I didnʼt want to figure out the UI challenges associated with
-resizing tracks during scroll. I might be interested in taking those on at some
-point.
-
 ## Roadmap
 
 - [x] Tests! (we now have a decent suite going)
