@@ -33,7 +33,7 @@ _Click images to see their code_
 ✨Featuring:✨
 
 - 📐 Fixed, flexible, and content-sized rows and columns
-  ([docs](#sizing-of-rows-and-columns))
+  ([docs](#sizing-of-columns-and-rows))
 - 👇 Precise control over placement of items, including the ability to span
   rows, columns, and overlap items
   ([docs](#positioning-child-widgets-in-the-layoutgrid))
