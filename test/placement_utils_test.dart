@@ -85,9 +85,18 @@ void main() {
     test('throws with varying column counts', () {
       expect(
         () => parseNamedAreasSpec('''
-          'a . . .',
-          'a . . . .',
-          'a . . .',
+          a . . .
+          a . . . .
+          a . . .
+        '''),
+        throwsArgumentError,
+      );
+    });
+
+    test("throws when periods (unnamed cells) aren't spaced", () {
+      expect(
+        () => parseNamedAreasSpec('''
+          .. . .
         '''),
         throwsArgumentError,
       );
