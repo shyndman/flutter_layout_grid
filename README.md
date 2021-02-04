@@ -296,9 +296,9 @@ example:
 ```dart
 LayoutGrid(
   areas: '''
-    red red .
     red red blue
-    .   .   blue
+    red red blue
+     .   .  blue
   ''',
   // Note that the number of columns and rows matches the grid above (3x3)
   columnSizes: [64.px, 64.px, 64.px],
