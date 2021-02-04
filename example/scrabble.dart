@@ -10,27 +10,6 @@ void main() {
   runApp(ScrabbleApp());
 }
 
-List<TileInfo> getTiles() {
-  final tileLayout = '''
-    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-    .  .  .  .  .  .  .  .  G  .  .  .  .  .  .
-    .  .  .  .  .  .  .  .  R  .  .  .  .  .  .
-    .  .  .  .  .  .  .  .  E  .  .  .  .  .  .
-    .  .  .  .  .  .  .  .  A  .  .  G  .  .  .
-    .  .  .  .  .  F  L  U  T  T  E  R  .  .  .
-    .  .  .  W  .  .  A  T  .  .  .  I  S  .  .
-    .  .  .  O  .  .  Y  .  .  .  .  D  .  .  .
-    .  .  A  W  E  S  O  M  E  .  .  .  .  .  .
-    .  .  U  .  .  .  U  .  .  .  .  .  .  .  .
-    .  .  T  .  .  .  T  R  Y  .  .  .  .  .  .
-    .  N  O  W  .  .  .  .  .  .  .  .  .  .  .
-    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-  ''';
-  return parseTiles(tileLayout).toList();
-}
-
 class ScrabbleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -48,6 +27,27 @@ class ScrabbleApp extends StatelessWidget {
       ),
     );
   }
+}
+
+List<TileInfo> getTiles() {
+  final tileLayout = '''
+    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+    .  .  .  .  .  .  .  .  G  .  .  .  .  .  .
+    .  .  .  .  .  .  .  .  R  .  .  .  .  .  .
+    .  .  .  .  .  .  .  .  E  .  .  .  .  .  .
+    .  .  .  .  .  .  .  .  A  .  .  G  .  .  .
+    .  .  .  .  .  F  L  U  T  T  E  R  .  .  .
+    .  .  .  W  .  .  A  H  .  .  .  I  S  .  .
+    .  .  .  O  .  .  Y  .  .  .  .  D  .  .  .
+    .  .  A  W  E  S  O  M  E  .  .  .  .  .  .
+    .  .  U  .  .  .  U  .  .  .  .  .  .  .  .
+    .  .  T  .  .  .  T  R  Y  .  .  .  .  .  .
+    .  N  O  W  .  .  .  .  .  .  .  .  .  .  .
+    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+  ''';
+  return parseTiles(tileLayout).toList();
 }
 
 const trackCount = 15;
