@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_layout_grid/src/rendering/layout_grid.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_helpers.dart';
@@ -95,6 +96,24 @@ void main() {
         exception.diagnostics.first.toString(),
         startsWith('A RenderLayoutGrid overflowed by '),
       );
+    });
+  });
+
+  group('Intrinsic grid sizing', () {
+    testWidgets('Computes fixed intrinsic sizes', (tester) async {
+      final grid = LayoutGrid(
+        columnSizes: [FixedTrackSize(10)],
+        rowSizes: [FixedTrackSize(10)],
+        textDirection: TextDirection.ltr,
+      );
+      await tester.pumpWidget(grid);
+      final renderObject =
+          tester.firstRenderObject<RenderLayoutGrid>(find.byType(LayoutGrid));
+
+      expect(renderObject.getMinIntrinsicWidth(double.infinity), 10);
+      expect(renderObject.getMinIntrinsicHeight(double.infinity), 10);
+      expect(renderObject.getMaxIntrinsicWidth(double.infinity), 10);
+      expect(renderObject.getMaxIntrinsicHeight(double.infinity), 10);
     });
   });
 }
