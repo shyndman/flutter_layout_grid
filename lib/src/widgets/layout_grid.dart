@@ -133,13 +133,6 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// Determines the constraints available to the grid layout algorithm.
   final GridFit gridFit;
 
-  /// Defines the track sizing functions of the grid's columns.
-  final List<TrackSize> columnSizes;
-
-  /// Defines the track sizing functions of the grid's columns.
-  @Deprecated('templateColumnSizes is being shortened to columnSizes')
-  final List<TrackSize> templateColumnSizes;
-
   /// Defines named areas of the grid for placement of grid items by name.
   ///
   /// This string is similar to `grid-template-areas` in CSS, as described in
@@ -163,6 +156,13 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// ```
   ///
   final String areas;
+
+  /// Defines the track sizing functions of the grid's columns.
+  final List<TrackSize> columnSizes;
+
+  /// Defines the track sizing functions of the grid's columns.
+  @Deprecated('templateColumnSizes is being shortened to columnSizes')
+  final List<TrackSize> templateColumnSizes;
 
   /// Defines the track sizing functions of the grid's rows.
   final List<TrackSize> rowSizes;

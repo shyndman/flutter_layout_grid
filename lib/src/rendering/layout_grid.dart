@@ -155,7 +155,8 @@ class RenderLayoutGrid extends RenderBox
     addAll(children);
   }
 
-  bool _needsPlacement = true;
+  @visibleForTesting
+  bool needsPlacement = true;
   PlacementGrid _placementGrid;
 
   @visibleForTesting
@@ -184,6 +185,7 @@ class RenderLayoutGrid extends RenderBox
     assert(value != null);
     if (_gridFit == value) return;
     _gridFit = value;
+    // Placement is not required
     markNeedsLayout();
   }
 
@@ -210,20 +212,27 @@ class RenderLayoutGrid extends RenderBox
   List<TrackSize> get columnSizes => _columnSizes;
   List<TrackSize> _columnSizes;
   set columnSizes(List<TrackSize> value) {
-    if (_columnSizes == value) return;
-    _columnSizes = value;
-    markNeedsPlacement();
+    if (trackSizeListsEqual(_columnSizes, value)) return;
+
+    // No placement required if the number of columns is the same
+    if (value.length != _columnSizes.length) markNeedsPlacement();
+
     markNeedsLayout();
+    _columnSizes = value;
   }
 
   /// Defines the sizing functions of the grid's rows.
   List<TrackSize> get rowSizes => _rowSizes;
   List<TrackSize> _rowSizes;
   set rowSizes(List<TrackSize> value) {
-    if (_rowSizes == value) return;
-    _rowSizes = value;
-    markNeedsPlacement();
+    if (trackSizeListsEqual(_rowSizes, value)) return;
+
+    // No placement required if the number of rows is the same
+    if (value.length != _rowSizes.length) markNeedsPlacement();
+
     markNeedsLayout();
+
+    _rowSizes = value;
   }
 
   /// The space between column tracks
@@ -431,8 +440,8 @@ class RenderLayoutGrid extends RenderBox
   /// Determines where each grid item is positioned in the grid, using the
   /// auto-placement algorithm if necessary.
   void performItemPlacement() {
-    if (_needsPlacement) {
-      _needsPlacement = false;
+    if (needsPlacement) {
+      needsPlacement = false;
       _placementGrid = computeItemPlacement(this);
     }
   }
@@ -844,14 +853,14 @@ class RenderLayoutGrid extends RenderBox
   /// positioning, and if so, ensures that we will regenerate the placement grid
   /// on next layout.
   void markNeedsPlacementIfRequired(RenderObject child) {
-    if (_needsPlacement) return;
+    if (needsPlacement) return;
     final parentData = child.parentData as GridParentData;
     if (parentData != null && !parentData.isDefinitelyPlaced) {
       markNeedsPlacement();
     }
   }
 
-  void markNeedsPlacement() => _needsPlacement = true;
+  void markNeedsPlacement() => needsPlacement = true;
 
   @override
   bool hitTestChildren(BoxHitTestResult result, {Offset position}) {

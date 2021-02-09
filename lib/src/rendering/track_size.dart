@@ -173,9 +173,15 @@ class FixedTrackSize extends TrackSize {
   }
 
   @override
+  bool operator ==(dynamic other) {
+    if (identical(this, other)) return true;
+    if (other.runtimeType != runtimeType) return false;
+    return other is FixedTrackSize && other.sizeInPx == sizeInPx;
+  }
+
+  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-
     properties.add(DoubleProperty('sizeInPx', sizeInPx));
   }
 }
@@ -235,6 +241,13 @@ class FlexibleTrackSize extends TrackSize {
 
     properties.add(DoubleProperty('flex', flex));
   }
+
+  @override
+  bool operator ==(dynamic other) {
+    if (identical(this, other)) return true;
+    if (other.runtimeType != runtimeType) return false;
+    return other is FlexibleTrackSize && other.flex == flex;
+  }
 }
 
 /// Sizes the track according to the intrinsic dimensions of all its cells.
@@ -284,4 +297,16 @@ class IntrinsicContentTrackSize extends TrackSize {
     );
     return max(maxContentContributions);
   }
+
+  @override
+  bool operator ==(dynamic other) {
+    if (identical(this, other)) return true;
+    return other.runtimeType == runtimeType;
+  }
+}
+
+bool trackSizeListsEqual(List<TrackSize> a, List<TrackSize> b) {
+  if (identical(a, b)) return true;
+  return a.length == b.length &&
+      zip([a, b]).every((pair) => pair[0] == pair[1]);
 }
