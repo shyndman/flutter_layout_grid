@@ -5,8 +5,6 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_layout_grid/src/rendering/layout_grid.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../example/flutter_layout_grid.dart';
-
 void main() {
   testWidgets('Computes fixed intrinsic sizes', (tester) async {
     final grid = LayoutGrid(
@@ -22,14 +20,6 @@ void main() {
     expect(renderObject.getMinIntrinsicHeight(double.infinity), 10);
     expect(renderObject.getMaxIntrinsicWidth(double.infinity), 10);
     expect(renderObject.getMaxIntrinsicHeight(double.infinity), 10);
-  });
-
-  testWidgets('Piet screenshot test', (tester) async {
-    await tester.pumpWidget(PietApp());
-    await expectLater(
-      find.byType(PietApp),
-      matchesGoldenFile('goldens/piet.png'),
-    );
   });
 
   // testWidgets('Negative gap', (tester) async {
