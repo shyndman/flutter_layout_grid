@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../example/flutter_layout_grid.dart';
+import '../example/piet_painting.dart';
 
 void main() {
   testWidgets('Piet screenshot test', (tester) async {

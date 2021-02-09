@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
@@ -8,6 +9,22 @@ const cellMustard = Color(0xffd7aa22);
 const cellGrey = Color(0xffcfd4e0);
 const cellBlue = Color(0xff1553be);
 const background = Color(0xff242830);
+
+void main() {
+  runApp(PietApp());
+}
+
+class PietApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WidgetsApp(
+      title: 'Layout Grid Desktop Example',
+      debugShowCheckedModeBanner: false,
+      color: Colors.white,
+      builder: (context, child) => PietPainting(),
+    );
+  }
+}
 
 class PietPainting extends StatelessWidget {
   @override
