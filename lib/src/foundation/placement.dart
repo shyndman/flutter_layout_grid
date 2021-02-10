@@ -26,15 +26,15 @@ class GridArea {
         this.rowEnd = rowStart + rowSpan;
 
   final String name;
-  final int columnStart;
-  final int rowStart;
+  final int/*!*/ columnStart;
+  final int/*!*/ rowStart;
 
   /// The end column, exclusive
-  final int columnEnd;
+  final int/*!*/ columnEnd;
   int get columnSpan => columnEnd - columnStart;
 
   /// The end row, exclusive
-  final int rowEnd;
+  final int/*!*/ rowEnd;
   int get rowSpan => rowEnd - rowStart;
 
   int startForAxis(Axis axis) =>
@@ -81,7 +81,7 @@ class NamedGridAreas {
     @required Map<String, GridArea> areas,
   }) : _areas = areas;
 
-  final int columnCount;
+  final int/*!*/ columnCount;
   final int rowCount;
   final Map<String, GridArea> _areas;
 
@@ -171,9 +171,9 @@ class _GridAreaBuilder {
   final String areaName;
 
   int _minColumn;
-  int _maxColumn;
+  int/*?*/ _maxColumn;
   int _minRow;
-  int _maxRow;
+  int/*?*/ _maxRow;
 
   /// When a new column or row is introduced to the area when adding a cell,
   /// there will be a number of cells that require filling in order for the area

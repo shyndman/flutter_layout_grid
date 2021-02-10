@@ -38,7 +38,7 @@ abstract class TrackSize with Diagnosticable {
 
   /// Returns whether this size can resolve to a fixed value provided the
   /// grid's box constraints.
-  bool isFixedForConstraints(TrackType type, BoxConstraints gridConstraints) {
+  bool isFixedForConstraints(TrackType type, BoxConstraints/*!*/ gridConstraints) {
     return false;
   }
 
@@ -69,10 +69,10 @@ abstract class TrackSize with Diagnosticable {
   ///
   /// The [crossAxisSizeForItem] will be provided to assist in calculations if
   /// the cross axis sizing is known.
-  double minIntrinsicSize(
+  double/*!*/ minIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    Iterable<RenderBox>/*!*/ items, {
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   });
 
   /// The ideal cross axis size of this track. This must be equal to or greater
@@ -95,10 +95,10 @@ abstract class TrackSize with Diagnosticable {
   ///
   /// The [crossAxisSizeForItem] will be provided to assist in calculations if
   /// the cross axis sizing is known.
-  double maxIntrinsicSize(
+  double/*!*/ maxIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    Iterable<RenderBox>/*!*/ items, {
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   });
 
   /// The flex factor to apply to the track if there is any room left over when
@@ -158,7 +158,7 @@ class FixedTrackSize extends TrackSize {
   double minIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   }) {
     return sizeInPx;
   }
@@ -167,7 +167,7 @@ class FixedTrackSize extends TrackSize {
   double maxIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   }) {
     return sizeInPx;
   }
@@ -218,7 +218,7 @@ class FlexibleTrackSize extends TrackSize {
   double minIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   }) {
     return 0;
   }
@@ -227,7 +227,7 @@ class FlexibleTrackSize extends TrackSize {
   double maxIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   }) {
     return 0;
   }
@@ -266,9 +266,8 @@ class IntrinsicContentTrackSize extends TrackSize {
   double minIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   }) {
-    crossAxisSizeForItem ??= (_) => double.infinity;
     final minContentContributions = items.map(
       (item) => _itemMinIntrinsicSizeOnAxis(
         item,
@@ -285,9 +284,8 @@ class IntrinsicContentTrackSize extends TrackSize {
   double maxIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox) crossAxisSizeForItem,
+    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
   }) {
-    crossAxisSizeForItem ??= (_) => double.infinity;
     final maxContentContributions = items.map(
       (item) => _itemMaxIntrinsicSizeOnAxis(
         item,
@@ -305,7 +303,7 @@ class IntrinsicContentTrackSize extends TrackSize {
   }
 }
 
-bool trackSizeListsEqual(List<TrackSize> a, List<TrackSize> b) {
+bool trackSizeListsEqual(List<TrackSize>/*!*/ a, List<TrackSize>/*!*/ b) {
   if (identical(a, b)) return true;
   return a.length == b.length &&
       zip([a, b]).every((pair) => pair[0] == pair[1]);
