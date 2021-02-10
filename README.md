@@ -69,7 +69,7 @@ We also maintain a couple of specialized releases:
 
 ```yaml
 dependencies:
-  flutter_layout_grid: ^0.11.0-nullsafety.1
+  flutter_layout_grid: ^1.0.0-nullsafety.0
 ```
 
 ### Flutter pre-v1.14.0 version
