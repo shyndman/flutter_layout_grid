@@ -24,24 +24,22 @@ enum AutoPlacementPacking {
 /// available space, spanning one row and one column.
 class GridPlacement extends ParentDataWidget<GridParentData> {
   const GridPlacement({
-    Key key,
-    @required Widget child,
+    Key? key,
+    required Widget child,
     this.columnStart,
-    int columnSpan = 1,
+    this.columnSpan = 1,
     this.rowStart,
-    int rowSpan = 1,
-  })  : this.columnSpan = columnSpan ?? 1,
-        this.rowSpan = rowSpan ?? 1,
-        super(key: key, child: child);
+    this.rowSpan = 1,
+  }) : super(key: key, child: child);
 
   /// If `null`, the child will be auto-placed.
-  final int columnStart;
+  final int? columnStart;
 
   /// The number of columns spanned by the child. Defaults to `1`.
   final int columnSpan;
 
   /// If `null`, the child will be auto-placed.
-  final int rowStart;
+  final int? rowStart;
 
   /// The number of rows spanned by the child. Defaults to `1`.
   final int rowSpan;
@@ -81,7 +79,7 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
     }
 
     if (needsLayout) {
-      final AbstractNode targetParent = renderObject.parent;
+      final AbstractNode? targetParent = renderObject.parent;
       if (targetParent is RenderLayoutGrid) targetParent.markNeedsPlacement();
       if (targetParent is RenderObject) targetParent.markNeedsLayout();
     }
@@ -95,17 +93,14 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
     } else {
       properties.add(StringProperty('columnStart', 'auto'));
     }
-    if (columnSpan != null) {
-      properties.add(IntProperty('columnSpan', columnSpan));
-    }
+    properties.add(IntProperty('columnSpan', columnSpan));
+
     if (rowStart != null) {
       properties.add(IntProperty('rowStart', rowStart));
     } else {
       properties.add(StringProperty('rowStart', 'auto'));
     }
-    if (rowSpan != null) {
-      properties.add(IntProperty('rowSpan', rowSpan));
-    }
+    properties.add(IntProperty('rowSpan', rowSpan));
   }
 
   @override
@@ -119,9 +114,9 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
 /// child of this widget is not shown.
 class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
   NamedAreaGridPlacement({
-    Key key,
-    @required this.areaName,
-    Widget child,
+    Key? key,
+    required this.areaName,
+    required Widget child,
   }) : super(key: key, child: child);
 
   final String areaName;
@@ -134,7 +129,7 @@ class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
     if (parentData.areaName != areaName) {
       parentData.areaName = areaName;
 
-      final AbstractNode targetParent = renderObject.parent;
+      final AbstractNode? targetParent = renderObject.parent;
       if (targetParent is RenderLayoutGrid) targetParent.markNeedsPlacement();
       if (targetParent is RenderObject) targetParent.markNeedsLayout();
     }
@@ -152,7 +147,7 @@ class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
 
 /// Extension methods for terse placement syntax
 extension GridPlacementExtensions on Widget {
-  NamedAreaGridPlacement inGridArea(String areaName, {Key key}) {
+  NamedAreaGridPlacement inGridArea(String areaName, {Key? key}) {
     return NamedAreaGridPlacement(
       key: key,
       areaName: areaName,
@@ -161,10 +156,10 @@ extension GridPlacementExtensions on Widget {
   }
 
   GridPlacement withGridPlacement({
-    Key key,
-    int columnStart,
+    Key? key,
+    int? columnStart,
     int columnSpan = 1,
-    int rowStart,
+    int? rowStart,
     int rowSpan = 1,
   }) {
     return GridPlacement(

@@ -168,8 +168,8 @@ void main() {
 }
 
 Widget _gridFitHarness({
-  BoxConstraints constraints,
-  @required Widget child,
+  BoxConstraints? constraints,
+  required Widget child,
 }) {
   if (constraints != null) {
     child = ConstrainedBox(constraints: constraints, child: child);

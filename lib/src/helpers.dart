@@ -9,15 +9,15 @@ import 'widgets/placement.dart';
 const auto = IntrinsicContentTrackSize();
 
 /// Returns a track size that is sized based on its contents.
-IntrinsicContentTrackSize intrinsic({String debugLabel}) =>
+IntrinsicContentTrackSize intrinsic({String? debugLabel}) =>
     IntrinsicContentTrackSize(debugLabel: debugLabel);
 
 /// Returns a new track size that is exactly [sizeInPx] wide.
-FixedTrackSize fixed(double sizeInPx, {String debugLabel}) =>
+FixedTrackSize fixed(double sizeInPx, {String? debugLabel}) =>
     FixedTrackSize(sizeInPx, debugLabel: debugLabel);
 
 /// Returns a new track size that expands to fill available space.
-FlexibleTrackSize flex(double flexFactor, {String debugLabel}) =>
+FlexibleTrackSize flex(double flexFactor, {String? debugLabel}) =>
     FlexibleTrackSize(flexFactor, debugLabel: debugLabel);
 
 /// Defines a set of extension methods on [num] for creating tracks

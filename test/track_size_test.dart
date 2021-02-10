@@ -188,8 +188,8 @@ void main() {
 ConstrainedBox constrainedBox(
   double minW,
   double minH, [
-  double maxW,
-  double maxH,
+  double? maxW,
+  double? maxH,
 ]) {
   maxW ??= minW;
   maxH ??= minH;
