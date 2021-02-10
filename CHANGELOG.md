@@ -1,3 +1,6 @@
+## [0.11.2]
+* Add hashCode to TrackSize subclasses
+
 ## [0.11.1]
 * Fix screenshots for pub.dev
 
