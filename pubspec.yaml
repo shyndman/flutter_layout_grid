@@ -4,7 +4,7 @@ version: 0.11.0
 homepage: https://github.com/madewithfelt/flutter_layout_grid
 
 environment:
-  flutter: '>=1.14.0 <2.0.0'
+  flutter: '>=1.14.0'
   sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
