@@ -135,7 +135,7 @@ void main() {
 /// Pumps an initial grid with one 10px column and row
 Future<RenderLayoutGrid> _setupInvalidationTest(
   WidgetTester tester, {
-  String areas,
+  String? areas,
 }) async {
   await tester.pumpWidget(
     _testGrid(
@@ -148,9 +148,9 @@ Future<RenderLayoutGrid> _setupInvalidationTest(
 }
 
 Widget _testGrid({
-  String areas,
-  List<TrackSize> columnSizes,
-  List<TrackSize> rowSizes,
+  String? areas,
+  required List<TrackSize> columnSizes,
+  required List<TrackSize> rowSizes,
 }) {
   return wrapInMinimalApp(
     LayoutGrid(

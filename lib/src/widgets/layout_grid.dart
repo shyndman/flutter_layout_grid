@@ -95,14 +95,14 @@ enum GridFit {
 /// [FlutterError] will be thrown during layout.
 class LayoutGrid extends MultiChildRenderObjectWidget {
   LayoutGrid({
-    Key key,
+    Key? key,
     this.autoPlacement = AutoPlacement.rowSparse,
     this.gridFit = GridFit.expand,
     this.areas,
-    @required List<TrackSize> /*!*/ this.columnSizes,
-    @required List<TrackSize> /*!*/ this.rowSizes,
-    double rowGap,
-    double columnGap,
+    required this.columnSizes,
+    required this.rowSizes,
+    double? rowGap,
+    double? columnGap,
     this.textDirection,
     List<Widget> children = const [],
   })  : this.rowGap = rowGap ?? 0,
@@ -112,7 +112,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     assert(rowSizes.isNotEmpty);
     assert(() {
       if (areas == null) return true;
-      final parsedAreas = parseNamedAreasSpec(areas);
+      final parsedAreas = parseNamedAreasSpec(areas!);
       return parsedAreas.columnCount == columnSizes.length &&
           parsedAreas.rowCount == rowSizes.length;
     }());
@@ -147,7 +147,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// )
   /// ```
   ///
-  final String areas;
+  final String? areas;
 
   /// Defines the track sizing functions of the grid's columns.
   final List<TrackSize> columnSizes;
@@ -164,7 +164,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// The text direction used to resolve column ordering.
   ///
   /// Defaults to the ambient [Directionality].
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   @override
   RenderLayoutGrid createRenderObject(BuildContext context) {

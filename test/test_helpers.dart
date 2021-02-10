@@ -10,9 +10,9 @@ final testConstraints = BoxConstraints.loose(Size(800, 600));
 /// or widget pumping.
 GridSizingInfo sizeEmptyGrid({
   GridFit gridFit = GridFit.passthrough,
-  List<TrackSize> columnSizes,
-  List<TrackSize> rowSizes,
-  BoxConstraints constraints,
+  required List<TrackSize> columnSizes,
+  required List<TrackSize> rowSizes,
+  BoxConstraints? constraints,
 }) {
   final renderGrid = RenderLayoutGrid(
     gridFit: gridFit,
@@ -26,11 +26,11 @@ GridSizingInfo sizeEmptyGrid({
 Future<GridSizingInfo> sizeGridWithChildren(
   WidgetTester tester, {
   GridFit gridFit = GridFit.passthrough,
-  String areas,
-  List<TrackSize> columnSizes,
-  List<TrackSize> rowSizes,
-  List<Widget> children,
-  BoxConstraints constraints,
+  String? areas,
+  required List<TrackSize> columnSizes,
+  required List<TrackSize> rowSizes,
+  required List<Widget> children,
+  BoxConstraints? constraints,
 }) async {
   await tester.pumpWidget(
     wrapInMinimalApp(

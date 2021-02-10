@@ -65,7 +65,7 @@ void main() {
       expect(definiteAreaByKey(tester, keyA), [0, 1, 0, 1]);
 
       // Then check the child whose area is not defined
-      final notInGridParentData = parentDataByKey(tester, keyNotInGrid);
+      final notInGridParentData = parentDataByKey(tester, keyNotInGrid)!;
       expect(notInGridParentData.isNotPlaced, true);
     });
 
@@ -84,7 +84,7 @@ void main() {
       );
 
       // Then check the child whose area is not defined
-      final notInGridParentData = parentDataByKey(tester, keyNotInGrid);
+      final notInGridParentData = parentDataByKey(tester, keyNotInGrid)!;
       expect(notInGridParentData.isNotPlaced, true);
     });
   });
@@ -92,7 +92,7 @@ void main() {
 
 /// Returned value is [colStart, colSpan, rowStart, rowSpan]
 List<int> definiteAreaByKey(WidgetTester tester, Key key) {
-  final parentData = parentDataByKey(tester, key);
+  final parentData = parentDataByKey(tester, key)!;
   final area = parentData.area;
   return [
     area.columnStart,
@@ -102,16 +102,17 @@ List<int> definiteAreaByKey(WidgetTester tester, Key key) {
   ];
 }
 
-GridParentData parentDataByKey(WidgetTester tester, Key key) {
-  return tester.firstRenderObject(find.byKey(key)).parentData as GridParentData;
+GridParentData? parentDataByKey(WidgetTester tester, Key key) {
+  return tester.firstRenderObject(find.byKey(key)).parentData
+      as GridParentData?;
 }
 
 RenderBox gridItem({
-  int columnStart,
+  int? columnStart,
   int columnSpan = 1,
-  int rowStart,
+  int? rowStart,
   int rowSpan = 1,
-  String debugLabel,
+  String? debugLabel,
 }) {
   return TestRenderBox()
     ..parentData = GridParentData(

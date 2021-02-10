@@ -34,11 +34,11 @@ abstract class TrackSize with Diagnosticable {
   const TrackSize({this.debugLabel});
 
   /// A label that is included in debug output
-  final String debugLabel;
+  final String? debugLabel;
 
   /// Returns whether this size can resolve to a fixed value provided the
   /// grid's box constraints.
-  bool isFixedForConstraints(TrackType type, BoxConstraints/*!*/ gridConstraints) {
+  bool isFixedForConstraints(TrackType type, BoxConstraints gridConstraints) {
     return false;
   }
 
@@ -69,10 +69,10 @@ abstract class TrackSize with Diagnosticable {
   ///
   /// The [crossAxisSizeForItem] will be provided to assist in calculations if
   /// the cross axis sizing is known.
-  double/*!*/ minIntrinsicSize(
+  double minIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox>/*!*/ items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    Iterable<RenderBox> items, {
+    double Function(RenderBox)? crossAxisSizeForItem,
   });
 
   /// The ideal cross axis size of this track. This must be equal to or greater
@@ -95,17 +95,17 @@ abstract class TrackSize with Diagnosticable {
   ///
   /// The [crossAxisSizeForItem] will be provided to assist in calculations if
   /// the cross axis sizing is known.
-  double/*!*/ maxIntrinsicSize(
+  double maxIntrinsicSize(
     TrackType type,
-    Iterable<RenderBox>/*!*/ items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    Iterable<RenderBox> items, {
+    required double Function(RenderBox) crossAxisSizeForItem,
   });
 
   /// The flex factor to apply to the track if there is any room left over when
   /// laying out the grid. The remaining space is distributed to any tracks
   /// with flex in proportion to their flex value (higher values get more
   /// space).
-  double get flex => null;
+  double? get flex => null;
 
   /// Helper function for determining the minimum intrinsic size of an item
   /// along the vertical or horizontal axis.
@@ -141,9 +141,8 @@ abstract class TrackSize with Diagnosticable {
 ///
 /// This is the cheapest way to size a track.
 class FixedTrackSize extends TrackSize {
-  const FixedTrackSize(this.sizeInPx, {String debugLabel})
-      : assert(sizeInPx != null),
-        super(debugLabel: debugLabel);
+  const FixedTrackSize(this.sizeInPx, {String? debugLabel})
+      : super(debugLabel: debugLabel);
 
   /// The size (width for columns, height for rows) the track should occupy
   /// in logical pixels.
@@ -158,7 +157,7 @@ class FixedTrackSize extends TrackSize {
   double minIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    double Function(RenderBox)? crossAxisSizeForItem,
   }) {
     return sizeInPx;
   }
@@ -167,7 +166,7 @@ class FixedTrackSize extends TrackSize {
   double maxIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    required double Function(RenderBox) crossAxisSizeForItem,
   }) {
     return sizeInPx;
   }
@@ -198,8 +197,8 @@ class FlexibleTrackSize extends TrackSize {
   /// Creates a track size based on a fraction of the grid's leftover space.
   ///
   /// The [flexFactor] argument must not be null.
-  const FlexibleTrackSize(this.flexFactor, {String debugLabel})
-      : assert(flexFactor != null && flexFactor > 0),
+  const FlexibleTrackSize(this.flexFactor, {String? debugLabel})
+      : assert(flexFactor > 0),
         super(debugLabel: debugLabel);
 
   /// The flex factor to use for this track
@@ -218,7 +217,7 @@ class FlexibleTrackSize extends TrackSize {
   double minIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    double Function(RenderBox)? crossAxisSizeForItem,
   }) {
     return 0;
   }
@@ -227,7 +226,7 @@ class FlexibleTrackSize extends TrackSize {
   double maxIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    required double Function(RenderBox) crossAxisSizeForItem,
   }) {
     return 0;
   }
@@ -254,7 +253,7 @@ class FlexibleTrackSize extends TrackSize {
 ///
 /// This is a very expensive way to size a column.
 class IntrinsicContentTrackSize extends TrackSize {
-  const IntrinsicContentTrackSize({String debugLabel})
+  const IntrinsicContentTrackSize({String? debugLabel})
       : super(debugLabel: debugLabel);
 
   @override
@@ -266,25 +265,26 @@ class IntrinsicContentTrackSize extends TrackSize {
   double minIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    double Function(RenderBox)? crossAxisSizeForItem,
   }) {
+    crossAxisSizeForItem ??= (_) => double.infinity;
     final minContentContributions = items.map(
       (item) => _itemMinIntrinsicSizeOnAxis(
         item,
         measurementAxisForTrackType(type),
-        crossAxisSizeForItem(item),
+        crossAxisSizeForItem!(item),
       ),
     );
     return max(
       minContentContributions,
-    );
+    )!;
   }
 
   @override
   double maxIntrinsicSize(
     TrackType type,
     Iterable<RenderBox> items, {
-    double Function(RenderBox)/*!*/ crossAxisSizeForItem,
+    required double Function(RenderBox) crossAxisSizeForItem,
   }) {
     final maxContentContributions = items.map(
       (item) => _itemMaxIntrinsicSizeOnAxis(
@@ -293,7 +293,7 @@ class IntrinsicContentTrackSize extends TrackSize {
         crossAxisSizeForItem(item),
       ),
     );
-    return max(maxContentContributions);
+    return max(maxContentContributions)!;
   }
 
   @override
@@ -303,7 +303,7 @@ class IntrinsicContentTrackSize extends TrackSize {
   }
 }
 
-bool trackSizeListsEqual(List<TrackSize>/*!*/ a, List<TrackSize>/*!*/ b) {
+bool trackSizeListsEqual(List<TrackSize> a, List<TrackSize> b) {
   if (identical(a, b)) return true;
   return a.length == b.length &&
       zip([a, b]).every((pair) => pair[0] == pair[1]);
