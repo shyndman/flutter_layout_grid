@@ -352,6 +352,12 @@ source, the ordering can be configured via the `Semantics` widgetʼs
 [`sortKey`](https://api.flutter.dev/flutter/semantics/SemanticsSortKey-class.html)
 parameter.
 
+For an example of this in practice, see
+[example/semantic_ordering.dart](example/semantic_ordering.dart).
+
+Automatic semantic ordering is currently being explored in
+[#50](https://github.com/madewithfelt/flutter_layout_grid/issues/50).
+
 ## Differences from CSS Grid Layout
 
 Things in CSS Grid Layout that are not supported:
