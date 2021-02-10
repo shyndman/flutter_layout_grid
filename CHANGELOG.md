@@ -1,3 +1,7 @@
+## [0.11.3]
+* Update Scrabble screenshot to follow game rules (middle square must be
+  occupied)
+
 ## [0.11.2]
 * Add hashCode to TrackSize subclasses
 
