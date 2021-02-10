@@ -1,3 +1,14 @@
+## [0.11.0]
+* Tons of bug fixes in track sizing
+* Documentation overhaul
+* Performance improvements (should now lay out far less frequently)
+* Helpers and extension methods for row/column sizing
+* New Scrabble example
+* More tests
+
+Sorry, but I had to break semver with this release. Check out
+`1.0.0-nullsafety.0` for the null-safe version.
+
 ## [0.10.5]
 * Remove the use of extension methods
 
