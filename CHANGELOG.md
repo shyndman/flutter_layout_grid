@@ -1,3 +1,6 @@
+## [1.0.0-nullsafety.2]
+* Add hashCode to TrackSize subclasses
+
 ## [1.0.0-nullsafety.1]
 * Fix screenshots for pub.dev
 
