@@ -99,25 +99,17 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     this.autoPlacement = AutoPlacement.rowSparse,
     this.gridFit = GridFit.expand,
     this.areas,
-    @required List<TrackSize> columnSizes,
-    @Deprecated('templateColumnSizes is being shortened to columnSizes')
-        List<TrackSize> templateColumnSizes,
-    @required List<TrackSize> rowSizes,
-    @Deprecated('templateRowSizes is being shortened to rowSizes')
-        List<TrackSize> templateRowSizes,
+    @required List<TrackSize> /*!*/ this.columnSizes,
+    @required List<TrackSize> /*!*/ this.rowSizes,
     double rowGap,
     double columnGap,
     this.textDirection,
     List<Widget> children = const [],
-  })  : this.columnSizes = columnSizes ?? templateColumnSizes,
-        this.rowSizes = rowSizes ?? templateRowSizes,
-        this.templateColumnSizes = columnSizes ?? templateColumnSizes,
-        this.templateRowSizes = rowSizes ?? templateRowSizes,
-        this.rowGap = rowGap ?? 0,
+  })  : this.rowGap = rowGap ?? 0,
         this.columnGap = columnGap ?? 0,
         super(key: key, children: children) {
-    assert(columnSizes != null && columnSizes.isNotEmpty);
-    assert(rowSizes != null && rowSizes.isNotEmpty);
+    assert(columnSizes.isNotEmpty);
+    assert(rowSizes.isNotEmpty);
     assert(() {
       if (areas == null) return true;
       final parsedAreas = parseNamedAreasSpec(areas);
@@ -160,16 +152,8 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// Defines the track sizing functions of the grid's columns.
   final List<TrackSize> columnSizes;
 
-  /// Defines the track sizing functions of the grid's columns.
-  @Deprecated('templateColumnSizes is being shortened to columnSizes')
-  final List<TrackSize> templateColumnSizes;
-
   /// Defines the track sizing functions of the grid's rows.
   final List<TrackSize> rowSizes;
-
-  /// Defines the track sizing functions of the grid's rows.
-  @Deprecated('templateRowSizes is being shortened to rowSizes')
-  final List<TrackSize> templateRowSizes;
 
   /// Space between column tracks
   final double columnGap;
