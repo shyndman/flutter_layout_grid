@@ -172,6 +172,9 @@ class FixedTrackSize extends TrackSize {
   }
 
   @override
+  int get hashCode => hashValues(sizeInPx, debugLabel);
+
+  @override
   bool operator ==(dynamic other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
@@ -242,6 +245,9 @@ class FlexibleTrackSize extends TrackSize {
   }
 
   @override
+  int get hashCode => hashValues(flex, debugLabel);
+
+  @override
   bool operator ==(dynamic other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
@@ -295,6 +301,9 @@ class IntrinsicContentTrackSize extends TrackSize {
     );
     return max(maxContentContributions)!;
   }
+
+  @override
+  int get hashCode => debugLabel.hashCode;
 
   @override
   bool operator ==(dynamic other) {
