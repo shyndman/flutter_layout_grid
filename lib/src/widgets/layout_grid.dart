@@ -52,7 +52,7 @@ class AutoPlacement {
       case columnDense:
         return 'AutoPlacement.columnDense';
     }
-    return null;
+    throw StateError('toString() called on unknown AutoPlacement');
   }
 
   /// The list of all available AutoPlacement values
