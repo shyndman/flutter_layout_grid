@@ -8,21 +8,21 @@ design.
 
 <a href="/example/piet_painting_named_areas.dart">
   <img
-    src="/doc/images/piet_trimmed.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet_trimmed.png"
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 
 <a href="/example/periodic_table.dart">
   <img
-    src="/doc/images/periodic_table.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/periodic_table.png"
     alt="Periodic table rendered using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 
 <a href="/example/scrabble.dart">
 <img
-    src="/doc/images/scrabble.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/scrabble.png"
     alt="Scrabble board rendered using Flutter Layout Grid" height="330">
 </a>
 
@@ -85,7 +85,7 @@ dependencies:
 
 <a href="/example/app_layout.dart">
   <img
-    src="/doc/images/app_layout.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/app_layout.png"
     alt="Desktop app layout rendered using Flutter Layout Grid" height="220">
 </a>
 
