@@ -23,7 +23,5 @@ extension LayoutGridExtensionsForBoxConstraints on BoxConstraints {
       case GridFit.passthrough:
         return this;
     }
-
-    throw StateError('$gridFit is not a valid gridFit');
   }
 }
