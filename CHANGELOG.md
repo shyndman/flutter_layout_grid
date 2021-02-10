@@ -1,5 +1,7 @@
 ## [1.0.0-nullsafety.0]
 * Full support for null-safety
+* Replacement of templateColumnSizes and templateRowSizes with columnSizes and
+  rowSizes
 
 ## [0.11.0]
 * Tons of bug fixes in track sizing
