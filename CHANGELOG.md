@@ -1,3 +1,6 @@
+## [0.11.1]
+* Fix screenshots for pub.dev
+
 ## [0.11.0]
 * Tons of bug fixes in track sizing
 * Documentation overhaul
