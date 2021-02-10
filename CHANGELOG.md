@@ -1,3 +1,6 @@
+## [1.0.0-nullsafety.1]
+* Fix screenshots for pub.dev
+
 ## [1.0.0-nullsafety.0]
 * Full support for null-safety
 * Replacement of templateColumnSizes and templateRowSizes with columnSizes and
