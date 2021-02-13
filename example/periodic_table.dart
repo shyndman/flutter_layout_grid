@@ -73,9 +73,12 @@ class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
       rowGap: 0.4.vw,
       children: [
         for (final e in table.elements)
-          AtomicElementWidget(
-            key: ValueKey(e.symbol),
-            element: e,
+          AspectRatio(
+            aspectRatio: 40.1 / 42.4,
+            child: AtomicElementWidget(
+              key: ValueKey(e.symbol),
+              element: e,
+            ),
           ).withGridPlacement(columnStart: e.x, rowStart: e.y),
       ],
     );
@@ -115,39 +118,54 @@ class AtomicElementWidget extends StatelessWidget {
           color: elementColor,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      // Some viewport sizes give us slight overflows, which can be attributed
+      // to rounding errors. So we use a stack and allow overflow on the bottom
+      // edge.
+      child: Stack(
+        clipBehavior: Clip.hardEdge,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0.3.vw, 0.15.vw, 0, 0),
-            child: Text(
-              element.number.toString(),
-              style: elementTextStyle.copyWith(fontSize: 0.5.vw),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Text(
-            element.symbol,
-            style: elementTextStyle.copyWith(fontSize: 1.9.vw),
-            textAlign: TextAlign.center,
-            softWrap: false,
-          ),
-          Text(
-            element.name,
-            style: elementTextStyle.copyWith(fontSize: 0.65.vw),
-            textAlign: TextAlign.center,
-            softWrap: false,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 0.2.vw, 0.0, 0.3.vw),
-            child: Text(
-              element.formattedMass,
-              style: elementTextStyle.copyWith(fontSize: 0.5.vw),
-              textAlign: TextAlign.center,
-            ),
+          Positioned.fill(
+            bottom: null,
+            child: _buildElementDetails(elementTextStyle),
           ),
         ],
       ),
+    );
+  }
+
+  Column _buildElementDetails(TextStyle elementTextStyle) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(0.3.vw, 0.15.vw, 0, 0),
+          child: Text(
+            element.number.toString(),
+            style: elementTextStyle.copyWith(fontSize: 0.5.vw),
+            textAlign: TextAlign.left,
+          ),
+        ),
+        Text(
+          element.symbol,
+          style: elementTextStyle.copyWith(fontSize: 1.9.vw),
+          textAlign: TextAlign.center,
+          softWrap: false,
+        ),
+        Text(
+          element.name,
+          style: elementTextStyle.copyWith(fontSize: 0.65.vw),
+          textAlign: TextAlign.center,
+          softWrap: false,
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0.0, 0.2.vw, 0.0, 0.3.vw),
+          child: Text(
+            element.formattedMass,
+            style: elementTextStyle.copyWith(fontSize: 0.5.vw),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }
