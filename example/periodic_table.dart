@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
+import 'example_helpers.dart';
+
 void main() {
   runApp(PeriodicTableApp());
 }
@@ -28,7 +30,7 @@ class PeriodicTableApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         builder: (_, __) {
           return LayoutBuilder(builder: (_, constraints) {
-            _viewportSize = constraints.biggest;
+            viewportSize = constraints.biggest;
             return SingleChildScrollView(child: PeriodicTableWidget());
           });
         },
@@ -37,6 +39,7 @@ class PeriodicTableApp extends StatelessWidget {
   }
 }
 
+/// Renders a periodic table.
 class PeriodicTableWidget extends StatefulWidget {
   @override
   _PeriodicTableWidgetState createState() => _PeriodicTableWidgetState();
@@ -65,6 +68,10 @@ class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
   }
 
   Widget _buildGrid(PeriodicTable table) {
+    // !!! This is the grid behind the periodic table! !!!
+    //
+    // The rest of the code is just details (what goes where, how things should
+    // look, etc).
     return LayoutGrid(
       gridFit: GridFit.loose,
       columnSizes: repeat(table.numColumns, [1.fr]),
@@ -85,6 +92,7 @@ class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
   }
 }
 
+// Mappings between atomic categories and their associated colors.
 const categoryColorMapping = {
   AtomicElementCategory.actinide: Color(0xffc686cc),
   AtomicElementCategory.alkaliMetal: Color(0xffecbe59),
@@ -98,6 +106,7 @@ const categoryColorMapping = {
   AtomicElementCategory.unknown: Color(0xffcccccc),
 };
 
+/// A widget representing an element's square on the periodic table.
 class AtomicElementWidget extends StatelessWidget {
   AtomicElementWidget({Key key, this.element}) : super(key: key);
   final AtomicElement element;
@@ -181,6 +190,7 @@ Future<PeriodicTable> loadPeriodicTable() async {
       .toList());
 }
 
+/// The elements and structure of the periodic table.
 class PeriodicTable {
   PeriodicTable(this.elements) {
     for (final e in elements) {
@@ -194,6 +204,8 @@ class PeriodicTable {
   int numRows = 0;
 }
 
+/// Describes an atomic element, with a few view helpers and deserialization
+/// logic.
 class AtomicElement {
   AtomicElement({
     @required this.name,
@@ -237,6 +249,7 @@ class AtomicElement {
   }
 }
 
+/// Categories of atomic element, as dictacted by...physics!
 enum AtomicElementCategory {
   actinide,
   alkaliMetal,
@@ -276,30 +289,4 @@ AtomicElementCategory _parseAtomicElementCategory(String category) {
 
   assert(category.startsWith('unknown'));
   return AtomicElementCategory.unknown;
-}
-
-extension ListExt<T> on List<T> {
-  List<T> operator *(int times) => generate(times).expand((e) => this).toList();
-}
-
-Size _viewportSize = Size.zero;
-
-extension on num {
-  double get vw => _viewportSize.width * (this / 100.0);
-}
-
-extension on double {
-  /// Formats a double with a maximum precision of [maxFractionDigits]. Any
-  /// trailing zeroes will be trimmed from the returned string.
-  String toStringAsMaxFixed([int maxFractionDigits = 2]) {
-    return this
-        .toStringAsFixed(maxFractionDigits)
-        .replaceAll(RegExp(r'\.?0+$'), '');
-  }
-}
-
-Iterable<void> generate(int times) sync* {
-  for (int i = 0; i < times; i++) {
-    yield 0;
-  }
 }
