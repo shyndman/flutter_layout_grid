@@ -1,3 +1,6 @@
+## [1.0.0-nullsafety.4]
+* Improve performance of periodic table example
+
 ## [1.0.0-nullsafety.3]
 * Update Scrabble screenshot to follow game rules (middle square must be
   occupied)
