@@ -1,3 +1,6 @@
+## [0.11.4]
+* Improve performance of periodic table example
+
 ## [0.11.3]
 * Update Scrabble screenshot to follow game rules (middle square must be
   occupied)
