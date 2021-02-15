@@ -171,9 +171,8 @@ class AtomicElementWidget extends StatelessWidget {
 }
 
 Future<PeriodicTable> loadPeriodicTable() async {
-  final elementsJson = JsonCodec().decode(
-          await rootBundle.loadString('periodic_table_data.json'))['elements']
-      as List<dynamic>;
+  final elementsJson = JsonCodec().decode(await rootBundle
+      .loadString('lib/periodic_table_data.json'))['elements'] as List<dynamic>;
 
   return PeriodicTable(elementsJson
       .cast<Map<String, dynamic>>()

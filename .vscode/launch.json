@@ -6,32 +6,32 @@
   "configurations": [
     {
       "name": "Periodic Table",
-      "program": "example/periodic_table.dart",
+      "program": "example/lib/periodic_table.dart",
       "type": "dart",
       "request": "launch",
     },
     {
       "name": "Periodic Table (Profile)",
-      "program": "example/periodic_table.dart",
+      "program": "example/lib/periodic_table.dart",
       "type": "dart",
       "flutterMode": "profile",
       "request": "launch",
     },
     {
       "name": "Piet",
-      "program": "example/flutter_layout_grid.dart",
+      "program": "example/lib/flutter_layout_grid.dart",
       "type": "dart",
       "request": "launch",
     },
     {
       "name": "Basic",
-      "program": "example/basic.dart",
+      "program": "example/lib/basic.dart",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "Profile Basic",
-      "program": "example/basic.dart",
+      "program": "example/lib/basic.dart",
       "flutterMode": "profile",
       "request": "launch",
       "type": "dart"
