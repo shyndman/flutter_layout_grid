@@ -6,21 +6,21 @@
 A powerful grid layout system for Flutter, optimized for complex user interface
 design.
 
-<a href="/example/piet_painting_named_areas.dart">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/piet_painting_named_areas.dart">
   <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet_trimmed.png"
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 
-<a href="/example/periodic_table.dart">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/periodic_table.dart">
   <img
-    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/periodic_table.png"
+    src="https://raw.githubusercontent.com/madewithfelt/flutter_layout_grid/main/doc/images/periodic_table.png"
     alt="Periodic table rendered using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 
-<a href="/example/scrabble.dart">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/scrabble.dart">
 <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/scrabble.png"
     alt="Scrabble board rendered using Flutter Layout Grid" height="330">
@@ -83,7 +83,7 @@ dependencies:
 
 #### Visual:
 
-<a href="/example/app_layout.dart">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/app_layout.dart">
   <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/app_layout.png"
     alt="Desktop app layout rendered using Flutter Layout Grid" height="220">
@@ -133,10 +133,10 @@ class App extends StatelessWidget {
 ```
 
 This example is available at
-[`example/app_layout.dart`](/example/app_layout.dart).
+[`example/app_layout.dart`](https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/app_layout.dart).
 
 For a similar example that includes responsive behavior, check out
-[`example/responsive_app_layout.dart`](/example/responsive_app_layout.dart).
+[`example/responsive_app_layout.dart`](https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/responsive_app_layout.dart).
 
 ## Sizing of Columns and Rows
 
@@ -353,7 +353,7 @@ source, the ordering can be configured via the `Semantics` widgetʼs
 parameter.
 
 For an example of this in practice, see
-[example/semantic_ordering.dart](example/semantic_ordering.dart).
+[https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/semantic_ordering.dart](example/semantic_ordering.dart).
 
 Automatic semantic ordering is currently being explored in
 [#50](https://github.com/madewithfelt/flutter_layout_grid/issues/50).
