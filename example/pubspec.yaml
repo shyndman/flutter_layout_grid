@@ -14,4 +14,4 @@ dependencies:
 
 flutter:
   assets:
-    - periodic_table_data.json
+    - lib/periodic_table_data.json

@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
-import './piet_painting.dart';
-
 void main() {
   runApp(PietNamedAreasApp());
 }
 
-class PietNamedAreasApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return WidgetsApp(
-      title: 'Layout Grid Desktop Example',
-      debugShowCheckedModeBanner: false,
-      color: Colors.white,
-      builder: (context, child) => PietPainting(),
-    );
-  }
-}
+const cellRed = Color(0xffc73232);
+const cellMustard = Color(0xffd7aa22);
+const cellGrey = Color(0xffcfd4e0);
+const cellBlue = Color(0xff1553be);
+const background = Color(0xff242830);
 
 class PietPainting extends StatelessWidget {
   @override
@@ -57,6 +49,18 @@ class PietPainting extends StatelessWidget {
           gridArea('yy').containing(Container(color: cellMustard)),
         ],
       ),
+    );
+  }
+}
+
+class PietNamedAreasApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WidgetsApp(
+      title: 'Layout Grid Desktop Example',
+      debugShowCheckedModeBanner: false,
+      color: Colors.white,
+      builder: (context, child) => PietPainting(),
     );
   }
 }
