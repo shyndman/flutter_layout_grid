@@ -6,7 +6,7 @@
 A powerful grid layout system for Flutter, optimized for complex user interface
 design.
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/piet_painting_named_areas.dart">
+<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/flutter_layout_grid_example.dart">
   <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet_trimmed.png"
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
@@ -353,7 +353,7 @@ source, the ordering can be configured via the `Semantics` widgetʼs
 parameter.
 
 For an example of this in practice, see
-[https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/semantic_ordering.dart](example/semantic_ordering.dart).
+[example/semantic_ordering.dart](https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/semantic_ordering.dart).
 
 Automatic semantic ordering is currently being explored in
 [#50](https://github.com/madewithfelt/flutter_layout_grid/issues/50).
