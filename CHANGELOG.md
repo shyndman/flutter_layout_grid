@@ -1,3 +1,6 @@
+## [0.11.5]
+* Reorganize example project
+
 ## [0.11.4]
 * Improve performance of periodic table example
 
