@@ -4,7 +4,7 @@ import 'layout_grid.dart';
 
 /// If `true`, track sizing will be logged to the console via Flutter's
 /// [debugPrint] function.
-bool debugPrintGridLayout = false;
+bool debugPrintGridLayout = true;
 
 /// If `true`, unplaced children will be logged to the console via Flutter's
 /// [debugPrint] function.

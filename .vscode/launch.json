@@ -5,19 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Periodic Table",
-      "program": "example/lib/periodic_table.dart",
-      "type": "dart",
-      "request": "launch",
-    },
-    {
-      "name": "Periodic Table (Profile)",
-      "program": "example/lib/periodic_table.dart",
-      "type": "dart",
-      "flutterMode": "profile",
-      "request": "launch",
-    },
-    {
       "name": "Piet",
       "program": "example/lib/flutter_layout_grid.dart",
       "type": "dart",
@@ -35,6 +22,32 @@
       "flutterMode": "profile",
       "request": "launch",
       "type": "dart"
-    }
+    },
+    {
+      "name": "Periodic Table",
+      "program": "example/lib/periodic_table.dart",
+      "type": "dart",
+      "request": "launch",
+    },
+    {
+      "name": "Periodic Table (Profile)",
+      "program": "example/lib/periodic_table.dart",
+      "type": "dart",
+      "flutterMode": "profile",
+      "request": "launch",
+    },
+    {
+      "name": "Responsive App Layout",
+      "program": "example/lib/responsive_app_layout.dart",
+      "type": "dart",
+      "request": "launch",
+    },
+    {
+      "name": "Responsive App Layout (Profile)",
+      "program": "example/lib/responsive_app_layout.dart",
+      "type": "dart",
+      "flutterMode": "profile",
+      "request": "launch",
+    },
   ]
 }

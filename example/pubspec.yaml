@@ -3,15 +3,20 @@ description: Examples for flutter_layout_grid.
 private: true
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: '>=2.6.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_layout_grid:
     path: ../
+
   google_fonts: ^1.0.0
+  money2: ^1.4.3
+  simple_animations: ^2.5.0
+  supercharged: ^1.0.0
 
 flutter:
+  uses-material-design: true
   assets:
     - lib/periodic_table_data.json
