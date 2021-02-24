@@ -156,7 +156,8 @@ class RenderLayoutGrid extends RenderBox
   bool needsPlacement = true;
   late PlacementGrid _placementGrid;
 
-  @visibleForTesting
+  /// The row and column sizing information calculated during the previous
+  /// grid layout pass.
   late GridSizingInfo lastGridSizing;
 
   /// The union of children contained in this grid. Only set during debug
