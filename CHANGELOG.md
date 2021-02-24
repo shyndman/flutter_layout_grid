@@ -1,3 +1,6 @@
+## [1.0.0-nullsafety.6]
+* Make RenderLayoutGrid.lastGridSizing a public field
+
 ## [1.0.0-nullsafety.5]
 * Reorganize example project
 
