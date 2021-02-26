@@ -109,6 +109,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     double columnGap,
     this.textDirection,
     List<Widget> children = const [],
+    this.debugLabel,
   })  : this.columnSizes = columnSizes ?? templateColumnSizes,
         this.rowSizes = rowSizes ?? templateRowSizes,
         this.templateColumnSizes = columnSizes ?? templateColumnSizes,
@@ -182,6 +183,12 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
   /// Defaults to the ambient [Directionality].
   final TextDirection textDirection;
 
+  /// A label for this grid, used for debugging.
+  ///
+  /// It is exposed via debug properties, and is used as a prefix for log
+  /// messages.
+  final String debugLabel;
+
   @override
   RenderLayoutGrid createRenderObject(BuildContext context) {
     return RenderLayoutGrid(
@@ -193,6 +200,7 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       columnGap: columnGap,
       rowGap: rowGap,
       textDirection: textDirection ?? Directionality.of(context),
+      debugLabel: debugLabel,
     );
   }
 
@@ -206,12 +214,17 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       ..rowSizes = rowSizes
       ..columnGap = columnGap
       ..rowGap = rowGap
-      ..textDirection = textDirection ?? Directionality.of(context);
+      ..textDirection = textDirection ?? Directionality.of(context)
+      ..debugLabel = debugLabel;
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
+
+    if (debugLabel != null) {
+      properties.add(MessageProperty('debugLabel', debugLabel));
+    }
 
     properties.add(IterableProperty(
       'columnSizes',

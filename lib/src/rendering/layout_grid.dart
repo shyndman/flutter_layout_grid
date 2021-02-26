@@ -140,6 +140,7 @@ class RenderLayoutGrid extends RenderBox
     @required List<TrackSize> columnSizes,
     @required List<TrackSize> rowSizes,
     TextDirection textDirection = TextDirection.ltr,
+    this.debugLabel,
   })  : assert(autoPlacement != null),
         assert(gridFit != null),
         assert(textDirection != null),
@@ -166,6 +167,9 @@ class RenderLayoutGrid extends RenderBox
   /// The union of children contained in this grid. Only set during debug
   /// builds.
   Rect _debugChildRect;
+
+  /// Exposed via debug properties, and used to prefix log messages.
+  String debugLabel;
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
   /// auto-placed items get flowed into the grid.
@@ -310,7 +314,7 @@ class RenderLayoutGrid extends RenderBox
   @override
   void performLayout() {
     if (debugPrintGridLayout) {
-      debugPrint('Starting grid layout for constraints $constraints, '
+      _debugPrint('Starting grid layout for constraints $constraints, '
           'child constraints ${constraints.constraintsForGridFit(gridFit)}');
     }
 
@@ -319,7 +323,7 @@ class RenderLayoutGrid extends RenderBox
     this.size = gridSizing.gridSize;
 
     if (debugPrintGridLayout) {
-      debugPrint('Determined track sizes:');
+      _debugPrint('Determined track sizes:');
 
       for (var c = 0; c < gridSizing.columnTracks.length; c++) {
         final columnWidth = gridSizing
@@ -330,7 +334,7 @@ class RenderLayoutGrid extends RenderBox
               rowEnd: 1,
             ))
             .width;
-        debugPrint('  column $c: $columnWidth');
+        _debugPrint('  column $c: $columnWidth');
       }
 
       for (var r = 0; r < gridSizing.rowTracks.length; r++) {
@@ -342,10 +346,10 @@ class RenderLayoutGrid extends RenderBox
               rowEnd: r + 1,
             ))
             .height;
-        debugPrint('  row $r: $rowHeight');
+        _debugPrint('  row $r: $rowHeight');
       }
 
-      debugPrint('Finished track sizing');
+      _debugPrint('Finished track sizing');
     }
 
     bool shouldComputeChildRect = false;
@@ -383,7 +387,7 @@ class RenderLayoutGrid extends RenderBox
               _debugChildRect.expandToInclude(areaRect.topLeft & child.size);
         }
       } else if (debugPrintUnplacedChildren) {
-        debugPrint('Area "${parentData.areaName}" not found. \n'
+        _debugPrint('Area "${parentData.areaName}" not found. \n'
             '$child will not be rendered. ($parentData)');
       }
 
@@ -478,7 +482,7 @@ class RenderLayoutGrid extends RenderBox
     final isAxisUpperBound = bounds.max.isFinite;
 
     if (debugPrintGridLayout) {
-      debugPrint('${describeEnum(typeBeingSized).toUpperCase()} tracks with a '
+      _debugPrint('${describeEnum(typeBeingSized).toUpperCase()} tracks with a '
           'maximum free space of $initialFreeSpace, '
           'isAxisUpperBound=$isAxisUpperBound');
     }
@@ -527,24 +531,24 @@ class RenderLayoutGrid extends RenderBox
     gridSizing.setMinMaxTrackSizesForAxis(axisMinSize, axisMaxSize, sizingAxis);
 
     if (debugPrintGridLayout) {
-      debugPrint('min-max: ${MinMax(axisMinSize, axisMaxSize)}');
-      debugPrint('free space: $freeSpace');
+      _debugPrint('min-max: ${MinMax(axisMinSize, axisMaxSize)}');
+      _debugPrint('free space: $freeSpace');
     }
 
     // We're already overflowing
     if (isAxisUpperBound && freeSpace < 0) {
-      if (debugPrintGridLayout) debugPrint('Overflowing by $freeSpace');
+      if (debugPrintGridLayout) _debugPrint('Overflowing by $freeSpace');
       return tracks;
     }
 
     if (isAxisUpperBound && axisMaxSize > axisMinSize) {
       if (debugPrintGridLayout) {
-        debugPrint('Can grow within free space');
+        _debugPrint('Can grow within free space');
       }
       freeSpace =
           _distributeFreeSpace(freeSpace, tracks, [], _IntrinsicDimension.min);
       if (debugPrintGridLayout) {
-        debugPrint('  Finished distribution. Free space is now $freeSpace');
+        _debugPrint('  Finished distribution. Free space is now $freeSpace');
       }
     } else {
       for (final track in tracks) {
@@ -590,7 +594,7 @@ class RenderLayoutGrid extends RenderBox
     BoxConstraints constraints,
   ) {
     if (intrinsicTracks.isNotEmpty && debugPrintGridLayout) {
-      debugPrint('Resolving intrinsic ${describeEnum(type)} '
+      _debugPrint('Resolving intrinsic ${describeEnum(type)} '
           '${type == TrackType.column ? 'widths' : 'heights'} '
           '[${debugTrackIndicesString(intrinsicTracks)}]');
     }
@@ -642,7 +646,7 @@ class RenderLayoutGrid extends RenderBox
             type, spanItemsInTrack,
             crossAxisSizeForItem: crossAxisSizeForItem);
         if (debugPrintGridLayout) {
-          debugPrint('  min size of '
+          _debugPrint('  min size of '
               '${debugTrackIndicesString(spannedTracks, trackPrefix: true)} '
               '= $minSpanSize');
         }
@@ -658,7 +662,7 @@ class RenderLayoutGrid extends RenderBox
         _distributeCalculatedSpaceToSpannedTracks(
             maxSpanSize, type, spannedTracks, _IntrinsicDimension.max);
         if (debugPrintGridLayout) {
-          debugPrint('  max size of '
+          _debugPrint('  max size of '
               '${debugTrackIndicesString(spannedTracks, trackPrefix: true)} '
               '= $maxSpanSize');
         }
@@ -670,7 +674,7 @@ class RenderLayoutGrid extends RenderBox
       if (track.isInfinite) track.growthLimit = track.baseSize;
 
       if (debugPrintGridLayout) {
-        debugPrint('  update track ${track.index} = '
+        _debugPrint('  update track ${track.index} = '
             '${track.toPrettySizeString()}');
       }
     }
@@ -724,7 +728,7 @@ class RenderLayoutGrid extends RenderBox
     assert(freeSpace >= 0);
 
     if (debugPrintGridLayout) {
-      debugPrint('  distributing $freeSpace across '
+      _debugPrint('  distributing $freeSpace across '
           '${debugTrackIndicesString(tracks)} on '
           '${describeEnum(dimension)}');
     }
@@ -936,6 +940,10 @@ class RenderLayoutGrid extends RenderBox
 
       return true;
     }());
+  }
+
+  void _debugPrint(String message) {
+    debugPrint('${debugLabel != null ? '[$debugLabel] ' : ''} $message');
   }
 }
 
