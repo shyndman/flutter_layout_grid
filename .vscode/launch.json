@@ -35,6 +35,13 @@
       "flutterMode": "profile",
       "request": "launch",
       "type": "dart"
+    },
+    {
+      "name": "Perf Test Profile",
+      "program": "example/lib/perf_test.dart",
+      "flutterMode": "profile",
+      "request": "launch",
+      "type": "dart"
     }
   ]
 }
