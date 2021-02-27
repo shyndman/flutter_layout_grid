@@ -360,10 +360,10 @@ class RenderLayoutGrid extends RenderBox
       debugPrint('Finished track sizing');
     }
 
-    bool shouldComputeChildRect = false;
+    bool shouldComputeChildRectForDebug = false;
     assert(() {
       _debugChildRect = Rect.zero;
-      shouldComputeChildRect = true;
+      shouldComputeChildRectForDebug = true;
       return true;
     }());
 
@@ -372,25 +372,19 @@ class RenderLayoutGrid extends RenderBox
     while (child != null) {
       final parentData = child.parentData as GridParentData;
       if (parentData.isPlaced) {
-        final area = _placementGrid.itemAreas[child];
-        final areaRect =
-            gridSizing.offsetForArea(area) & gridSizing.sizeForArea(area);
+        final area = areaForItem(child);
+        final areaRect = gridSizing.rectForArea(area);
+        final gridUsesChildSize =
+            gridSizing.doesAreaContributeToAutoTrack(area);
 
         parentData.offset = areaRect.topLeft;
 
         child.layout(
           BoxConstraints.loose(areaRect.size),
-          // Note that we do not use the parentUsesSize argument, as we already
-          // ask for intrinsics sizes from every child that we care about, and
-          // that has the same effect of registering the grid for relayout
-          // whenever those children change.
-          //
-          // Unless, that is, we're in a debug mode. Then we do so that we can
-          // compute overflow.
-          parentUsesSize: shouldComputeChildRect,
+          parentUsesSize: shouldComputeChildRectForDebug || gridUsesChildSize,
         );
 
-        if (shouldComputeChildRect) {
+        if (shouldComputeChildRectForDebug) {
           _debugChildRect =
               _debugChildRect.expandToInclude(areaRect.topLeft & child.size);
         }
@@ -1182,6 +1176,13 @@ class GridSizingInfo {
     } else {
       _rowStarts = null;
     }
+  }
+
+  bool doesAreaContributeToAutoTrack(GridArea area) {
+    return range(area.columnStart, area.columnEnd)
+            .any((col) => columnTracks[col.toInt()].sizeFunction.isIntrinsic) ||
+        range(area.rowStart, area.rowEnd)
+            .any((row) => rowTracks[row.toInt()].sizeFunction.isIntrinsic);
   }
 }
 
