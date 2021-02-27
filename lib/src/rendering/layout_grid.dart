@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:circular_buffer/circular_buffer.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
@@ -166,6 +167,7 @@ class RenderLayoutGrid extends RenderBox
   /// The union of children contained in this grid. Only set during debug
   /// builds.
   Rect _debugChildRect;
+  CircularBuffer<int> debugLayoutTimesInMicros;
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
   /// auto-placed items get flowed into the grid.
@@ -311,9 +313,17 @@ class RenderLayoutGrid extends RenderBox
 
   @override
   void performLayout() {
+    Stopwatch sw;
+
     if (debugPrintGridLayout) {
       debugPrint('Starting grid layout for constraints $constraints, '
           'child constraints ${constraints.constraintsForGridFit(gridFit)}');
+    }
+
+    if (debugCollectLayoutTimes) {
+      debugLayoutTimesInMicros ??=
+          CircularBuffer<int>(debugLayoutTimesBufferSize);
+      sw = Stopwatch()..start();
     }
 
     // Size the grid
@@ -390,6 +400,10 @@ class RenderLayoutGrid extends RenderBox
       }
 
       child = parentData.nextSibling;
+    }
+
+    if (debugCollectLayoutTimes) {
+      debugLayoutTimesInMicros.add(sw.elapsedMicroseconds);
     }
   }
 

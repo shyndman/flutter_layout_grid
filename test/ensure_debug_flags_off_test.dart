@@ -11,4 +11,8 @@ void main() {
   test('Ensure that debug overflow printing is turned off', () {
     expect(debugPrintUnplacedChildren, false);
   });
+
+  test('Ensure that debug layout time collection is turned off', () {
+    expect(debugCollectLayoutTimes, false);
+  });
 }

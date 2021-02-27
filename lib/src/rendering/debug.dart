@@ -10,6 +10,14 @@ bool debugPrintGridLayout = false;
 /// [debugPrint] function.
 bool debugPrintUnplacedChildren = false;
 
+/// If `true`, grids will record their render times in circular buffers of
+/// length [debugLayoutTimesBufferSize].
+bool debugCollectLayoutTimes = false;
+
+/// Number of layout time samples to collect if [debugCollectLayoutTimes] is
+/// `true`.
+int debugLayoutTimesBufferSize = 100;
+
 String debugTrackIndicesString(Iterable<GridTrack> tracks,
     {bool trackPrefix = false}) {
   final trackIndices = debugPrettyIndices(tracks.map((t) => t.index));
