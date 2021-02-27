@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/core.dart';
 
 /// Represents a rectangular region on the grid.
 @immutable
-class GridArea {
+class GridArea with Diagnosticable {
   GridArea({
     this.name,
     this.columnStart,
@@ -59,10 +60,17 @@ class GridArea {
   }
 
   @override
-  String toString() {
-    return 'GridArea(' +
-        (name != null ? 'name=$name, ' : '') +
-        'columnSpan=[$columnStart–$columnEnd], rowSpan=[$rowStart–$rowEnd])';
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+
+    if (name != null) {
+      properties.add(StringProperty('name', name));
+    }
+
+    properties.add(IntProperty('columnStart', columnStart));
+    properties.add(IntProperty('columnSpan', columnSpan));
+    properties.add(IntProperty('rowStart', rowStart));
+    properties.add(IntProperty('rowSpan', rowSpan));
   }
 }
 

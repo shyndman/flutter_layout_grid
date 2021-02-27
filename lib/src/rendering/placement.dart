@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_layout_grid/src/foundation/placement.dart';
 import 'package:meta/meta.dart';
@@ -156,16 +157,24 @@ class PlacementGrid {
     if (area.columnEnd > explicitColumnCount) {
       throw FlutterError.fromParts([
         ErrorSummary('GridPlacement.columnEnd cannot exceed column count\n'),
-        grid?.toDiagnosticsNode(name: 'grid'),
-        item.toDiagnosticsNode(name: 'gridItem'),
+        area.toDiagnosticsNode(name: 'area'),
+        IntProperty('columnCount', explicitColumnCount),
+        item.toDiagnosticsNode(
+            name: 'gridItem', style: DiagnosticsTreeStyle.shallow),
+        grid?.toDiagnosticsNode(
+            name: 'grid', style: DiagnosticsTreeStyle.shallow),
       ]);
     }
 
     if (area.rowEnd > explicitRowCount) {
       throw FlutterError.fromParts([
         ErrorSummary('GridPlacement.rowEnd cannot exceed row count\n'),
-        grid?.toDiagnosticsNode(name: 'grid'),
-        item.toDiagnosticsNode(name: 'gridItem'),
+        area.toDiagnosticsNode(name: 'area'),
+        IntProperty('rowCount', explicitRowCount),
+        item.toDiagnosticsNode(
+            name: 'gridItem', style: DiagnosticsTreeStyle.shallow),
+        grid?.toDiagnosticsNode(
+            name: 'grid', style: DiagnosticsTreeStyle.shallow),
       ]);
     }
 
