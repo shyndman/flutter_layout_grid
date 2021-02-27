@@ -307,6 +307,8 @@ class RenderLayoutGrid extends RenderBox
         .toList(growable: false);
   }
 
+  GridArea areaForItem(RenderBox item) => _placementGrid.itemAreas[item];
+
   @override
   void performLayout() {
     if (debugPrintGridLayout) {
