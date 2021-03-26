@@ -1,3 +1,6 @@
+## [0.11.7]
+* Update README to reference 1.0.0 release
+
 ## [0.11.6]
 * Make RenderLayoutGrid.lastGridSizing a public field
 
