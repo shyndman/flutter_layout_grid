@@ -1,3 +1,7 @@
+## [1.0.0]
+Although there's more I want to add, the library is solid enough. It's time to
+mark this thing as 1.0.
+
 ## [1.0.0-nullsafety.6]
 * Make RenderLayoutGrid.lastGridSizing a public field
 

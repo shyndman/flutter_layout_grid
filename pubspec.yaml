@@ -1,7 +1,7 @@
 name: flutter_layout_grid
 description: A powerful grid layout system for Flutter, optimized for complex
   user interface design.
-version: 1.0.0-nullsafety.6
+version: 1.0.0
 homepage: https://github.com/madewithfelt/flutter_layout_grid
 
 environment:
