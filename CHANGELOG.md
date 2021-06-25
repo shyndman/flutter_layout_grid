@@ -1,3 +1,6 @@
+## [1.0.2]
+* Improve a class comment
+
 ## [1.0.1]
 * Update README to point to latest version
 
