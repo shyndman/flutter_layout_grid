@@ -143,7 +143,7 @@ class RenderLayoutGrid extends RenderBox
     required List<TrackSize> columnSizes,
     required List<TrackSize> rowSizes,
     required TextDirection textDirection,
-  })   : _autoPlacementMode = autoPlacement,
+  })  : _autoPlacementMode = autoPlacement,
         _gridFit = gridFit,
         _columnSizes = columnSizes,
         _rowSizes = rowSizes,
@@ -1010,7 +1010,7 @@ class GridSizingInfo {
     required this.columnGap,
     required this.rowGap,
     required this.textDirection,
-  })   : columnTracks = UnmodifiableListView(columnTracks),
+  })  : columnTracks = UnmodifiableListView(columnTracks),
         rowTracks = UnmodifiableListView(rowTracks);
 
   GridSizingInfo.fromTrackSizeFunctions({

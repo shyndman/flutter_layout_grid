@@ -105,7 +105,7 @@ void _resolveChildNamedArea(
 class PlacementGrid {
   PlacementGrid({
     required this.grid,
-  })   : explicitColumnCount = grid.columnSizes.length,
+  })  : explicitColumnCount = grid.columnSizes.length,
         explicitRowCount = grid.rowSizes.length {
     _cells = List<GridCell>.generate(
         explicitColumnCount * explicitRowCount, (i) => GridCell(this, i));

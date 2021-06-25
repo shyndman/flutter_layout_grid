@@ -22,7 +22,7 @@ class GridArea {
     required int columnSpan,
     required this.rowStart,
     required int rowSpan,
-  })   : this.columnEnd = columnStart + columnSpan,
+  })  : this.columnEnd = columnStart + columnSpan,
         this.rowEnd = rowStart + rowSpan;
 
   final String? name;
