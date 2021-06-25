@@ -122,8 +122,6 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
 }
 
 /// Implements the grid layout algorithm.
-///
-/// TODO(shyndman): Describe algorithm.
 class RenderLayoutGrid extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, GridParentData>,
