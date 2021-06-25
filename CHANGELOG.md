@@ -1,3 +1,6 @@
+## [1.0.3]
+* Format Dart files (seems like the formatter has changed recently)
+
 ## [1.0.2]
 * Improve a class comment
 
