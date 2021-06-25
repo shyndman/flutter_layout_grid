@@ -123,7 +123,10 @@ class GridParentData extends ContainerBoxParentData<RenderBox> {
 
 /// Implements the grid layout algorithm.
 ///
-/// TODO(shyndman): Describe algorithm.
+/// The layout algorithm is a rough approximation of the one described in
+/// https://drafts.csswg.org/css-grid/#algo-track-sizing, adapted for Flutter.
+///
+/// See [performLayout] for the details.
 class RenderLayoutGrid extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, GridParentData>,
