@@ -1,8 +1,12 @@
 name: test
-
-# This workflow is triggered on pushes to the repository.
-
-on: push    # Default will running for every branch.
+on:
+  push:
+  pull_request:
+    branches:
+    - main
+  schedule:
+  # Run the quality job at 4am every day
+  - cron: '0 4 * * *'
 
 jobs:
   test:
