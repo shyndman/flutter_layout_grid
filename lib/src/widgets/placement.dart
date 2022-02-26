@@ -113,7 +113,7 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
 /// If [areaName] does not exist in the grid's [LayoutGrid.areas], the
 /// child of this widget is not shown.
 class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
-  NamedAreaGridPlacement({
+  const NamedAreaGridPlacement({
     Key? key,
     required this.areaName,
     required Widget child,

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 void main() {
-  runApp(ResponsiveLayoutApp());
+  runApp(const ResponsiveLayoutApp());
 }
 
 class ResponsiveLayoutApp extends StatelessWidget {
+  const ResponsiveLayoutApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WidgetsApp(
@@ -21,8 +22,8 @@ class ResponsiveLayoutApp extends StatelessWidget {
 
 class ResponsiveLayout extends StatelessWidget {
   const ResponsiveLayout({
-    Key key,
-    this.viewportWidth,
+    Key? key,
+    required this.viewportWidth,
   }) : super(key: key);
 
   final double viewportWidth;
@@ -97,12 +98,12 @@ class ResponsiveLayout extends StatelessWidget {
         columnSizes: gridConfig.columnSizes,
         rowSizes: gridConfig.rowSizes,
         children: [
-          Header().inGridArea('header'),
-          Navigation().inGridArea('nav'),
-          Content().inGridArea('content'),
-          Sidebar().inGridArea('sidebar'),
-          Footer().inGridArea('footer'),
-          Ad().inGridArea('ad'),
+          const Header().inGridArea('header'),
+          const Navigation().inGridArea('nav'),
+          const Content().inGridArea('content'),
+          const Sidebar().inGridArea('sidebar'),
+          const Footer().inGridArea('footer'),
+          const Ad().inGridArea('ad'),
         ],
       ),
     );
@@ -113,36 +114,49 @@ class GridConfiguration {
   final String areas;
   final List<TrackSize> columnSizes;
   final List<TrackSize> rowSizes;
-  GridConfiguration({this.areas, this.columnSizes, this.rowSizes});
+  GridConfiguration(
+      {required this.areas, required this.columnSizes, required this.rowSizes});
 }
 
 class Header extends StatelessWidget {
+  const Header({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.red);
 }
 
 class Navigation extends StatelessWidget {
+  const Navigation({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.purple);
 }
 
 class Content extends StatelessWidget {
+  const Content({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.grey[300]);
 }
 
 class Sidebar extends StatelessWidget {
+  const Sidebar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) =>
       Container(color: Colors.grey[600], width: 184);
 }
 
 class Footer extends StatelessWidget {
+  const Footer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.deepPurple);
 }
 
 class Ad extends StatelessWidget {
+  const Ad({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.deepOrange);
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
@@ -193,7 +195,7 @@ class RenderLayoutGrid extends RenderBox
   set areasSpec(String? value) {
     if (_areasSpec == value) return;
     _areasSpec = value;
-    this.areas = value != null ? parseNamedAreasSpec(value) : null;
+    areas = value != null ? parseNamedAreasSpec(value) : null;
   }
 
   /// Named areas that can be used for placement.
@@ -312,7 +314,7 @@ class RenderLayoutGrid extends RenderBox
     }
 
     // Size the grid
-    final gridSizing = this.lastGridSizing = computeGridSize(constraints);
+    final gridSizing = lastGridSizing = computeGridSize(constraints);
     this.size = gridSizing.gridSize!;
 
     if (debugPrintGridLayout) {
@@ -1037,24 +1039,18 @@ class GridSizingInfo {
 
   List<double>? _ltrColumnStarts;
   List<double>? get columnStartsWithoutGaps {
-    if (_ltrColumnStarts == null) {
-      _ltrColumnStarts = cumulativeSum(
-        columnTracks.map((t) => t.baseSize),
-        includeLast: false,
-      ).toList(growable: false);
-    }
-    return _ltrColumnStarts;
+    return _ltrColumnStarts ??= cumulativeSum(
+      columnTracks.map((t) => t.baseSize),
+      includeLast: false,
+    ).toList(growable: false);
   }
 
   List<double>? _rowStarts;
   List<double>? get rowStartsWithoutGaps {
-    if (_rowStarts == null) {
-      _rowStarts = cumulativeSum(
-        rowTracks.map((t) => t.baseSize),
-        includeLast: false,
-      ).toList(growable: false);
-    }
-    return _rowStarts;
+    return _rowStarts ??= cumulativeSum(
+      rowTracks.map((t) => t.baseSize),
+      includeLast: false,
+    ).toList(growable: false);
   }
 
   double minWidthOfTracks = 0.0;
@@ -1195,6 +1191,7 @@ class MinMax<T extends num> {
   final T min;
   final T max;
 
+  @override
   String toString() {
     return '${min.toStringAsFixed(1)}->${max.toStringAsFixed(1)}' +
         (min == max ? ' (same)' : '');

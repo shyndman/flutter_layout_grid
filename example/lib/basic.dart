@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Container(
           color: Colors.white,
-          child: LayoutGridExample(),
+          child: const LayoutGridExample(),
         ),
       ),
     );
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
 }
 
 class LayoutGridExample extends StatelessWidget {
+  const LayoutGridExample({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -45,7 +49,7 @@ class LayoutGridExample extends StatelessWidget {
             columnSpan: 4,
             child: Container(
               color: Colors.blue,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
             ),
           ),
           GridPlacement(
@@ -54,7 +58,7 @@ class LayoutGridExample extends StatelessWidget {
             columnSpan: 3,
             child: Container(
               color: Colors.blue,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
             ),
           ),
           GridPlacement(
@@ -62,7 +66,7 @@ class LayoutGridExample extends StatelessWidget {
             columnStart: 3,
             child: Container(
               color: Colors.blue,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
             ),
           ),
           GridPlacement(
@@ -70,7 +74,7 @@ class LayoutGridExample extends StatelessWidget {
             columnStart: 0,
             child: Container(
               color: Colors.blue,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
             ),
           ),
           GridPlacement(
@@ -78,7 +82,7 @@ class LayoutGridExample extends StatelessWidget {
             columnStart: 1,
             child: Container(
               color: Colors.blue,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
             ),
           ),
           GridPlacement(
@@ -86,7 +90,7 @@ class LayoutGridExample extends StatelessWidget {
             columnStart: 2,
             child: Container(
               color: Colors.blue,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
             ),
           ),
           GridPlacement(
@@ -94,7 +98,7 @@ class LayoutGridExample extends StatelessWidget {
             columnStart: 3,
             child: Container(
               color: Colors.blue,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
             ),
           ),
         ],

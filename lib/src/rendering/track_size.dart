@@ -149,7 +149,7 @@ class FixedTrackSize extends TrackSize {
   final double sizeInPx;
 
   @override
-  bool isFixedForConstraints(TrackType type, BoxConstraints constraints) {
+  bool isFixedForConstraints(TrackType type, BoxConstraints gridConstraints) {
     return true;
   }
 

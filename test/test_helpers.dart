@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_layout_grid/src/rendering/layout_grid.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -78,6 +79,6 @@ class RenderTestLayoutCountingWidget extends RenderBox {
   @override
   void performLayout() {
     layoutCount++;
-    this.size = constraints.biggest;
+    size = constraints.biggest;
   }
 }

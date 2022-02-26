@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_this
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
