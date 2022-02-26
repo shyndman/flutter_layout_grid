@@ -7,10 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'support/inner_shadow.dart';
 
 void main() {
-  runApp(ScrabbleApp());
+  runApp(const ScrabbleApp());
 }
 
 class ScrabbleApp extends StatelessWidget {
+  const ScrabbleApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WidgetsApp(
@@ -30,7 +32,7 @@ class ScrabbleApp extends StatelessWidget {
 }
 
 List<TileInfo> getTiles() {
-  final tileLayout = '''
+  const tileLayout = '''
     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
     .  .  .  .  .  .  .  .  G  .  .  .  .  .  .
@@ -58,9 +60,9 @@ const tripleWordCount = 8;
 const tileCount = trackCount * trackCount; // star
 
 class ScrabbleBoard extends StatelessWidget {
-  ScrabbleBoard({
-    Key key,
-    this.tiles,
+  const ScrabbleBoard({
+    Key? key,
+    required this.tiles,
   }) : super(key: key);
 
   final List<TileInfo> tiles;
@@ -92,18 +94,19 @@ class ScrabbleBoard extends StatelessWidget {
         // First, square bases
         for (int i = 0; i < trackCount; i++)
           for (int j = 0; j < trackCount; j++)
-            StandardSquare().withGridPlacement(columnStart: i, rowStart: j),
+            const StandardSquare()
+                .withGridPlacement(columnStart: i, rowStart: j),
 
         // Then put bonuses on top
-        StartingSquare().inGridArea('★'),
+        const StartingSquare().inGridArea('★'),
         for (int i = 0; i < doubleLetterCount; i++)
-          DoubleLetterSquare().inGridArea('dl${i.toRadixString(36)}'),
+          const DoubleLetterSquare().inGridArea('dl${i.toRadixString(36)}'),
         for (int i = 0; i < doubleWordCount; i++)
-          DoubleWordSquare().inGridArea('dw${i.toRadixString(36)}'),
+          const DoubleWordSquare().inGridArea('dw${i.toRadixString(36)}'),
         for (int i = 0; i < tripleLetterCount; i++)
-          TripleLetterSquare().inGridArea('tl${i.toRadixString(36)}'),
+          const TripleLetterSquare().inGridArea('tl${i.toRadixString(36)}'),
         for (int i = 0; i < tripleWordCount; i++)
-          TripleWordSquare().inGridArea('tw${i.toRadixString(36)}'),
+          const TripleWordSquare().inGridArea('tw${i.toRadixString(36)}'),
 
         // Then place tiles on top of those
         for (final tile in tiles)
@@ -122,7 +125,7 @@ const lightBlueSquareBackground = Color(0xff8ecafc);
 const darkBlueSquareBackground = Color(0xff1375b0);
 
 class LetterTile extends StatelessWidget {
-  LetterTile({Key key, String letter})
+  LetterTile({Key? key, required String letter})
       : letter = letter.toUpperCase(),
         super(key: key);
 
@@ -159,7 +162,7 @@ class LetterTile extends StatelessWidget {
       padding: const EdgeInsets.all(1.5),
       child: SizedBox.expand(
         child: InnerShadow(
-          offset: Offset(0, -1.5),
+          offset: const Offset(0, -1.5),
           blurX: 0.8,
           blurY: 1,
           color: Colors.black.withOpacity(.25),
@@ -172,7 +175,7 @@ class LetterTile extends StatelessWidget {
   DecoratedBox _buildTileContents() {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Color(0xfffaeac2),
+        color: const Color(0xfffaeac2),
         border: Border.all(
           color: Colors.black.withAlpha(18),
           width: 1.5,
@@ -223,18 +226,18 @@ class LetterTile extends StatelessWidget {
 }
 
 class StartingSquare extends Square {
-  StartingSquare({Key key})
+  const StartingSquare({Key? key})
       : super(
           key: key,
           label: '★',
           color: orangeSquareBackground,
-          edgeInsetsOverride: EdgeInsets.only(left: 0.2, bottom: 0.5),
+          edgeInsetsOverride: const EdgeInsets.only(left: 0.2, bottom: 0.5),
           labelFontSizeOverride: 14,
         );
 }
 
 class DoubleLetterSquare extends Square {
-  DoubleLetterSquare({Key key})
+  const DoubleLetterSquare({Key? key})
       : super(
           key: key,
           label: 'DL',
@@ -243,7 +246,7 @@ class DoubleLetterSquare extends Square {
 }
 
 class DoubleWordSquare extends Square {
-  DoubleWordSquare({Key key})
+  const DoubleWordSquare({Key? key})
       : super(
           key: key,
           label: 'DW',
@@ -252,7 +255,7 @@ class DoubleWordSquare extends Square {
 }
 
 class TripleLetterSquare extends Square {
-  TripleLetterSquare({Key key})
+  const TripleLetterSquare({Key? key})
       : super(
           key: key,
           label: 'TL',
@@ -261,7 +264,7 @@ class TripleLetterSquare extends Square {
 }
 
 class TripleWordSquare extends Square {
-  TripleWordSquare({Key key})
+  const TripleWordSquare({Key? key})
       : super(
           key: key,
           label: 'TW',
@@ -270,33 +273,33 @@ class TripleWordSquare extends Square {
 }
 
 class StandardSquare extends Square {
-  StandardSquare({Key key})
+  const StandardSquare({Key? key})
       : super(
           key: key,
-          color: Color(0xffe7eaef),
+          color: const Color(0xffe7eaef),
         );
 }
 
 class Square extends StatelessWidget {
   const Square({
-    Key key,
-    this.color,
+    Key? key,
+    required this.color,
     this.label,
     this.labelFontSizeOverride,
     this.edgeInsetsOverride,
   }) : super(key: key);
 
   final Color color;
-  final String label;
-  final double labelFontSizeOverride;
-  final EdgeInsets edgeInsetsOverride;
+  final String? label;
+  final double? labelFontSizeOverride;
+  final EdgeInsets? edgeInsetsOverride;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: InnerShadow(
-        offset: Offset(0, 0.5),
+        offset: const Offset(0, 0.5),
         blurX: 0.8,
         blurY: 0.7,
         color: Colors.black.withOpacity(.25),
@@ -304,7 +307,7 @@ class Square extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.all(Radius.elliptical(6, 4)),
+              borderRadius: const BorderRadius.all(Radius.elliptical(6, 4)),
             ),
             child: _buildLabel(context),
           ),
@@ -314,11 +317,13 @@ class Square extends StatelessWidget {
   }
 
   Widget _buildLabel(BuildContext context) {
-    if (label == null) return null;
+    final label = this.label;
+    if (label == null) return const SizedBox();
 
     return Center(
       child: Padding(
-        padding: edgeInsetsOverride ?? EdgeInsets.only(top: 1.0, left: 0.5),
+        padding:
+            edgeInsetsOverride ?? const EdgeInsets.only(top: 1.0, left: 0.5),
         child: Text(
           label,
           style: GoogleFonts.robotoCondensed(
@@ -334,7 +339,7 @@ class Square extends StatelessWidget {
 
 class TileInfo {
   TileInfo(this.letter, this.col, this.row)
-      : points = letterPointMapping[letter];
+      : points = letterPointMapping[letter]!;
 
   final String letter;
   final int col;

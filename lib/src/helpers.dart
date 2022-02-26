@@ -69,7 +69,7 @@ NamedAreaGridPlacementBuilder gridArea(String name) {
 /// Dumb little helper class for slightly cleaner grid child placement
 @immutable
 class NamedAreaGridPlacementBuilder {
-  NamedAreaGridPlacementBuilder._(this.name);
+  const NamedAreaGridPlacementBuilder._(this.name);
 
   final String name;
 

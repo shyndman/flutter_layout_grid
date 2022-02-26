@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -8,7 +10,7 @@ import 'package:quiver/core.dart';
 /// Represents a rectangular region on the grid.
 @immutable
 class GridArea {
-  GridArea({
+  const GridArea({
     this.name,
     required this.columnStart,
     required this.columnEnd,
@@ -16,7 +18,7 @@ class GridArea {
     required this.rowEnd,
   });
 
-  GridArea.withSpans({
+  const GridArea.withSpans({
     this.name,
     required this.columnStart,
     required int columnSpan,

@@ -1,5 +1,4 @@
 import 'package:flutter/rendering.dart';
-import 'package:flutter_layout_grid/src/foundation/placement.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/iterables.dart';
 
@@ -238,14 +237,14 @@ class PlacementGridCursor {
   bool get requiresMoveToFixedAxisIndex =>
       isFixedToTrack && currentIndexOnAxis(fixedAxis) != fixedTrackIndex;
 
-  void fixToAxisIndex(int? fixedIndex, Axis fixedAxis) {
-    this.fixedTrackIndex = fixedIndex;
-    this.fixedAxis = fixedAxis;
+  void fixToAxisIndex(int? index, Axis axis) {
+    fixedTrackIndex = index;
+    fixedAxis = axis;
   }
 
   void unfixFromTrack() {
-    this.fixedTrackIndex = null;
-    this.fixedAxis = null;
+    fixedTrackIndex = null;
+    fixedAxis = null;
   }
 
   GridArea moveToNextEmptyArea(int? columnSpan, int? rowSpan) {
@@ -266,7 +265,7 @@ class PlacementGridCursor {
 
   Iterable<GridArea> _moveFixedToNext(int? columnSpan, int? rowSpan) sync* {
     final traversalAxis = flipAxis(fixedAxis!);
-    final traversalAxisIndex = () => currentIndexOnAxis(traversalAxis);
+    traversalAxisIndex() => currentIndexOnAxis(traversalAxis);
 
     if (requiresMoveToFixedAxisIndex) {
       if (currentColumn == -1 && currentRow == -1) {
@@ -291,11 +290,11 @@ class PlacementGridCursor {
     // The axis we will attempt to fill before moving to the next index on the
     // growth axis.
     final fixedAxis = autoPlacementTraversalAxis;
-    final fixedAxisIndex = () => currentIndexOnAxis(fixedAxis);
+    fixedAxisIndex() => currentIndexOnAxis(fixedAxis);
 
     // The direction of growth of the grid.
     final growthAxis = flipAxis(autoPlacementTraversalAxis);
-    final growthAxisIndex = () => currentIndexOnAxis(growthAxis);
+    growthAxisIndex() => currentIndexOnAxis(growthAxis);
 
     // Auto-placement flow
     while (true) {

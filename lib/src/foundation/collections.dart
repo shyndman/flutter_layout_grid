@@ -74,4 +74,4 @@ class _WhereIterator<E> extends Iterator<E> {
   E get current => _iterator.current;
 }
 
-typedef bool _ElementPredicate<E>(E element);
+typedef _ElementPredicate<E> = bool Function(E element);

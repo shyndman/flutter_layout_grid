@@ -3,20 +3,24 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 void main() {
-  runApp(SemanticOrderingApp());
+  runApp(const SemanticOrderingApp());
 }
 
 class SemanticOrderingApp extends StatelessWidget {
+  const SemanticOrderingApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WidgetsApp(
       color: Colors.white,
-      builder: (_, __) => SemanticOrdering(),
+      builder: (_, __) => const SemanticOrdering(),
     );
   }
 }
 
 class SemanticOrdering extends StatelessWidget {
+  const SemanticOrdering({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -29,8 +33,8 @@ class SemanticOrdering extends StatelessWidget {
           content
           footer
         ''',
-        columnSizes: [auto],
-        rowSizes: [
+        columnSizes: const [auto],
+        rowSizes: const [
           auto,
           auto,
           auto,
@@ -42,11 +46,11 @@ class SemanticOrdering extends StatelessWidget {
           //
           // In this example, you wouldn't want Footer() to be announced by the
           // screenreader first, would you? sortKey fixes that.
-          Semantics(sortKey: OrdinalSortKey(3), child: Footer())
+          Semantics(sortKey: const OrdinalSortKey(3), child: const Footer())
               .inGridArea('footer'),
-          Semantics(sortKey: OrdinalSortKey(1), child: Header())
+          Semantics(sortKey: const OrdinalSortKey(1), child: const Header())
               .inGridArea('header'),
-          Semantics(sortKey: OrdinalSortKey(2), child: Content())
+          Semantics(sortKey: const OrdinalSortKey(2), child: const Content())
               .inGridArea('content'),
         ],
       ),
@@ -55,25 +59,31 @@ class SemanticOrdering extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
+  const Header({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(
         color: Colors.red,
-        child: Text('Header'),
+        child: const Text('Header'),
       );
 }
 
 class Content extends StatelessWidget {
+  const Content({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(
         color: Colors.grey[300],
-        child: Text('Content'),
+        child: const Text('Content'),
       );
 }
 
 class Footer extends StatelessWidget {
+  const Footer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(
         color: Colors.deepPurple,
-        child: Text('Footer'),
+        child: const Text('Footer'),
       );
 }

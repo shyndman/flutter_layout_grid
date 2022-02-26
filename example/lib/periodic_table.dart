@@ -12,15 +12,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 void main() {
-  runApp(PeriodicTableApp());
+  runApp(const PeriodicTableApp());
 }
 
 class PeriodicTableApp extends StatelessWidget {
+  const PeriodicTableApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: const Color(0xff101318),
+      decoration: const BoxDecoration(
+        color: Color(0xff101318),
       ),
       child: WidgetsApp(
         title: 'Periodic Table',
@@ -29,7 +31,7 @@ class PeriodicTableApp extends StatelessWidget {
         builder: (_, __) {
           return LayoutBuilder(builder: (_, constraints) {
             _viewportSize = constraints.biggest;
-            return SingleChildScrollView(child: PeriodicTableWidget());
+            return const SingleChildScrollView(child: PeriodicTableWidget());
           });
         },
       ),
@@ -38,12 +40,14 @@ class PeriodicTableApp extends StatelessWidget {
 }
 
 class PeriodicTableWidget extends StatefulWidget {
+  const PeriodicTableWidget({Key? key}) : super(key: key);
+
   @override
   _PeriodicTableWidgetState createState() => _PeriodicTableWidgetState();
 }
 
 class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
-  Future<PeriodicTable> tableFuture;
+  late Future<PeriodicTable> tableFuture;
 
   @override
   void initState() {
@@ -58,7 +62,9 @@ class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
       child: FutureBuilder(
         future: tableFuture,
         builder: (_, AsyncSnapshot<PeriodicTable> snapshot) {
-          return snapshot.hasData ? _buildGrid(snapshot.data) : SizedBox();
+          return snapshot.hasData
+              ? _buildGrid(snapshot.data!)
+              : const SizedBox();
         },
       ),
     );
@@ -99,12 +105,13 @@ const categoryColorMapping = {
 };
 
 class AtomicElementWidget extends StatelessWidget {
-  AtomicElementWidget({Key key, this.element}) : super(key: key);
+  const AtomicElementWidget({Key? key, required this.element})
+      : super(key: key);
   final AtomicElement element;
 
   @override
   Widget build(BuildContext context) {
-    final elementColor = categoryColorMapping[element.category];
+    final elementColor = categoryColorMapping[element.category]!;
     final elementTextStyle = TextStyle(
       color: elementColor,
       shadows: [
@@ -171,7 +178,7 @@ class AtomicElementWidget extends StatelessWidget {
 }
 
 Future<PeriodicTable> loadPeriodicTable() async {
-  final elementsJson = JsonCodec().decode(await rootBundle
+  final elementsJson = const JsonCodec().decode(await rootBundle
       .loadString('lib/periodic_table_data.json'))['elements'] as List<dynamic>;
 
   return PeriodicTable(elementsJson
@@ -195,14 +202,14 @@ class PeriodicTable {
 
 class AtomicElement {
   AtomicElement({
-    @required this.name,
-    @required this.symbol,
-    @required this.number,
-    @required this.category,
-    @required this.atomicMass,
-    @required this.stableIsotope,
-    @required this.x,
-    @required this.y,
+    required this.name,
+    required this.symbol,
+    required this.number,
+    required this.category,
+    required this.atomicMass,
+    required this.stableIsotope,
+    required this.x,
+    required this.y,
   });
 
   final String name;
@@ -291,9 +298,7 @@ extension on double {
   /// Formats a double with a maximum precision of [maxFractionDigits]. Any
   /// trailing zeroes will be trimmed from the returned string.
   String toStringAsMaxFixed([int maxFractionDigits = 2]) {
-    return this
-        .toStringAsFixed(maxFractionDigits)
-        .replaceAll(RegExp(r'\.?0+$'), '');
+    return toStringAsFixed(maxFractionDigits).replaceAll(RegExp(r'\.?0+$'), '');
   }
 }
 

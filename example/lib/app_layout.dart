@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 void main() {
-  runApp(DesktopLayoutApp());
+  runApp(const DesktopLayoutApp());
 }
 
 class DesktopLayoutApp extends StatelessWidget {
+  const DesktopLayoutApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return WidgetsApp(
         color: Colors.white,
         debugShowCheckedModeBanner: false,
         builder: (context, child) {
-          return DesktopLayout();
+          return const DesktopLayout();
         });
   }
 }
 
 class DesktopLayout extends StatelessWidget {
+  const DesktopLayout({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,11 +42,11 @@ class DesktopLayout extends StatelessWidget {
           64.px,
         ],
         children: [
-          Header().inGridArea('header'),
-          Navigation().inGridArea('nav'),
-          Content().inGridArea('content'),
-          Aside().inGridArea('aside'),
-          Footer().inGridArea('footer'),
+          const Header().inGridArea('header'),
+          const Navigation().inGridArea('nav'),
+          const Content().inGridArea('content'),
+          const Aside().inGridArea('aside'),
+          const Footer().inGridArea('footer'),
         ],
       ),
     );
@@ -51,27 +54,37 @@ class DesktopLayout extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
+  const Header({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.red);
 }
 
 class Navigation extends StatelessWidget {
+  const Navigation({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.purple);
 }
 
 class Content extends StatelessWidget {
+  const Content({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.grey[300]);
 }
 
 class Aside extends StatelessWidget {
+  const Aside({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) =>
       Container(color: Colors.grey[600], width: 184);
 }
 
 class Footer extends StatelessWidget {
+  const Footer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Container(color: Colors.deepPurple);
 }

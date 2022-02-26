@@ -7,16 +7,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 class InnerShadow extends SingleChildRenderObjectWidget {
   const InnerShadow({
-    Key key,
-    this.color,
-    this.blurX,
-    this.blurY,
-    this.offset,
-    Widget child,
+    Key? key,
+    required this.color,
+    required this.blurX,
+    required this.blurY,
+    required this.offset,
+    required Widget child,
   }) : super(key: key, child: child);
 
   final Color color;
@@ -46,16 +45,16 @@ class InnerShadow extends SingleChildRenderObjectWidget {
 
 class RenderInnerShadow extends RenderProxyBox {
   RenderInnerShadow({
-    RenderBox child,
+    RenderBox? child,
   }) : super(child);
 
   @override
   bool get alwaysNeedsCompositing => child != null;
 
-  Color _color;
-  double _blurX;
-  double _blurY;
-  Offset _offset;
+  late Color _color;
+  late double _blurX;
+  late double _blurY;
+  late Offset _offset;
 
   Color get color => _color;
   set color(Color value) {
@@ -87,6 +86,7 @@ class RenderInnerShadow extends RenderProxyBox {
 
   @override
   void paint(PaintingContext context, Offset offset) {
+    final child = this.child;
     if (child != null) {
       final layerPaint = Paint()..color = Colors.white;
 
@@ -113,6 +113,7 @@ class RenderInnerShadow extends RenderProxyBox {
 
   @override
   void visitChildrenForSemantics(RenderObjectVisitor visitor) {
+    final child = this.child;
     if (child != null) visitor(child);
   }
 }
