@@ -2,8 +2,11 @@ import 'package:flutter/rendering.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/iterables.dart';
 
-import '../../flutter_layout_grid.dart';
+import '../foundation/placement.dart';
+import '../widgets/layout_grid.dart';
+import '../widgets/placement.dart';
 import 'layout_grid.dart';
+import 'track_size.dart';
 
 /// Implementation of the auto-placement algorithm, described here:
 /// https://drafts.csswg.org/css-grid/#auto-placement-algo

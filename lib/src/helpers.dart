@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_layout_grid/src/rendering/track_size.dart';
 
+import 'rendering/track_size.dart';
 import 'widgets/placement.dart';
 
 /// An [IntrinsicContentTrackSize], mirroring CSS's name for the track sizing

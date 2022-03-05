@@ -3,8 +3,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_layout_grid/src/foundation/placement.dart';
 
+import '../foundation/placement.dart';
 import '../rendering/layout_grid.dart';
 import '../rendering/track_size.dart';
 import 'placement.dart';
