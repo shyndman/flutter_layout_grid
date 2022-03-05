@@ -1,3 +1,7 @@
+## [1.0.6]
+* Remove outdated messaging from README. Flutter v1.14.0 is ancient at this
+  point.
+
 ## [1.0.5]
 * Migrate project to use flutter_lints, courtesy of @domesticmouse
 
