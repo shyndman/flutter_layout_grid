@@ -1,3 +1,6 @@
+## [1.0.5]
+* Migrate project to use flutter_lints, courtesy of @domesticmouse
+
 ## [1.0.4]
 * Emit a more helpful assertion message when an areas string's row or column
   count doesn't match rowSizes.length or columnSizes.length
