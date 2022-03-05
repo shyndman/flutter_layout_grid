@@ -1,26 +1,26 @@
 # Flutter Layout Grid
 
 [![Pub](https://img.shields.io/pub/v/flutter_layout_grid)](https://pub.dev/packages/flutter_layout_grid)
-[![Github test](https://github.com/madewithfelt/flutter_layout_grid/workflows/test/badge.svg)](https://github.com/madewithfelt/flutter_layout_grid/actions?query=workflow%3Atest)
+[![Github test](https://github.com/shyndman/flutter_layout_grid/workflows/test/badge.svg)](https://github.com/shyndman/flutter_layout_grid/actions?query=workflow%3Atest)
 
 A powerful grid layout system for Flutter, optimized for complex user interface
 design.
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/flutter_layout_grid_example.dart">
+<a href="https://github.com/shyndman/flutter_layout_grid/tree/main/example/lib/flutter_layout_grid_example.dart">
   <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/piet_trimmed.png"
     alt="Piet painting recreated using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/periodic_table.dart">
+<a href="https://github.com/shyndman/flutter_layout_grid/tree/main/example/lib/periodic_table.dart">
   <img
-    src="https://raw.githubusercontent.com/madewithfelt/flutter_layout_grid/main/doc/images/periodic_table.png"
+    src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/main/doc/images/periodic_table.png"
     alt="Periodic table rendered using Flutter Layout Grid" height="220">
 </a>
 &nbsp;
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/scrabble.dart">
+<a href="https://github.com/shyndman/flutter_layout_grid/tree/main/example/lib/scrabble.dart">
 <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/scrabble.png"
     alt="Scrabble board rendered using Flutter Layout Grid" height="330">
@@ -76,7 +76,7 @@ dependencies:
 
 #### Visual:
 
-<a href="https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/app_layout.dart">
+<a href="https://github.com/shyndman/flutter_layout_grid/tree/main/example/lib/app_layout.dart">
   <img
     src="https://raw.githubusercontent.com/shyndman/flutter_layout_grid/master/doc/images/app_layout.png"
     alt="Desktop app layout rendered using Flutter Layout Grid" height="220">
@@ -126,10 +126,10 @@ class App extends StatelessWidget {
 ```
 
 This example is available at
-[`example/app_layout.dart`](https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/app_layout.dart).
+[`example/app_layout.dart`](https://github.com/shyndman/flutter_layout_grid/tree/main/example/lib/app_layout.dart).
 
 For a similar example that includes responsive behavior, check out
-[`example/responsive_app_layout.dart`](https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/responsive_app_layout.dart).
+[`example/responsive_app_layout.dart`](https://github.com/shyndman/flutter_layout_grid/tree/main/example/lib/responsive_app_layout.dart).
 
 ## Sizing of Columns and Rows
 
@@ -162,7 +162,7 @@ There are currently three way to size rows and columns:
 
 Technically, you can also define your own, but probably shouldnʼt as the API
 will likely be evolving as I tackle
-([#25](https://github.com/madewithfelt/flutter_layout_grid/issues/25))
+([#25](https://github.com/shyndman/flutter_layout_grid/issues/25))
 ([`minmax()`](https://developer.mozilla.org/en-US/docs/Web/CSS/minmax)
 support).
 
@@ -346,10 +346,10 @@ source, the ordering can be configured via the `Semantics` widgetʼs
 parameter.
 
 For an example of this in practice, see
-[example/semantic_ordering.dart](https://github.com/madewithfelt/flutter_layout_grid/tree/main/example/lib/semantic_ordering.dart).
+[example/semantic_ordering.dart](https://github.com/shyndman/flutter_layout_grid/tree/main/example/lib/semantic_ordering.dart).
 
 Automatic semantic ordering is currently being explored in
-[#50](https://github.com/madewithfelt/flutter_layout_grid/issues/50).
+[#50](https://github.com/shyndman/flutter_layout_grid/issues/50).
 
 ## Differences from CSS Grid Layout
 
@@ -357,14 +357,14 @@ Things in CSS Grid Layout that are not supported:
 
 - Negative row/column starts/ends. In CSS, these values refer to positions
   relative to the end of a gridʼs axis. Handy, but weʼre not there yet.
-  ([#5](https://github.com/madewithfelt/flutter_layout_grid/issues/5))
+  ([#5](https://github.com/shyndman/flutter_layout_grid/issues/5))
 - Any cells outside of the explicit grid. If an item is placed outside of the
   area defined by your template rows/columns, we will throw an error. Support
   for automatic addition of rows and columns to accommodate out of bound items
   is being considered.
-  ([#7](https://github.com/madewithfelt/flutter_layout_grid/issues/7))
+  ([#7](https://github.com/shyndman/flutter_layout_grid/issues/7))
 - minmax(), percentages, aspect ratios track sizing
-  ([#25](https://github.com/madewithfelt/flutter_layout_grid/issues/25))
+  ([#25](https://github.com/shyndman/flutter_layout_grid/issues/25))
 
 Differences:
 

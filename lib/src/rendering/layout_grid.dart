@@ -287,7 +287,7 @@ class RenderLayoutGrid extends RenderBox
   double computeMaxIntrinsicHeight(double width) =>
       _computeIntrinsicSize(BoxConstraints(minWidth: width)).maxTracksHeight;
 
-  // TODO(https://github.com/madewithfelt/flutter_layout_grid/issues/1):
+  // TODO(https://github.com/shyndman/flutter_layout_grid/issues/1):
   // This implementation is not likely to be correct. Revisit once Flutter's
   // sizing rules are better understood.
   GridSizingInfo _computeIntrinsicSize(BoxConstraints constraints) =>
