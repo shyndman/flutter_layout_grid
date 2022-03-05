@@ -72,13 +72,6 @@ dependencies:
   flutter_layout_grid: ^1.0.0
 ```
 
-### Flutter pre-v1.14.0 version
-
-```yaml
-dependencies:
-  flutter_layout_grid: ^0.9.0
-```
-
 ## Example
 
 #### Visual:
