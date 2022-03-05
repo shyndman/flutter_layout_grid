@@ -113,9 +113,13 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
     assert(() {
       if (areas == null) return true;
       final parsedAreas = parseNamedAreasSpec(areas!);
-      return parsedAreas.columnCount == columnSizes.length &&
-          parsedAreas.rowCount == rowSizes.length;
-    }());
+
+      assert(parsedAreas.columnCount == columnSizes.length,
+          'areas.columnCount != columnSizes.length');
+      assert(parsedAreas.rowCount == rowSizes.length,
+          'areas.rowCount != rowSizes.length');
+      return true;
+    }(), 'areas ');
   }
 
   /// Controls how the auto-placement algorithm works, specifying exactly how
