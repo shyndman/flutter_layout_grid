@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_layout_grid/src/rendering/track_size.dart';
-import 'package:meta/meta.dart';
 
 import 'widgets/placement.dart';
 
