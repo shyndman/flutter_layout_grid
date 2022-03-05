@@ -1,3 +1,8 @@
+## [1.0.4]
+* Emit a more helpful assertion message when an areas string's row or column
+  count doesn't match rowSizes.length or columnSizes.length
+* Fix a couple analysis warnings
+
 ## [1.0.3]
 * Format Dart files (seems like the formatter has changed recently)
 
