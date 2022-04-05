@@ -276,7 +276,7 @@ class RenderLayoutGrid extends RenderBox
 
   @override
   double computeMaxIntrinsicWidth(double height) =>
-      _computeIntrinsicSize(BoxConstraints(minHeight: height)).maxTracksWidth;
+      _computeIntrinsicSize(BoxConstraints(maxHeight: height)).maxTracksWidth;
 
   @override
   double computeMinIntrinsicHeight(double width) =>
@@ -285,7 +285,7 @@ class RenderLayoutGrid extends RenderBox
 
   @override
   double computeMaxIntrinsicHeight(double width) =>
-      _computeIntrinsicSize(BoxConstraints(minWidth: width)).maxTracksHeight;
+      _computeIntrinsicSize(BoxConstraints(maxWidth: width)).maxTracksHeight;
 
   // TODO(https://github.com/shyndman/flutter_layout_grid/issues/1):
   // This implementation is not likely to be correct. Revisit once Flutter's
