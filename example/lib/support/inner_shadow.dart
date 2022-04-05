@@ -25,11 +25,12 @@ class InnerShadow extends SingleChildRenderObjectWidget {
 
   @override
   RenderInnerShadow createRenderObject(BuildContext context) {
-    return RenderInnerShadow()
-      ..color = color
-      ..blurX = blurX
-      ..blurY = blurY
-      ..offset = offset;
+    return RenderInnerShadow(
+      color: color,
+      blurX: blurX,
+      blurY: blurY,
+      offset: offset,
+    );
   }
 
   @override
@@ -46,15 +47,23 @@ class InnerShadow extends SingleChildRenderObjectWidget {
 class RenderInnerShadow extends RenderProxyBox {
   RenderInnerShadow({
     RenderBox? child,
-  }) : super(child);
+    required Color color,
+    required double blurX,
+    required double blurY,
+    required Offset offset,
+  })  : _color = color,
+        _blurX = blurX,
+        _blurY = blurY,
+        _offset = offset,
+        super(child);
 
   @override
   bool get alwaysNeedsCompositing => child != null;
 
-  late Color _color;
-  late double _blurX;
-  late double _blurY;
-  late Offset _offset;
+  Color _color;
+  double _blurX;
+  double _blurY;
+  Offset _offset;
 
   Color get color => _color;
   set color(Color value) {
