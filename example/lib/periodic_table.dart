@@ -31,7 +31,8 @@ class PeriodicTableApp extends StatelessWidget {
         builder: (_, __) {
           return LayoutBuilder(builder: (_, constraints) {
             _viewportSize = constraints.biggest;
-            return const SingleChildScrollView(child: PeriodicTableWidget());
+            // ignore: prefer_const_constructors
+            return SingleChildScrollView(child: PeriodicTableWidget());
           });
         },
       ),
