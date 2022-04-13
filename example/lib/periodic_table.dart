@@ -31,6 +31,12 @@ class PeriodicTableApp extends StatelessWidget {
         builder: (_, __) {
           return LayoutBuilder(builder: (_, constraints) {
             _viewportSize = constraints.biggest;
+            // PeriodicTableWidget has many AtomicElementWidget widgets
+            // as part of its descendant widget tree, and they use global
+            // variable _viewportSize during build, so it's not safe to use
+            // const. If it were const, then this widget tree would only be
+            // constructed once and would not adapt as the viewport size
+            // changed.
             // ignore: prefer_const_constructors
             return SingleChildScrollView(child: PeriodicTableWidget());
           });
