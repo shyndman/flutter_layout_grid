@@ -1,3 +1,8 @@
+## [2.0.0]
+* Improve implicit track sizing behavior for multi-line text (thanks to
+  [@klondikedragon](https://github.com/klondikedragon))
+* Upgrade flutter_lints to 2.0.0, and fix newly found issues
+
 ## [1.0.6]
 * Remove outdated messaging from README. Flutter v1.14.0 is ancient at this
   point.
