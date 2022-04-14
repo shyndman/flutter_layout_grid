@@ -61,15 +61,12 @@ spec. If youʼre unfamiliar, I recommend taking a look at [MDNʼs glossary of gr
 terms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout#Glossary_entries).
 
 For inclusion in your pubspec, see
-[pub.dev](https://pub.dev/packages/flutter_layout_grid/install).
-
-We also maintain a couple of specialized releases:
-
-### Null-safe version
+[pub.dev](https://pub.dev/packages/flutter_layout_grid/install), or copy
+the code below:
 
 ```yaml
 dependencies:
-  flutter_layout_grid: ^1.0.0
+  flutter_layout_grid: ^2.0.0
 ```
 
 ## Example
