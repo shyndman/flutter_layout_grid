@@ -1193,7 +1193,7 @@ class MinMax<T extends num> {
 
   @override
   String toString() {
-    return '${min.toStringAsFixed(1)}->${max.toStringAsFixed(1)}' +
-        (min == max ? ' (same)' : '');
+    return '${min.toStringAsFixed(1)}->${max.toStringAsFixed(1)}'
+        '${min == max ? ' (same)' : ''}';
   }
 }
