@@ -62,8 +62,8 @@ class GridArea {
 
   @override
   String toString() {
-    return 'GridArea(' +
-        (name != null ? 'name=$name, ' : '') +
+    return 'GridArea('
+        '${(name != null ? 'name=$name, ' : '')}'
         'columnSpan=[$columnStart–$columnEnd], rowSpan=[$rowStart–$rowEnd])';
   }
 }
