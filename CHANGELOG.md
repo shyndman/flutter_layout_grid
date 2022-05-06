@@ -1,3 +1,7 @@
+## [2.0.1]
+* Fix grid sizing when gaps are involved (thanks to
+  [@dsyrstad](https://github.com/dsyrstad))
+
 ## [2.0.0]
 * Improve implicit track sizing behavior for multi-line text (thanks to
   [@klondikedragon](https://github.com/klondikedragon))
