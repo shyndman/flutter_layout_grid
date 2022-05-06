@@ -521,7 +521,7 @@ class RenderLayoutGrid extends RenderBox
     // 3. Grow all tracks from their baseSize up to their growthLimit value
     //    until freeSpace is exhausted.
 
-    var axisMinSize = 0.0, axisMaxSize = 0.0;
+    var axisMinSize = totalGapAlongAxis, axisMaxSize = totalGapAlongAxis;
     for (final track in tracks) {
       assert(!track.isInfinite);
       axisMinSize += track.baseSize;
