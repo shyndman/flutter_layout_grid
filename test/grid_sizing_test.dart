@@ -117,6 +117,46 @@ void main() {
       expect(renderObject.getMaxIntrinsicWidth(double.infinity), 10);
       expect(renderObject.getMaxIntrinsicHeight(double.infinity), 10);
     });
+
+    testWidgets('Computes intrinsic sizes with nested grid and rowGaps',
+        (tester) async {
+      final grid = LayoutGrid(
+        areas: '''
+          parentRow1
+        ''',
+        textDirection: TextDirection.ltr,
+        columnSizes: [10.px],
+        rowSizes: [auto],
+        children: [
+          LayoutGrid(
+            areas: '''
+              nestedRow1
+              nestedRow2
+              nestedRow3
+            ''',
+            textDirection: TextDirection.ltr,
+            columnSizes: [1.fr],
+            rowSizes: [auto, auto, auto],
+            rowGap: 10,
+            children: [
+              Container(height: 5).inGridArea('nestedRow1'),
+              Container(height: 7).inGridArea('nestedRow2'),
+              Container(height: 9).inGridArea('nestedRow3'),
+            ],
+          ).inGridArea('parentRow1'),
+        ],
+      );
+
+      await tester.pumpWidget(grid);
+      final renderObject =
+          tester.firstRenderObject<RenderLayoutGrid>(find.byType(LayoutGrid));
+
+      expect(renderObject.getMinIntrinsicWidth(double.infinity), 10);
+      // Height should be row sizes 21 (5+7+9) + 20 (2 gaps of 10) = 41
+      expect(renderObject.getMinIntrinsicHeight(double.infinity), 41);
+      expect(renderObject.getMaxIntrinsicWidth(double.infinity), 10);
+      expect(renderObject.getMaxIntrinsicHeight(double.infinity), 41);
+    });
   });
 
   group('computeDryLayout', () {

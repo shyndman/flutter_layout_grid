@@ -16,6 +16,7 @@ dependencies:
   quiver: ^3.0.0
 
 dev_dependencies:
+  # Note: 2.0.0 Doesn't work with the current flutter stable 2.10.5/dart 2.16.2
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
