@@ -172,7 +172,7 @@ class FixedTrackSize extends TrackSize {
   }
 
   @override
-  int get hashCode => hashValues(sizeInPx, debugLabel);
+  int get hashCode => Object.hash(sizeInPx, debugLabel);
 
   @override
   bool operator ==(dynamic other) {
@@ -245,7 +245,7 @@ class FlexibleTrackSize extends TrackSize {
   }
 
   @override
-  int get hashCode => hashValues(flex, debugLabel);
+  int get hashCode => Object.hash(flex, debugLabel);
 
   @override
   bool operator ==(dynamic other) {
