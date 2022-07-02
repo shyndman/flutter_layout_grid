@@ -1,3 +1,6 @@
+## [2.0.2]
+* Replace the usage of the deprecated `hashValues` with `Object.hash`
+
 ## [2.0.1]
 * Fix grid sizing when gaps are involved (thanks to
   [@dsyrstad](https://github.com/dsyrstad))
