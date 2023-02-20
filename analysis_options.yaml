@@ -6,6 +6,3 @@ analyzer:
     unawaited_futures: warning
     unused_import: error
     unused_local_variable: warning
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
