@@ -1,3 +1,6 @@
+## [2.0.3]
+* Correct the lower bound of the Flutter dependency to reflect API usage
+
 ## [2.0.2]
 * Replace the usage of the deprecated `hashValues` with `Object.hash`
 
