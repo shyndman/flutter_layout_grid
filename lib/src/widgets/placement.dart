@@ -79,7 +79,7 @@ class GridPlacement extends ParentDataWidget<GridParentData> {
     }
 
     if (needsLayout) {
-      final AbstractNode? targetParent = renderObject.parent;
+      final targetParent = renderObject.parent;
       if (targetParent is RenderLayoutGrid) targetParent.markNeedsPlacement();
       if (targetParent is RenderObject) targetParent.markNeedsLayout();
     }
@@ -129,7 +129,7 @@ class NamedAreaGridPlacement extends ParentDataWidget<GridParentData> {
     if (parentData.areaName != areaName) {
       parentData.areaName = areaName;
 
-      final AbstractNode? targetParent = renderObject.parent;
+      final targetParent = renderObject.parent;
       if (targetParent is RenderLayoutGrid) targetParent.markNeedsPlacement();
       if (targetParent is RenderObject) targetParent.markNeedsLayout();
     }
