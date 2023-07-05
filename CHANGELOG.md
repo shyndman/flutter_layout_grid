@@ -1,3 +1,6 @@
+## [2.0.4]
+* Fix https://github.com/shyndman/flutter_layout_grid/issues/91
+
 ## [2.0.3]
 * Correct the lower bound of the Flutter dependency to reflect API usage
 
