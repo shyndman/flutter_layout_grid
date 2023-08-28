@@ -483,7 +483,7 @@ class RenderLayoutGrid extends RenderBox
     final isAxisUpperBound = bounds.max.isFinite;
 
     if (debugPrintGridLayout) {
-      debugPrint('${describeEnum(typeBeingSized).toUpperCase()} tracks with a '
+      debugPrint('${typeBeingSized.name.toUpperCase()} tracks with a '
           'maximum free space of $initialFreeSpace, '
           'isAxisUpperBound=$isAxisUpperBound');
     }
@@ -595,7 +595,7 @@ class RenderLayoutGrid extends RenderBox
     BoxConstraints? constraints,
   ) {
     if (intrinsicTracks.isNotEmpty && debugPrintGridLayout) {
-      debugPrint('Resolving intrinsic ${describeEnum(type)} '
+      debugPrint('Resolving intrinsic ${type.name} '
           '${type == TrackType.column ? 'widths' : 'heights'} '
           '[${debugTrackIndicesString(intrinsicTracks)}]');
     }
@@ -732,7 +732,7 @@ class RenderLayoutGrid extends RenderBox
     if (debugPrintGridLayout) {
       debugPrint('  distributing $freeSpace across '
           '${debugTrackIndicesString(tracks)} on '
-          '${describeEnum(dimension)}');
+          '${dimension.name}');
     }
 
     // Grab a mutable copy of our tracks

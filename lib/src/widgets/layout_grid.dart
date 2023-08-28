@@ -209,12 +209,12 @@ class LayoutGrid extends MultiChildRenderObjectWidget {
       'rowSizes',
       rowSizes,
     ));
-    properties.add(EnumProperty('autoPlacement', autoPlacement));
-    properties.add(EnumProperty('gridFit', gridFit));
+    properties.add(DiagnosticsProperty('autoPlacement', autoPlacement));
+    properties.add(DiagnosticsProperty('gridFit', gridFit));
     properties.add(DoubleProperty('columnGap', columnGap));
     properties.add(DoubleProperty('rowGap', rowGap));
     if (textDirection != null) {
-      properties.add(EnumProperty('textDirection', textDirection));
+      properties.add(DiagnosticsProperty('textDirection', textDirection));
     }
   }
 }
