@@ -1,3 +1,8 @@
+## [2.0.5]
+* Replace deprecated EnumProperty with DiagnosticsProperty
+  (https://github.com/shyndman/flutter_layout_grid/pull/95), courtesy of
+  [@Kristijan505](https://github.com/Kristijan505)
+
 ## [2.0.4]
 * Fix https://github.com/shyndman/flutter_layout_grid/issues/91
 
