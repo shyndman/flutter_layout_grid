@@ -11,17 +11,18 @@ const cellSize = 32.0;
 const columnCount = 16;
 const rowCount = 16;
 
+class ProfileData {
+  ProfileData({required this.userName});
+  final String userName;
+}
+
 class DragAndDropExample extends StatefulWidget {
   @override
   _DragAndDropExampleState createState() => _DragAndDropExampleState();
 }
 
 class _DragAndDropExampleState extends State<DragAndDropExample> {
-  /// The [Draggable] and [DragTarget] need to be associated with some type of
-  /// data (through their type argument, and `void` doesn't cut it). We keep it
-  /// simple and use a key, since we don't actually need to communicate anything
-  /// about the dragged data.
-  Key draggableKey = UniqueKey();
+  ProfileData profileData = ProfileData(userName: "shyndman");
 
   /// Current position of the [DraggableGridItem].
   GridPosition draggablePosition = GridPosition(0, 0);
@@ -51,7 +52,7 @@ class _DragAndDropExampleState extends State<DragAndDropExample> {
         // And a single Draggable, positioned according to the
         // `draggablePosition` field.
         DraggableGridItem(
-          key: draggableKey,
+          data: profileData,
         ).withGridPlacement(
           columnStart: draggablePosition.x,
           rowStart: draggablePosition.y,
@@ -64,8 +65,10 @@ class _DragAndDropExampleState extends State<DragAndDropExample> {
 /// A square that can be dragged between grid cells.
 class DraggableGridItem extends StatelessWidget {
   const DraggableGridItem({
-    required Key key,
-  }) : super(key: key);
+    required this.data,
+  });
+
+  final ProfileData data;
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +83,8 @@ class DraggableGridItem extends StatelessWidget {
       ),
     );
 
-    return Draggable<Key>(
-      data: key,
+    return Draggable<ProfileData>(
+      data: data,
       feedback: Opacity(
         opacity: 0.6,
         child: Transform.scale(
@@ -127,7 +130,7 @@ class _CellState extends State<Cell> {
 
   @override
   Widget build(BuildContext context) {
-    return DragTarget<Key>(
+    return DragTarget<ProfileData>(
       onAccept: (_) {
         setState(() => isDragHovering = false);
         widget.cellBecameOccupied(GridPosition(widget.column, widget.row));
