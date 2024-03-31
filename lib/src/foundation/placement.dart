@@ -49,7 +49,7 @@ class GridArea {
       hashObjects(<dynamic>[name, columnStart, columnEnd, rowStart, rowEnd]);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (other.runtimeType != runtimeType) return false;
     if (identical(other, this)) return true;
     return other is GridArea &&

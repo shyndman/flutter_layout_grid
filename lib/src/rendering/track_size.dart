@@ -175,7 +175,7 @@ class FixedTrackSize extends TrackSize {
   int get hashCode => Object.hash(sizeInPx, debugLabel);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
     return other is FixedTrackSize && other.sizeInPx == sizeInPx;
@@ -248,7 +248,7 @@ class FlexibleTrackSize extends TrackSize {
   int get hashCode => Object.hash(flex, debugLabel);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
     return other is FlexibleTrackSize && other.flex == flex;
@@ -306,7 +306,7 @@ class IntrinsicContentTrackSize extends TrackSize {
   int get hashCode => debugLabel.hashCode;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other.runtimeType == runtimeType;
   }
