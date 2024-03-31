@@ -128,7 +128,7 @@ class _CellState extends State<Cell> {
   @override
   Widget build(BuildContext context) {
     return DragTarget<Key>(
-      onAccept: (_) {
+      onAcceptWithDetails: (_) {
         setState(() => isDragHovering = false);
         widget.cellBecameOccupied(GridPosition(widget.column, widget.row));
       },
