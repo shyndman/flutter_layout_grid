@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
-import 'package:meta/meta.dart';
 import 'package:quiver/core.dart';
 
 /// Represents a rectangular region on the grid.

@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
-import 'package:meta/meta.dart';
 import 'package:quiver/iterables.dart';
 
 import '../foundation/placement.dart';
