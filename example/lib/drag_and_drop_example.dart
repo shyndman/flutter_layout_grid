@@ -13,7 +13,7 @@ const rowCount = 16;
 
 class DragAndDropExample extends StatefulWidget {
   @override
-  _DragAndDropExampleState createState() => _DragAndDropExampleState();
+  State<DragAndDropExample> createState() => _DragAndDropExampleState();
 }
 
 class _DragAndDropExampleState extends State<DragAndDropExample> {
@@ -119,7 +119,7 @@ class Cell extends StatefulWidget {
   final DragTargetAccept<GridPosition> cellBecameOccupied;
 
   @override
-  _CellState createState() => _CellState();
+  State<Cell> createState() => _CellState();
 }
 
 class _CellState extends State<Cell> {

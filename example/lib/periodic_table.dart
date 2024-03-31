@@ -50,7 +50,7 @@ class PeriodicTableWidget extends StatefulWidget {
   const PeriodicTableWidget({Key? key}) : super(key: key);
 
   @override
-  _PeriodicTableWidgetState createState() => _PeriodicTableWidgetState();
+  State<PeriodicTableWidget> createState() => _PeriodicTableWidgetState();
 }
 
 class _PeriodicTableWidgetState extends State<PeriodicTableWidget> {
