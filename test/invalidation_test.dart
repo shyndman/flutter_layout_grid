@@ -22,9 +22,8 @@ void main() {
           columnSizes: [10.px, 10.px], // NOTE we added a column
           rowSizes: initialRowSizes,
         ),
-        /* duration */ null,
         // NOTE Only build, do not layout
-        EnginePhase.build,
+        phase: EnginePhase.build,
       );
 
       expect(renderGrid.needsPlacement, true);
@@ -41,9 +40,8 @@ void main() {
           columnSizes: [100.px], // Was 10.px
           rowSizes: initialRowSizes,
         ),
-        /* duration */ null,
         // NOTE Only build, do not layout
-        EnginePhase.build,
+        phase: EnginePhase.build,
       );
 
       expect(renderGrid.needsPlacement, false);
@@ -62,9 +60,8 @@ void main() {
           columnSizes: initialColumnSizes,
           rowSizes: [10.px, 10.px], // NOTE we added a row
         ),
-        /* duration */ null,
         // NOTE Only build, do not layout
-        EnginePhase.build,
+        phase: EnginePhase.build,
       );
 
       expect(renderGrid.needsPlacement, true);
@@ -80,9 +77,8 @@ void main() {
           columnSizes: initialColumnSizes,
           rowSizes: [100.px], // Was 10.px
         ),
-        /* duration */ null,
         // NOTE Only build, do not layout
-        EnginePhase.build,
+        phase: EnginePhase.build,
       );
 
       expect(renderGrid.needsPlacement, false);
@@ -102,9 +98,8 @@ void main() {
           columnSizes: initialColumnSizes,
           rowSizes: initialRowSizes,
         ),
-        /* duration */ null,
         // NOTE Only build, do not layout
-        EnginePhase.build,
+        phase: EnginePhase.build,
       );
 
       expect(renderGrid.needsPlacement, true);
@@ -121,9 +116,8 @@ void main() {
           columnSizes: initialColumnSizes,
           rowSizes: initialRowSizes,
         ),
-        /* duration */ null,
         // NOTE Only build, do not layout
-        EnginePhase.build,
+        phase: EnginePhase.build,
       );
 
       expect(renderGrid.needsPlacement, false);
