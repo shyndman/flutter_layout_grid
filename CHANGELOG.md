@@ -1,3 +1,6 @@
+## [2.0.7]
+* Update tests to work with breaking `test` framework changes
+
 ## [2.0.6]
 * Perform a pass through the latest analysis warnings
 * Upgrade dependencies
