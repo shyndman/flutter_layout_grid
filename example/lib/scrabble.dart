@@ -165,7 +165,7 @@ class LetterTile extends StatelessWidget {
           offset: const Offset(0, -1.5),
           blurX: 0.8,
           blurY: 1,
-          color: Colors.black.withOpacity(.25),
+          color: Colors.black.withAlpha(64), // Changed from withOpacity(.25)
           child: _buildTileContents(),
         ),
       ),
@@ -302,7 +302,7 @@ class Square extends StatelessWidget {
         offset: const Offset(0, 0.5),
         blurX: 0.8,
         blurY: 0.7,
-        color: Colors.black.withOpacity(.25),
+        color: Colors.black.withAlpha(64), // Changed from withOpacity(.25)
         child: SizedBox.expand(
           child: DecoratedBox(
             decoration: BoxDecoration(
