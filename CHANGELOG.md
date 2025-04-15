@@ -1,3 +1,6 @@
+## [2.0.8]
+* Fix deprecated `withOpacity()` calls in example app to resolve CI build failures
+
 ## [2.0.7]
 * Update tests to work with breaking `test` framework changes
 
